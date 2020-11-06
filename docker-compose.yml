@@ -3,7 +3,10 @@ services:
     cli:
         image: anax/dev:cli
         volumes: [ ".:/home/anax/repo" ]
+        links:
+            - web:web
+
     web:
         image: anax/dev:apache
         volumes: [ ".:/home/anax/repo" ]
-        ports: [ "10099:80" ]
+        ports: [ "80:80" ]
