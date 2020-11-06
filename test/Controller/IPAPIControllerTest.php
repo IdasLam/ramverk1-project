@@ -10,7 +10,7 @@ use Anax\DI\DIMagic;
 /**
  * Test the SampleController.
  */
-class IP_APIControllerTest extends TestCase
+class IPAPIControllerTest extends TestCase
 {
 
      /**
@@ -30,9 +30,8 @@ class IP_APIControllerTest extends TestCase
         // $this->$di->set("app", $app);
     
         // Create and initiate the controller
-        $this->controller = new IP_APIController();
+        $this->controller = new IPAPIController();
         $this->controller->setDI($this->di);
-        
     }
     
     /**

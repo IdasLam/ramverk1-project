@@ -7,7 +7,7 @@ return [
         [
             "info" => "Flat file content controller.",
             "mount" => "ip-validator",
-            "handler" => "\Anax\Controller\IP_APIController",
+            "handler" => "\Anax\Controller\IPAPIController",
         ],
     ]
 ];

@@ -18,7 +18,7 @@ use Anax\Commons\ContainerInjectableTrait;
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class IP_APIController implements ContainerInjectableInterface
+class IPAPIController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -27,8 +27,8 @@ class IP_APIController implements ContainerInjectableInterface
         $input =  json_decode($this->di->request->getBody());
         $type = "none";
         $valid = false;
-        $domain = NULL;
-        $ip = NULL;
+        $domain = null;
+        $ip = null;
 
 
         if (gettype($input) === "object" && $input->ip) {
