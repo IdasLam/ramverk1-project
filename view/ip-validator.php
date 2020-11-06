@@ -20,36 +20,36 @@
     <input type="text" name="ip-input" placeholder="ip adress">
     <button>Check</button>
 
-    <?php 
-        if ($validatedIp) {
-            ?>
-            <h2>Results</h2>
-            <div id="information">
-                <table>
-                    <tr>
-                        <th>IP</th>
-                        <th>Type</th>
-                        <th>Valid</th>
-                        <th>Domain</th>
-                    </tr>
-                    <tr>
-                        <td><?= $validatedIp->ip ?></td>
-                        <td><?= $validatedIp->type ?></td>
-                        <td><?= $validatedIp->valid ? "true" : "false" ?></td>
-                        <td><?= $validatedIp->domain ?></td>
-                    </tr>
-                </table>
-                <h3>JSON format</h3>
-                <a href="ip?ip-json=<?= $validatedIp->ip ?>"><?= $validatedIp->ip ?></a>
-                <p id="data">
-                <code>
-                    <?php echo json_encode($validatedIp) ?>
-                </code>
-                </p>
-            </div>
-            <?php
-        }
+<?php
+if ($validatedIp) {
     ?>
+    <h2>Results</h2>
+    <div id="information">
+        <table>
+            <tr>
+                <th>IP</th>
+                <th>Type</th>
+                <th>Valid</th>
+                <th>Domain</th>
+            </tr>
+            <tr>
+                <td><?= $validatedIp->ip ?></td>
+                <td><?= $validatedIp->type ?></td>
+                <td><?= $validatedIp->valid ? "true" : "false" ?></td>
+                <td><?= $validatedIp->domain ?></td>
+            </tr>
+        </table>
+        <h3>JSON format</h3>
+        <a href="ip?ip-json=<?= $validatedIp->ip ?>"><?= $validatedIp->ip ?></a>
+        <p id="data">
+        <code>
+            <?php echo json_encode($validatedIp) ?>
+        </code>
+        </p>
+    </div>
+    <?php
+}
+?>
 </form>
 <!-- <script>
     const container = document.getElementById("data");

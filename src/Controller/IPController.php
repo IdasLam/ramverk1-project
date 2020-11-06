@@ -9,7 +9,7 @@ use Anax\Commons\ContainerInjectableTrait;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
 
-function fetcher ($ip, $url)
+function fetcher($ip, $url)
 {
     $data = array('ip' => $ip);
 

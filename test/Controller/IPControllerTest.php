@@ -32,7 +32,6 @@ class IPControllerTest extends TestCase
         // Create and initiate the controller
         $this->controller = new IPController();
         $this->controller->setDI($this->di);
-        
     }
     
     /**
@@ -44,7 +43,7 @@ class IPControllerTest extends TestCase
         
         $res = $this->controller->indexActionGet();
         
-        $this->assertEquals($res === NULL, false);
+        $this->assertEquals($res === null, false);
         
         $this->di->request->setGet('ip-json', "2001%3A0db8%3A85a3%3A0000%3A0000%3A8a2e%3A0370%3A7334");
         $res = $this->controller->indexActionGet();
