@@ -37,8 +37,6 @@ class IPController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-
-
     /**
      * @var string $db a sample member variable that gets initialised
      */
@@ -57,7 +55,7 @@ class IPController implements ContainerInjectableInterface
         } else {
             $url = $this->di->request->getBaseUrl() . "/ip-validator";
         }
-        
+
         if ($input) {
             $viewData = fetcher($input, $url);
             $data = ["validatedIp" => json_decode($viewData)];
