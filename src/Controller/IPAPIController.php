@@ -77,7 +77,6 @@ class IPAPIController implements ContainerInjectableInterface
             "region" => $region,
             "country" => $country,
             "loc" => $loc,
-            "res" => $result2,
         ]];
     }
 }
