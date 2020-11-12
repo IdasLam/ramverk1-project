@@ -1,6 +1,6 @@
 <div>
     <h1>IP validator</h1>
-    <p>The rest API will accept a JSON parameter in the body that containes the ip. <code>"ip": "216.58.211.142"</code>.</p>
+    <p>The rest API, at endpint <code>http://www.student.bth.se/~idla18/dbwebb-kurser/ramverk1/me/redovisa/htdocs/ip-validator</code> will accept a JSON parameter in the body that containes the ip. <code>"ip": "216.58.211.142"</code>.</p>
     <p>It will in turn return something like this:</p>
     <code>
     {
