@@ -78,5 +78,10 @@ return [
             "url" => "ip",
             "title" => "IP-validator.",
         ],
+        [
+            "text" => "Weather",
+            "url" => "weather",
+            "title" => "Weather.",
+        ],
     ],
 ];
