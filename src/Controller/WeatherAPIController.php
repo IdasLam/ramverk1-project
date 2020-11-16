@@ -18,61 +18,34 @@ class WeatherAPIController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    public function indexActionGet()
+    public function indexActionPost()
     {
         $dotenv = new \Symfony\Component\Dotenv\Dotenv();
         $dotenv->load(dirname(__DIR__, 2).'/.env');
 
         $input =  json_decode($this->di->request->getBody());
-        $type = "none";
-        $valid = false;
-        $domain = null;
-        $ip = $city = $region = $country = $loc = $result2 = null;
+
+        $res = null;
         
-        
-        if (gettype($input) === "object" && $input->ip) {
-            $ip = trim($input->ip);
-            
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                $type = "IPv4";
-                $valid = true;
-            } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $valid = true;
-                $type = "IPv6";
-            }
-            
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $domain = gethostbyaddr($ip);
-                
-                $url = "ipinfo.io/{$ip}?token={$_ENV["IPINFO_TOKEN"]}";
+        if (gettype($input) === "object" && $input->city && $input->country) {
+            $city = trim($input->city);
+            $country = trim($input->country);
+            $maxdays = date(strtotime('today - 30 days'));
+            $APIKey = $_ENV["OPENWEATHERAPP"];
 
-                $handler = curl_init();
+            $url = "http://history.openweathermap.org/data/2.5/history/city?q={$city},{$country}&type=hour&end={$maxdays}&appid={$APIKey}";
 
-                curl_setopt($handler, CURLOPT_URL, $url);
-                curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
+            $handler = curl_init();
 
-                $result2 = json_decode(curl_exec($handler));
-                curl_close($handler);
+            curl_setopt($handler, CURLOPT_URL, $url);
+            curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
 
-                if ($result2 != null && !isset($result2->bogon)) {
-                    $city = $result2->city;
-                    $region = $result2->region;
-                    $country = $result2->country;
-                    $loc = $result2->loc;
-                }
-
-            }
+            $res = json_decode(curl_exec($handler));
+            curl_close($handler);
         }
 
-        return [[
-            "ip" => $ip,
-            "type" => $type,
-            "valid" => $valid,
-            "domain" => $domain,
-            "city" => $city,
-            "region" => $region,
-            "country" => $country,
-            "loc" => $loc,
+        return  [[
+            "result" => $res,
         ]];
     }
 }
