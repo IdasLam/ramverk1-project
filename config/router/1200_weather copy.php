@@ -7,7 +7,7 @@ return [
         [
             "info" => "Flat file content controller.",
             "mount" => "weather",
-            "handler" => "\Weather\Controller\WeatherController",
+            "handler" => "\Anax\Controller\WeatherController",
         ],
     ]
 ];

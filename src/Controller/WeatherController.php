@@ -1,6 +1,6 @@
 <?php
 
-namespace Weather\Controller;
+namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
@@ -49,6 +49,10 @@ class WeatherController implements ContainerInjectableInterface
             return fetcher($json, $url);
         }
 
+        $weather = $this->di->get("weather");
+        // echo $thi->di->has("Weather");
+
+        $weather->test();
         
         return $this->di->get('page')->render([
             "title" => "IP Validator"
