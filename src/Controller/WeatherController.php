@@ -44,30 +44,43 @@ class WeatherController implements ContainerInjectableInterface
         $input =  $this->di->request->getGet('ip-input');
         $json =  $this->di->request->getGet('ip-json');
         $weather = $this->di->get("weather");
-        $data = ["validatedIp" => null];
+        $data = ["ip" => $input];
         
-        if ($this->di->request->getBaseUrl() == null) {
+        if ($_SERVER['SERVER_NAME'] == "localhost") {
             $url = "http://web/htdocs/ip-validator";
         } else {
             $url = $this->di->request->getBaseUrl() . "/ip-validator";
         }
 
-        if ($input) {
-            $res = json_decode(fetcher($input, $url));
-            $city = $res->city;
-            $country = $res->country;
+        if ($input || $json) {
+            $res = json_decode(fetcher($input ?? $json, $url));
 
-            $weather->init($city, $country);
+            if (isset($res->loc)) {
+                $data["city"] = $res->city;
+                $data["region"] = $res->region;
+                $data["country"] = $res->country;
+                $loc = $res->loc;
+
+
+                $weather->init($loc);
+            }
+        }
+
+        if ($input) {
+            if (isset($res->loc)) {
+                $data["valid"] = true;
+                $data["res"] = $weather->getWeek();
+            } elseif (isset($res->loc) == false) {
+                $data["valid"] = false;
+            }
         }
         
-        var_dump($weather->getRaw());
-        // echo $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-    
-        $this->di->get('page')->add('weather', $data);
-
         if ($json) {
-            return fetcher($json, $url);
+            return $weather->getRaw();
         }
+
+        $this->di->get('page')->add('weather', $data);
+        
 
         // echo $thi->di->has("Weather");
 
