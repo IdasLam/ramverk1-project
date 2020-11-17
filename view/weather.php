@@ -40,7 +40,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWRpaXgiLCJhIjoiY2thNTR0dzFxMDA3ZDNvbXFnd3hrY
 var map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/streets-v11',
-center: [<?= $lon . ", " . $lat ?>]
+center: [<?= $lon . ", " . $lat ?>],
+zoom: 9
 });
 
 var marker = new mapboxgl.Marker()
