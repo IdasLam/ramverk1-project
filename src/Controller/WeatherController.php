@@ -61,8 +61,14 @@ class WeatherController implements ContainerInjectableInterface
                 $data["country"] = $res->country;
                 $loc = $res->loc;
 
+                $loc = explode(",", $loc);
+                $lat = $loc[0];
+                $lon = $loc[1];
 
-                $weather->init($loc);
+                $data["lon"] = $lon;
+                $data["lat"] = $lat;
+
+                $weather->init($lon, $lat);
             }
         }
 

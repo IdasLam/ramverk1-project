@@ -5,17 +5,13 @@ class Weather
 {
     private $res = null;
 
-    public function init(string $loc)
+    public function init(string $lon, string $lat)
     {
         if ($_SERVER['SERVER_NAME'] == "localhost") {
             $url = "http://web/htdocs/weatherAPI";
         } else {
             $url = $_SERVER['SERVER_NAME'] . "htdocs/weatherAPI";
         }
-
-        $loc = explode(",", $loc);
-        $lat = $loc[0];
-        $lon = $loc[1];
 
         $data = array("lat" => $lat, "lon" => $lon);
 
