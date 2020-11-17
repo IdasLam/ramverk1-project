@@ -33,7 +33,6 @@ class IPAPIController implements ContainerInjectableInterface
         $domain = null;
         $ip = $city = $region = $country = $loc = $result2 = null;
         
-        
         if (gettype($input) === "object" && $input->ip) {
             $ip = trim($input->ip);
             
