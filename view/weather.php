@@ -1,3 +1,5 @@
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 <div>
     <h1>Weather</h1>
     <p>Get the weather forcast for the coming week.</p>
@@ -31,3 +33,17 @@
 ?>
     </div>
 </div>
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaWRpaXgiLCJhIjoiY2thNTR0dzFxMDA3ZDNvbXFnd3hrYnVpYiJ9.JdEo86pYHwZXgRQspoFRDA';
+
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [<?= $lon . ", " . $lat ?>]
+});
+
+var marker = new mapboxgl.Marker()
+.setLngLat([<?= $lon . ", " . $lat ?>])
+.addTo(map);
+</script>
