@@ -25,15 +25,17 @@ class WeatherAPIController implements ContainerInjectableInterface
 
         $input =  json_decode($this->di->request->getBody());
 
-        $res = null;
-        
-        if (gettype($input) === "object" && $input->city && $input->country) {
-            $city = trim($input->city);
-            $country = trim($input->country);
+        $res = "Could not get weather report from lontitude and latitude.";
+
+        if (gettype($input) === "object" && $input->lat && $input->lon) {
+            // $city = trim($input->city);
+            // $country = trim($input->country);
             $maxdays = date(strtotime('today - 30 days'));
             $APIKey = $_ENV["OPENWEATHERAPP"];
+            $lat = trim($input->lat);
+            $lon = trim($input->lon);
 
-            $url = "http://history.openweathermap.org/data/2.5/history/city?q={$city},{$country}&type=hour&end={$maxdays}&appid={$APIKey}";
+            $url = "https://api.openweathermap.org/data/2.5/onecall?lat={$lat}&lon={$lon}&exclude=minutely,hourly&appid={$APIKey}";
 
             $handler = curl_init();
 
