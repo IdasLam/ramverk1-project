@@ -10,7 +10,7 @@ class Weather
         if ($_SERVER['SERVER_NAME'] == "localhost"  || $_SERVER['SERVER_NAME'] == null) {
             $url = "http://web/htdocs/weatherAPI";
         } else {
-            $url = $_SERVER['SERVER_NAME'] . "htdocs/weatherAPI";
+            $url = "http://www.student.bth.se/~idla18/dbwebb-kurser/ramverk1/me/redovisa/htdocs/weatherAPI";
         }
 
         $data = array("lat" => $lat, "lon" => $lon);
