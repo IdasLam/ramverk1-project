@@ -13,23 +13,23 @@
 </form>
 <div>
 <?php
-    if (isset($valid) && $valid == false) { ?>
+if (isset($valid) && $valid == false) { ?>
         <p>Could not get weather based on ip.</p>
-<?php
-    } elseif (isset($res)) { ?>
+    <?php
+} elseif (isset($res)) { ?>
         <h3>Raw JSON format</h3>
         <a href="weather?ip-json=<?= $ip ?>"><?= $ip ?></a>
         <h3>Summerised weather for <?= $city . ", " . $region . ", " . $country ?>:</h3>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
-<?php
-        foreach ($res as $day) { ?>
+    <?php
+    foreach ($res as $day) { ?>
             <div>
                 <h4><?= $day["day"] . " " . $day["date"] ?></h4>
                 <p>Forcast: <?= $day["weather"] ?></p>
             </div>
-<?php
-        }
+        <?php
     }
+}
 ?>
     </div>
 </div>
