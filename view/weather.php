@@ -4,7 +4,7 @@
     <h1>Weather</h1>
     <p>Get the weather forcast for the coming week.</p>
     <p>The rest API, at endpint <code>http://www.student.bth.se/~idla18/dbwebb-kurser/ramverk1/me/redovisa/htdocs/weatherAPI</code> will accept a JSON parameter in the body containing longitude and latitude. <code>{"lon": "56.1616", "lat": "15.5866"}</code>.</p>
-    <p>It will in turn return a detailed response for the current and upcoming weather.</p>
+    <p>It will in turn return a raw json formated response for the current and upcoming weather.</p>
 </div>
 <form method="get">
     <h2>Input your ip here</h2>
