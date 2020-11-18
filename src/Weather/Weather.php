@@ -7,7 +7,7 @@ class Weather
 
     public function init(string $lon, string $lat)
     {
-        if ($_SERVER['SERVER_NAME'] == "localhost") {
+        if ($_SERVER['SERVER_NAME'] == "localhost"  || $_SERVER['SERVER_NAME'] == null) {
             $url = "http://web/htdocs/weatherAPI";
         } else {
             $url = $_SERVER['SERVER_NAME'] . "htdocs/weatherAPI";

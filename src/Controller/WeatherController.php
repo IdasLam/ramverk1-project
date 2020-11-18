@@ -46,7 +46,7 @@ class WeatherController implements ContainerInjectableInterface
         $weather = $this->di->get("weather");
         $data = ["ip" => $input];
         
-        if ($_SERVER['SERVER_NAME'] == "localhost") {
+        if ($_SERVER['SERVER_NAME'] == "localhost" || $this->di->request->getBaseUrl() == null) {
             $url = "http://web/htdocs/ip-validator";
         } else {
             $url = $this->di->request->getBaseUrl() . "/ip-validator";
