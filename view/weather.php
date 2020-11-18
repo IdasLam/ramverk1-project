@@ -8,7 +8,7 @@
 </div>
 <form method="get">
     <h2>Input your ip here</h2>
-    <input type="text" name="ip-input" placeholder="ip adress" value="194.47.150.9">
+    <input type="text" name="ip-input" placeholder="ip adress" value="">
     <button>Check</button>
 </form>
 <div>
