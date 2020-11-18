@@ -5,7 +5,7 @@ namespace Anax\Controller;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
-function fetcher($ip, $url)
+function fetcher2($ip, $url)
 {
     $data = array('ip' => $ip);
 
@@ -53,7 +53,7 @@ class WeatherController implements ContainerInjectableInterface
         }
 
         if ($input || $json) {
-            $res = json_decode(fetcher($input ?? $json, $url));
+            $res = json_decode(fetcher2($input ?? $json, $url));
 
             if (isset($res->loc)) {
                 $data["city"] = $res->city;
