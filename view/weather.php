@@ -31,7 +31,7 @@ if (isset($valid) && $valid == false) { ?>
             </div>
         <?php
     }
-?>
+    ?>
     </div>
         <h3>Summerised weather forcast:</h3>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr);">

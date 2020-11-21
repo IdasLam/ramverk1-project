@@ -60,16 +60,14 @@ class Weather
         if ($this->history != null) {
             $history = $this->history;
 
-            // var_dump($history);
-            foreach($history as $day) {
+            foreach ($history as $day) {
                 $maxTemp = 0;
                 $minTemp = 0;
                 $description = null;
                 $dayDate = null;
                 $date = null;
 
-                foreach($day as $hour) {
-                    // var_dump($hour);
+                foreach ($day as $hour) {
                     $dayDate = date('D', $hour->dt);
                     $date = date('d/m', $hour->dt);
 
