@@ -94,7 +94,7 @@ class WeatherController implements ContainerInjectableInterface
         // $weather->test();
         
         return $this->di->get('page')->render([
-            "title" => "IP Validator"
+            "title" => "Weather"
         ]);
     }
 }
