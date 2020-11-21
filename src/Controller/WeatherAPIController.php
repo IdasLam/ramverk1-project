@@ -28,26 +28,39 @@ class WeatherAPIController implements ContainerInjectableInterface
         $res = "Could not get weather report from lontitude and latitude.";
 
         if (gettype($input) === "object" && $input->lat && $input->lon) {
-            // $city = trim($input->city);
-            // $country = trim($input->country);
-            $maxdays = date(strtotime('today - 30 days'));
+
             $APIKey = $_ENV["OPENWEATHERAPP"];
             $lat = trim($input->lat);
             $lon = trim($input->lon);
-
-            $url = "https://api.openweathermap.org/data/2.5/onecall?lat={$lat}&lon={$lon}&exclude=minutely,hourly&appid={$APIKey}";
-
+            
+            $url = "https://api.openweathermap.org/data/2.5/onecall?lat={$lat}&lon={$lon}&exclude=minutely,hourly&units=metric&appid={$APIKey}";
+            
             $handler = curl_init();
-
+            
             curl_setopt($handler, CURLOPT_URL, $url);
             curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
-
-            $res = json_decode(curl_exec($handler));
+            
+            $forcast = json_decode(curl_exec($handler));
             curl_close($handler);
+            
+            for ($day = 1; $day < 6; $day++) {
+                $date = date(strtotime("today - {$day} days"));
+                
+                $url = "https://api.openweathermap.org/data/2.5/onecall/timemachine?lat={$lat}&lon={$lon}&dt={$date}&units=metric&&appid={$APIKey}";
+    
+                $handler = curl_init();
+    
+                curl_setopt($handler, CURLOPT_URL, $url);
+                curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
+    
+                $history[] = json_decode(curl_exec($handler))->hourly;
+                curl_close($handler);
+            }
         }
 
         return  [[
-            "result" => $res,
+            "forcast" => $forcast ?? null,
+            "history" => $history ?? null
         ]];
     }
 }
