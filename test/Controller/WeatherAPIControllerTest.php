@@ -44,18 +44,16 @@ class WeatherAPIControllerTest extends TestCase
         $res = $this->controller->indexActionPost();
         
         $this->assertIsArray($res);
+        $forcast = $res[0]['forcast'];
         
-        $APIResult = $res[0]["result"];
-        $APIResult = $res[0]["result"];
-        
-        $this->assertEquals($APIResult->lat, "15.59");
-        $this->assertEquals($APIResult->lon, "56.16");
+        $this->assertEquals($forcast->lat, "15.59");
+        $this->assertEquals($forcast->lon, "56.16");
         
         $this->di->request->setBody("{\"lon\": \"0\", \"lat\": \"0\"}");
         
         $res = $this->controller->indexActionPost();
-        $APIResult = $res[0]["result"];
+        $APIResult = $res[0]["forcast"];
 
-        $this->assertEquals($APIResult, 'Could not get weather report from lontitude and latitude.');
+        $this->assertEquals($APIResult, "Could not get weather report from lontitude and latitude.");
     }
 }
