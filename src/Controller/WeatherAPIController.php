@@ -91,8 +91,10 @@ class WeatherAPIController implements ContainerInjectableInterface
                 if ($result == $res[0]) {
                     continue;
                 }
-    
-                $history[] = $result->hourly;
+
+                if (isset($result->hourly)) {
+                    $history[] = $result->hourly;
+                }
             }
 
             $res = $res[0] !== "Could not get weather report from lontitude and latitude." ? $res[0] : "Could not get weather report from lontitude and latitude.";
