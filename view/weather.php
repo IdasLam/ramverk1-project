@@ -20,7 +20,7 @@ if (isset($valid) && $valid == false) { ?>
         <h3>Raw JSON format</h3>
         <a href="weather?ip-json=<?= $ip ?>"><?= $ip ?></a>
         <h2>Weather for <?= $city . ", " . $region . ", " . $country ?></h2>
-        <h3>Summerised weather from previous 5 days: </h3>
+        <h3>Summerised weather from previous 4 days: </h3>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
     <?php
     foreach ($history as $day) { ?>
