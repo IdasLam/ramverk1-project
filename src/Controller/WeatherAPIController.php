@@ -86,18 +86,21 @@ class WeatherAPIController implements ContainerInjectableInterface
             
             // Close the multi-handle and return our results
             curl_multi_close($multi);
-        }
-
-        foreach ($res as $result) {
-            if ($result == $res[0]) {
-                continue;
+            
+            foreach ($res as $result) {
+                if ($result == $res[0]) {
+                    continue;
+                }
+    
+                $history[] = $result->hourly;
             }
 
-            $history[] = $result->hourly;
+            $res = $res[0] !== "Could not get weather report from lontitude and latitude." ? $res[0] : "Could not get weather report from lontitude and latitude.";
         }
 
+
         return  [[
-            "forcast" => $res[0] ?? null,
+            "forcast" => $res,
             "history" => $history ?? null
         ]];
     }
