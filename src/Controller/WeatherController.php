@@ -76,6 +76,7 @@ class WeatherController implements ContainerInjectableInterface
             if (isset($res->loc)) {
                 $data["valid"] = true;
                 $data["res"] = $weather->getWeek();
+                $data["history"] = $weather->getHistory();
             } elseif (isset($res->loc) == false) {
                 $data["valid"] = false;
             }
