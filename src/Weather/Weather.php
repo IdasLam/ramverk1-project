@@ -26,7 +26,7 @@ class Weather
         );
         $context  = stream_context_create($options);
         $this->raw = file_get_contents($url, false, $context);
-
+        
         $this->forcast = json_decode($this->raw)->forcast;
         $this->history = json_decode($this->raw)->history;
     }
