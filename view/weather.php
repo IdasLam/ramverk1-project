@@ -16,15 +16,30 @@
 if (isset($valid) && $valid == false) { ?>
         <p>Could not get weather based on ip.</p>
     <?php
-} elseif (isset($res)) { ?>
+} elseif (isset($res) && isset($history)) { ?>
         <h3>Raw JSON format</h3>
         <a href="weather?ip-json=<?= $ip ?>"><?= $ip ?></a>
-        <h3>Summerised weather for <?= $city . ", " . $region . ", " . $country ?>:</h3>
+        <h2>Weather for <?= $city . ", " . $region . ", " . $country ?></h2>
+        <h3>Summerised weather from previous 5 days: </h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
+    <?php
+    foreach ($history as $day) { ?>
+            <div>
+                <h4><?= $day["day"] . " " . $day["date"] ?></h4>
+                <p>Min temp: <?= $day["minTemp"] ?>, Max Temp: <?= $day["maxTemp"] ?></p>
+                <p>Forcast: <?= $day["description"] ?></p>
+            </div>
+        <?php
+    }
+?>
+    </div>
+        <h3>Summerised weather forcast:</h3>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
     <?php
     foreach ($res as $day) { ?>
             <div>
                 <h4><?= $day["day"] . " " . $day["date"] ?></h4>
+                <p>Min temp: <?= $day["minTemp"] ?>, Max Temp: <?= $day["maxTemp"] ?></p>
                 <p>Forcast: <?= $day["weather"] ?></p>
             </div>
         <?php
