@@ -67,8 +67,9 @@ class Weather
                 $description = null;
                 $dayDate = null;
                 $date = null;
-                
+
                 foreach($day as $hour) {
+                    // var_dump($hour);
                     $dayDate = date('D', $hour->dt);
                     $date = date('d/m', $hour->dt);
 
