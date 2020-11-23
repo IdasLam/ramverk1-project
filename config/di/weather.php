@@ -1,4 +1,7 @@
 <?php
+
+use \idla\Weather\Weather;
+
 /**
  * Configuration file for request service.
  */
@@ -8,7 +11,7 @@ return [
         "weather" => [
             "shared" => true,
             "callback" => function () {
-                return new \Anax\Weather\Weather();
+                return new Weather();
             }
         ],
     ],
