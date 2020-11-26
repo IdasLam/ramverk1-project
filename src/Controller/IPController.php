@@ -65,6 +65,7 @@ class IPController implements ContainerInjectableInterface
         $this->di->get('page')->add('ip-validator', $data);
 
         if ($json) {
+            header('Content-Type: application/json');
             return fetcher($json, $url);
         }
 

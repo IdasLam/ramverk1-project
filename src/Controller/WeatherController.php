@@ -83,15 +83,11 @@ class WeatherController implements ContainerInjectableInterface
         }
         
         if ($json) {
-            return $weather->getRaw();
+            header('Content-Type: application/json');
+            return [$weather->getRaw()];
         }
 
         $this->di->get('page')->add('weather', $data);
-        
-
-        // echo $thi->di->has("Weather");
-
-        // $weather->test();
         
         return $this->di->get('page')->render([
             "title" => "Weather"
