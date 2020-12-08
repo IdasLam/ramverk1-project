@@ -11,5 +11,6 @@ DROP TABLE IF EXISTS Book;
 CREATE TABLE Book (
     "id" INTEGER PRIMARY KEY NOT NULL,
     "title" TEXT NOT NULL,
-    "author" TEXT NOT NULL
+    "author" TEXT NOT NULL,
+    "img" TEXT NOT NULL
 );
