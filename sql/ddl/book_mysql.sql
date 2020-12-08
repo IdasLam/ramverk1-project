@@ -1,5 +1,5 @@
 --
--- Creating a small table.
+-- Creating a small Book table.
 -- Create a database and a user having access to this database,
 -- this must be done by hand, se commented rows on how to do it.
 --
@@ -33,6 +33,6 @@ SET NAMES utf8;
 DROP TABLE IF EXISTS Book;
 CREATE TABLE Book (
     `id` INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    `column1` VARCHAR(256) NOT NULL,
-    `column2` VARCHAR(256) NOT NULL
+    `title` VARCHAR(80) NOT NULL,
+    `author` VARCHAR(80) NOT NULL
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
