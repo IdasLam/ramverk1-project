@@ -47,7 +47,7 @@ class IPControllerTest extends TestCase
         
         $this->di->request->setGet('ip-json', "2001%3A0db8%3A85a3%3A0000%3A0000%3A8a2e%3A0370%3A7334");
         $res = $this->controller->indexActionGet();
-        
-        $this->assertEquals(gettype($res) === "string", true);
+
+        $this->assertEquals(gettype($res) === "array", true);
     }
 }

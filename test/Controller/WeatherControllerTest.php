@@ -54,6 +54,6 @@ class WeatherControllerTest extends TestCase
         $this->di->request->setGet('ip-json', "216.58.211.142");
         $res = $this->controller->indexActionGet();
         
-        $this->assertEquals(gettype($res) === "string", true);
+        $this->assertEquals(gettype($res) === "array", true);
     }
 }
