@@ -24,7 +24,7 @@ class UpdateForm extends FormModel
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "Update details of the item",
+                "legend" => "Update details of the book",
             ],
             [
                 "id" => [
@@ -34,27 +34,29 @@ class UpdateForm extends FormModel
                     "value" => $book->id,
                 ],
 
-                "column1" => [
+                "title" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
-                    "value" => $book->column1,
+                    "value" => $book->title,
                 ],
 
-                "column2" => [
+                "author" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
-                    "value" => $book->column2,
+                    "value" => $book->author,
+                ],
+                
+                "img" => [
+                    "type" => "text",
+                    "validation" => ["not_empty"],
+                    "value" => $book->img,
                 ],
 
                 "submit" => [
                     "type" => "submit",
                     "value" => "Save",
                     "callback" => [$this, "callbackSubmit"]
-                ],
-
-                "reset" => [
-                    "type"      => "reset",
-                ],
+                ]
             ]
         );
     }
@@ -89,8 +91,9 @@ class UpdateForm extends FormModel
         $book = new Book();
         $book->setDb($this->di->get("dbqb"));
         $book->find("id", $this->form->value("id"));
-        $book->column1 = $this->form->value("column1");
-        $book->column2 = $this->form->value("column2");
+        $book->title = $this->form->value("title");
+        $book->author = $this->form->value("author");
+        $book->img = $this->form->value("img");
         $book->save();
         return true;
     }
