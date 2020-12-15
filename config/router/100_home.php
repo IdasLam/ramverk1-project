@@ -7,7 +7,7 @@ return [
         [
             "info" => "Flat file content controller.",
             "mount" => "",
-            "handler" => "\Anax\Controller\LoginController",
+            "handler" => "\Anax\Controller\HomeController",
         ],
     ]
 ];
