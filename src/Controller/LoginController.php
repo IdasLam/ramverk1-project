@@ -15,9 +15,9 @@ class LoginController implements ContainerInjectableInterface
     {
         $db = new \Ida\Database\DB();
 
-        $this->loggedIn = $this->di->session->get("loggedin");
+        $this->loggedIn = $this->di->session->get("loggedIn");
 
-        var_dump($this->loggedIn);
+        // var_dump($this->loggedIn);
 
         $data = [];
         $this->di->get('page')->add('home/index', $data);
