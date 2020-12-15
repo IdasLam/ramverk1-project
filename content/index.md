@@ -1,7 +1,7 @@
 ---
 title: "Home"
 ---
-Hejsan, vad kul att du är här och chillar.
+Hejsan kexet, står du här och smular.
 =========================
 
 Jag heter Ida och är 20 något år gammal.
