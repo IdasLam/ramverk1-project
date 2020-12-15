@@ -4,7 +4,7 @@ namespace Ida\Database;
 
 class DB
 {
-    private $db;
+    protected $db;
 
     public function __construct()
     {
