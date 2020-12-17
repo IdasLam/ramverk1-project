@@ -15,8 +15,14 @@ class HomeController implements ContainerInjectableInterface
     {
         $posts = new \Ida\Database\Posts();
         $this->loggedIn = $this->di->session->get("loggedIn");
+        $vote = new \Ida\Database\Func\Vote();
 
-        $data = ["loggedIn" => $this->loggedIn ?? null, "posts" => $posts->latestPosts()];
+
+        $data = [
+            "loggedIn" => $this->loggedIn ?? null,
+            "posts" => $posts->latestPosts(),
+            "vote" => $vote
+        ];
         $this->di->get('page')->add('home/index', $data);
     }
 }

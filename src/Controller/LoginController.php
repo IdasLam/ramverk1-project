@@ -20,6 +20,13 @@ class LoginController implements ContainerInjectableInterface
         // var_dump($this->loggedIn);
 
         $data = [];
-        $this->di->get('page')->add('home/index', $data);
+        $this->di->get('page')->add('login/index', $data);
+    }
+    
+    public function UserActionPost()
+    {
+        var_dump("login");
+
+        // $this->di->get('page')->add('home/index', $data);
     }
 }
