@@ -13,12 +13,10 @@ class HomeController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        $users = new \Ida\Database\Users();
+        $posts = new \Ida\Database\Posts();
         $this->loggedIn = $this->di->session->get("loggedIn");
 
-        var_dump($users->allUsers());
-
-        $data = [];
+        $data = ["loggedIn" => $this->loggedIn ?? null, "posts" => $posts->latestPosts()];
         $this->di->get('page')->add('home/index', $data);
     }
 }
