@@ -8,6 +8,6 @@ return [
             "info" => "Flat file content controller.",
             "mount" => "",
             "handler" => "\Anax\Controller\HomeController",
-        ],
+        ]
     ]
 ];
