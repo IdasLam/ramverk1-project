@@ -42,9 +42,23 @@ CREATE TABLE comments
     FOREIGN KEY (commentid) REFERENCES comments(commentid)
 );
 
+CREATE TABLE vote
+(
+    id INTEGER PRIMARY KEY,
+
+    postid INT,
+    commentid INT DEFAULT NULL,
+    username VARCHAR(255) NOT NULL,
+    vote BIT DEFAULT 0,
+
+    FOREIGN KEY (postid) REFERENCES posts(postid),
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (commentid) REFERENCES comments(commentid)
+);
+
 
 
 INSERT INTO users(username, password, email) VALUES("admin", 'admin', 'admin@admin.com');
 
-INSERT INTO posts(username, content, tag) VALUES("admin", "First post", "admin");
+INSERT INTO posts(username, content, tag) VALUES("admin", "#first post", "admin");
 
