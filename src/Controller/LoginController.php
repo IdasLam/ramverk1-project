@@ -44,7 +44,7 @@ class LoginController implements ContainerInjectableInterface
 
     public function signupActionPost()
     {
-        $user = new \Ida\Database\User();
+        $user = new \Ida\Database\Users();
 
         $username = htmlentities($this->di->request->getPost("username"));
         $password = htmlentities($this->di->request->getPost("password"));
@@ -54,10 +54,15 @@ class LoginController implements ContainerInjectableInterface
 
         if ($res) {
             $this->di->session->set("username", $username);
+            $this->di->session->set("loggedin", true);
+
+            return $this->di->response->redirect("home");
         } elseif ($res === "something went wrong") {
             $this->di->session->set("createError", $res);
+        } else {
+            $this->di->session->set("createError", "Username already exsists");
         }
-
-        // $this->di->get('page')->add('home/index', $data);
+        
+        return $this->di->response->redirect("register");
     }
 }
