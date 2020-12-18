@@ -2,11 +2,11 @@
 <?php
     if (isset($createError)) : ?>
         <div class="createError">
-            
+            <p>Oops! <?= $createError ?></p>
         </div>
     
 <?php endif; ?>
-<form action="login/signup" method="post">
+<form action="signup" method="post">
     <label for="username">Username</label>
     <input name="username "type="text">
     <label for="email">email</label>
