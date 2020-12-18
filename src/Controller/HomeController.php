@@ -23,6 +23,8 @@ class HomeController implements ContainerInjectableInterface
             "posts" => $posts->latestPosts(),
             "vote" => $vote
         ];
+
         $this->di->get('page')->add('home/index', $data);
+        return $this->di->get('page')->render($data);
     }
 }
