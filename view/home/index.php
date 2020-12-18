@@ -4,7 +4,7 @@ $Parsedown = new Parsedown();
 ?>
 
 <?php var_dump($posts) ?>
-<?php foreach($posts as $post) : 
+<?php foreach ($posts as $post) : 
     $content = explode("\n", $post->content);
     $title = explode("\n", $post->content)[0];
     $content = implode("\n", array_slice($content, 2));
@@ -20,12 +20,23 @@ $Parsedown = new Parsedown();
             </button>
             <p><?= $post->downvote?></p>
         </div>
-        <a href="" style="text-decoration: none; color: unset">
         <div class="post-data">
-            <?= $Parsedown->text($title)?>
-            <?= $content ?>
+            <p>u/<?= $post->username ?></p>
+            <div class="tag-container">
+                <?php if (isset($post->tag)) :
+                    $tags = explode(",",$post->tag);
+                    foreach ($tags as $tag) : ?>
+                        <div class="tag">
+                            <p><?= $tag ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <a href="" style="text-decoration: none; color: unset">
+                <?= $Parsedown->text($title)?>
+                <?= $content ?>
+            </a>
         </div>
-        </a>
     </div>
 <?php endforeach; ?>
 
