@@ -6,7 +6,7 @@ return [
     "routes" => [
         [
             "info" => "Flat file content controller.",
-            "mount" => "",
+            "mount" => "home",
             "handler" => "\Anax\Controller\HomeController",
         ]
     ]
