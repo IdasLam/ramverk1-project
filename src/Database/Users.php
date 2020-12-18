@@ -47,6 +47,6 @@ class Users extends DB
             return $this->checkUser($username);
         }
 
-        return "something went wrong";
+        return "Something went wrong";
     }
 }
