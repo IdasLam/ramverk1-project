@@ -19,17 +19,13 @@ class LoginController implements ContainerInjectableInterface
 
         // var_dump($this->loggedIn);
 
-        $data = ["title" => "Login"];
+        $data = ["title" => "Login", "di" => $this->di];
         $this->di->get('page')->add('login/index', $data);
         return $this->di->get('page')->render($data);
     }
     
     public function registerActionGet()
     {
-        // $this->loggedIn = $this->di->session->get("loggedIn");
-
-        // var_dump($this->loggedIn);
-
         $data = ["title" => "Register", "createError" => $this->di->session->get("createError")];
         $this->di->get('page')->add('login/register', $data);
         return $this->di->get('page')->render($data);
@@ -53,9 +49,9 @@ class LoginController implements ContainerInjectableInterface
         $res = $user->createUser($email, $username, $password);
 
         if ($res) {
+            $this->di->get("session")->start();
             $this->di->session->set("username", $username);
             $this->di->session->set("loggedin", true);
-
             return $this->di->response->redirect("home");
         } elseif ($res === "something went wrong") {
             $this->di->session->set("createError", $res);
