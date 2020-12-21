@@ -22,7 +22,7 @@ class LoginController implements ContainerInjectableInterface
     
     public function registerActionGet()
     {
-        $data = ["title" => "Register", "createError" => $this->di->session->get("createError")];
+        $data = ["title" => "Register", "di" => $this->di, "createError" => $this->di->session->get("createError")];
         $this->di->get('page')->add('login/register', $data);
         return $this->di->get('page')->render($data);
     }
@@ -39,17 +39,18 @@ class LoginController implements ContainerInjectableInterface
         if ($usernameExsists) {
             $userValid = $user->checkPassword($username, $password);
 
-            $this->di->get("session")->start();
             if ($userValid) {
                 $this->di->session->set("username", $username);
                 $this->di->session->set("loggedin", true);
+                return $this->di->response->redirect("home");
             } else {
                 $this->di->session->set("loginError", "Username or password was not valid.");
                 return $this->di->response->redirect("login");
             }
         }
-
-        return $this->di->response->redirect("home");
+        
+        $this->di->session->set("loginError", "Username does not exsist.");
+        return $this->di->response->redirect("login");
     }
 
     public function signupActionPost()
