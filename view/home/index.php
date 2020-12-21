@@ -1,9 +1,20 @@
 <?php 
 
 $Parsedown = new Parsedown();
-?>
 
-<?php var_dump($posts) ?>
+if (isset($username)) :
+?>
+    <div class="write-post">
+        <img src=<?= $gravatar ?> alt="profile-img">
+        <form action="post/post">
+            <textarea name="content" cols="20" rows="10" placeholder="Markdown supported"></textarea>
+            <button>Post</button>
+        </form>
+    </div>
+
+<?php endif; ?>
+
+<?php #var_dump($posts) ?>
 <?php foreach ($posts as $post) : 
     $content = explode("\n", $post->content);
     $title = explode("\n", $post->content)[0];
@@ -44,7 +55,7 @@ $Parsedown = new Parsedown();
     const upvoteButton = document.getElementById("upvote")
     const downvoteButton = document.getElementById("downvote")
     const upvoteCount = document.getElementById("upvotecount")
-    const downvotecount = document.getElementById("downvotecount")
+    const downvoteCount = document.getElementById("downvotecount")
     
     let id = upvoteButton.dataset['postId']
 
@@ -74,7 +85,7 @@ $Parsedown = new Parsedown();
         
         if (res.ok) {
             const data = await res.json()
-            downvotecount.textContent = data.downvote
+            downvoteCount.textContent = data.downvote
         }
     }
 
