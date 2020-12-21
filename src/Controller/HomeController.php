@@ -9,19 +9,18 @@ class HomeController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    private $userid;
-
     public function indexActionGet()
     {
         $posts = new \Ida\Database\Posts();
-        $this->userid = $this->di->session->get("userId");
         $vote = new \Ida\Database\Func\Vote();
-
+        $users = new \Ida\Database\Users();
+        $username = $this->di->session->get("username");
 
         $data = [
-            "userid" => $this->loggedIn ?? null,
+            "username" => $username ?? null,
             "posts" => $posts->latestPosts(),
-            "vote" => $vote
+            "vote" => $vote,
+            "gravatar" => "https://www.gravatar.com/avatar/" . md5($users->email($username))
         ];
 
         $this->di->get('page')->add('home/index', $data);
