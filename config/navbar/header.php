@@ -2,6 +2,8 @@
 /**
  * Supply the basis for the navbar as an array.
  */
+
+$loggedin = $_SESSION['loggedin'];
 return [
     // Use for styling the menu
     "wrapper" => null,
@@ -19,10 +21,15 @@ return [
             "url" => "om",
             "title" => "Om denna webbplats.",
         ],
+        // [
+        //     "text" => "IP-validator",
+        //     "url" => "ip",
+        //     "title" => "IP-validator.",
+        // ]
         [
-            "text" => "IP-validator",
-            "url" => "ip",
-            "title" => "IP-validator.",
+            "text" => $loggedin ? "Profile" : "Login",
+            "url" => $loggedin ? "profile" : "login",
+            "title" => $loggedin ? "profile" : "login",
         ]
     ],
 ];
