@@ -49,4 +49,11 @@ class Users extends DB
 
         return "Something went wrong";
     }
+
+    public function email($username)
+    {
+        $sql = "SELECT email FROM users WHERE username = ?";
+        $res = $this->db->executeFetch($sql, [$username]);
+        return $res->email;
+    }
 }
