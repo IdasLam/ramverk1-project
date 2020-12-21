@@ -18,7 +18,7 @@ $Parsedown = new Parsedown();
             <button id="downvote" data-post-id=<?= $post->id ?>>
                 downvote
             </button>
-            <p><?= $post->downvote?></p>
+            <p id="downvotecount"><?= $post->downvote?></p>
         </div>
         <div class="post-data">
             <p>u/<?= $post->username ?></p>
@@ -42,7 +42,10 @@ $Parsedown = new Parsedown();
 
 <script>
     const upvoteButton = document.getElementById("upvote")
+    const downvoteButton = document.getElementById("downvote")
     const upvoteCount = document.getElementById("upvotecount")
+    const downvotecount = document.getElementById("downvotecount")
+    
     let id = upvoteButton.dataset['postId']
 
     const upvote = async () => {
@@ -59,6 +62,22 @@ $Parsedown = new Parsedown();
             upvoteCount.textContent = data.upvote
         }
     }
+    
+    const downvote = async () => {
+        let res = await fetch("votePost", {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id, "votetype": "downvote"})
+        })
+        
+        if (res.ok) {
+            const data = await res.json()
+            downvotecount.textContent = data.downvote
+        }
+    }
 
     upvoteButton.addEventListener("click", upvote)
+    downvoteButton.addEventListener("click", downvote)
 </script>
