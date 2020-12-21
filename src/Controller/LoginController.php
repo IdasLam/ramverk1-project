@@ -40,8 +40,11 @@ class LoginController implements ContainerInjectableInterface
             $userValid = $user->checkPassword($username, $password);
 
             if ($userValid) {
+                $email = $user->email($username);
                 $this->di->session->set("username", $username);
                 $this->di->session->set("loggedin", true);
+                $this->di->session->set("email", $email);
+
                 return $this->di->response->redirect("home");
             } else {
                 $this->di->session->set("loginError", "Username or password was not valid.");
@@ -57,9 +60,9 @@ class LoginController implements ContainerInjectableInterface
     {
         $user = new \Ida\Database\Users();
 
-        $username = htmlentities($this->di->request->getPost("username"));
-        $password = htmlentities($this->di->request->getPost("password"));
-        $email = htmlentities($this->di->request->getPost("email"));
+        $username = trim(htmlentities($this->di->request->getPost("username")));
+        $password = trim(htmlentities($this->di->request->getPost("password")));
+        $email = trim(htmlentities($this->di->request->getPost("email")));
         
         $res = $user->createUser($email, $username, $password);
 
@@ -68,6 +71,7 @@ class LoginController implements ContainerInjectableInterface
         if ($res) {
             $this->di->session->set("username", $username);
             $this->di->session->set("loggedin", true);
+            $this->di->session->set("email", $email);
 
             return $this->di->response->redirect("home");
         } elseif ($res === "something went wrong") {
