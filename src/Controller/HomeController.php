@@ -9,17 +9,17 @@ class HomeController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    private $loggedIn;
+    private $userid;
 
     public function indexActionGet()
     {
         $posts = new \Ida\Database\Posts();
-        $this->loggedIn = $this->di->session->get("loggedIn");
+        $this->userid = $this->di->session->get("userId");
         $vote = new \Ida\Database\Func\Vote();
 
 
         $data = [
-            "loggedIn" => $this->loggedIn ?? null,
+            "userid" => $this->loggedIn ?? null,
             "posts" => $posts->latestPosts(),
             "vote" => $vote
         ];
