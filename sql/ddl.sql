@@ -4,6 +4,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS vote;
 
 CREATE TABLE users
 (
@@ -58,7 +59,7 @@ CREATE TABLE vote
 
 
 
-INSERT INTO users(username, password, email) VALUES("admin", 'admin', 'admin@admin.com');
+INSERT INTO users(username, password, email) VALUES("admin", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'admin@admin.com');
 
 INSERT INTO posts(username, content, tag) VALUES("admin", "#first post", "admin");
 
