@@ -11,12 +11,22 @@ class VoteController implements ContainerInjectableInterface
 
     public function indexActionPost()
     {
+        // Vote for post
         $vote = new \Ida\Database\Func\Vote();
         $input =  json_decode($this->di->request->getBody());
 
-        $id = $input->id;
+        $postid = $input->id;
         $type = $input->votetype;
+        $username = $this->di->session->get("username");
 
-        return $vote->votePost($id, $type);
+        // $voted = $this->hasvotedPost($username, $postid, null);
+
+        // be able to unvote
+
+        // if ($voted === true) {
+        //     return $vote->removeVotePost($postid, $vote, $username);
+        // }
+
+        return $vote->votePost($postid, $type, $username);
     }
 }
