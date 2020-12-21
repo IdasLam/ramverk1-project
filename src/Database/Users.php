@@ -26,13 +26,12 @@ class Users extends DB
     
     public function checkPassword($username, $password)
     {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        
-        $sql = "SELECT * FROM users WHERE username LIKE ? AND password LIKE ?";
-        $res = $this->db->executeFetch($sql, [$username, $password]);
+        $sql = "SELECT * FROM users WHERE username LIKE ?";
+        $res = $this->db->executeFetch($sql, [$username]);
 
-        $inDatabase = count($res) > 0;
-        return $inDatabase;
+        $hash = $res->password;
+        $valid = password_verify($password, $hash);
+        return $valid;
     }
 
     public function createUser($email, $username, $password)
