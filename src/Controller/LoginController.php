@@ -15,10 +15,6 @@ class LoginController implements ContainerInjectableInterface
     {
         $db = new \Ida\Database\DB();
 
-        // $this->loggedIn = $this->di->session->get("loggedIn");
-
-        // var_dump($this->loggedIn);
-
         $data = ["title" => "Login", "di" => $this->di];
         $this->di->get('page')->add('login/index', $data);
         return $this->di->get('page')->render($data);
@@ -31,12 +27,30 @@ class LoginController implements ContainerInjectableInterface
         return $this->di->get('page')->render($data);
     }
     
-    // public function UserActionPost()
-    // {
-    //     var_dump("login");
+    public function userloginActionPost()
+    {
+        $user = new \Ida\Database\Users();
 
-    //     // $this->di->get('page')->add('home/index', $data);
-    // }
+        $username = htmlentities($this->di->request->getPost("username"));
+        $password = htmlentities($this->di->request->getPost("password"));
+
+        $usernameExsists = $user->userExsists($username);
+
+        if ($usernameExsists) {
+            $userValid = $user->checkPassword($username, $password);
+
+            $this->di->get("session")->start();
+            if ($userValid) {
+                $this->di->session->set("username", $username);
+                $this->di->session->set("loggedin", true);
+            } else {
+                $this->di->session->set("loginError", "Username or password was not valid.");
+                return $this->di->response->redirect("login");
+            }
+        }
+
+        return $this->di->response->redirect("home");
+    }
 
     public function signupActionPost()
     {
@@ -48,10 +62,12 @@ class LoginController implements ContainerInjectableInterface
         
         $res = $user->createUser($email, $username, $password);
 
+        $this->di->get("session")->start();
+    
         if ($res) {
-            $this->di->get("session")->start();
             $this->di->session->set("username", $username);
             $this->di->session->set("loggedin", true);
+
             return $this->di->response->redirect("home");
         } elseif ($res === "something went wrong") {
             $this->di->session->set("createError", $res);
@@ -60,5 +76,9 @@ class LoginController implements ContainerInjectableInterface
         }
         
         return $this->di->response->redirect("register");
+    }
+
+    public function logoutActionPost() {
+        $this->di->get("session")->destroy();
     }
 }
