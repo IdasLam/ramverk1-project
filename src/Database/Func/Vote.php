@@ -24,28 +24,42 @@ class Vote extends DB
         return count($res) > 0;
     }
 
-    public function votePost($id, $vote, $username, $commentid = null) {
-        $voted = $this->hasvotedPost($username, $id, $commentid);
-
-        if ($voted !== true) {
-            if ($vote == "upvote") {
-                $sql = "UPDATE posts SET upvote = upvote + 1 WHERE id = ?";
-                $res = $this->db->execute($sql, [$id]);
-                
-                $sql = "SELECT upvote FROM posts WHERE id = ?";
-                vote($username, $postid, $commentid, 1);
-            } else {
-                $sql = "UPDATE posts SET downvote = downvote + 1 WHERE id = ?";
-                $res = $this->db->execute($sql, [$id]);
-                $sql = "SELECT downvote FROM posts WHERE id = ?";
-                vote($username, $postid, $commentid, 0);
-            }
-    
-            $res = $this->db->executeFetch($sql, [$id]);
-    
-            return json_encode($res);
+    public function votePost($id, $vote, $username) {
+        if ($vote == "upvote") {
+            $this->vote($username, $id, null, 1);
+            $sql = "UPDATE posts SET upvote = upvote + 1 WHERE id = ?";
+            $res = $this->db->execute($sql, [$id]);
+            
+            $sql = "SELECT upvote FROM posts WHERE id = ?";
         } else {
-            // unvote
+            $this->vote($username, $id, null, 0);
+            $sql = "UPDATE posts SET downvote = downvote + 1 WHERE id = ?";
+            $res = $this->db->execute($sql, [$id]);
+            $sql = "SELECT downvote FROM posts WHERE id = ?";
         }
+
+        $res = $this->db->executeFetch($sql, [$id]);
+
+        return json_encode($res);
+    }
+
+    public function removeVotePost($postid, $vote, $username) {
+        $sql = "DELETE FROM posts WHERE id = ? AND username = ? AND commentid = null";
+        $res = $this->db->execute($sql, [$postid, $username]);
+        
+        $sql = "DELETE FROM vote WHERE id = ? AND username = ? AND commentid = null";
+        $res = $this->db->execute($sql, [$postid, $username]);
+        
+        if ($vote == "upvote") {
+            $sql = "SELECT upvote FROM posts WHERE id = ?";
+        } else {
+            $sql = "SELECT downvote FROM posts WHERE id = ?";
+        }
+
+        $res = $this->db->executeFetch($sql, [$id]);
+
+        var_dump($res);
+
+        return json_encode($res);
     }
 }
