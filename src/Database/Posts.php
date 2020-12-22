@@ -11,8 +11,14 @@ class Posts extends DB
 
     public function latestPosts()
     {
-        $sql = "SELECT * FROM posts ORDER BY date DESC LIMIT 0, 10";
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT JOIN votes ORDER BY date DESC LIMIT 0, 10";
 
         return $this->db->executeFetchAll($sql);
+    }
+
+    public function fetchPost($id) {
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT JOIN votes WHERE posts.id = ? LIMIT 1";
+
+        return $this->db->executeFetch($sql, [$id]);
     }
 }
