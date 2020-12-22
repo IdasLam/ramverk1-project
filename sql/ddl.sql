@@ -4,7 +4,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS vote;
+DROP TABLE IF EXISTS votes;
 
 CREATE TABLE users
 (
@@ -19,8 +19,8 @@ CREATE TABLE posts
     id INTEGER PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    upvote INT DEFAULT 0,
-    downvote INT DEFAULT 0,
+    -- upvote INT DEFAULT 0,
+    -- downvote INT DEFAULT 0,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
     tag TEXT,
 
@@ -34,8 +34,8 @@ CREATE TABLE comments
     postid INT,
     commentid INT DEFAULT NULL,
     username VARCHAR(255) NOT NULL,
-    upvote INT DEFAULT 0,
-    downvote INT DEFAULT 0,
+    -- upvote INT DEFAULT 0,
+    -- downvote INT DEFAULT 0,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (postid) REFERENCES posts(postid),
@@ -43,14 +43,14 @@ CREATE TABLE comments
     FOREIGN KEY (commentid) REFERENCES comments(commentid)
 );
 
-CREATE TABLE vote
+CREATE TABLE votes
 (
     id INTEGER PRIMARY KEY,
 
-    postid INT,
+    postid INT DEFAULT NULL,
     commentid INT DEFAULT NULL,
     username VARCHAR(255) NOT NULL,
-    vote BIT DEFAULT 0,
+    vote INT NOT NULL,
 
     FOREIGN KEY (postid) REFERENCES posts(postid),
     FOREIGN KEY (username) REFERENCES users(username),
