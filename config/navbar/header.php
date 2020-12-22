@@ -3,7 +3,7 @@
  * Supply the basis for the navbar as an array.
  */
 
-$loggedin = $_SESSION['loggedin'];
+$loggedin = $_SESSION['loggedin'] ?? null;
 return [
     // Use for styling the menu
     "wrapper" => null,
@@ -27,9 +27,9 @@ return [
         //     "title" => "IP-validator.",
         // ]
         [
-            "text" => $loggedin ? "Profile" : "Login",
-            "url" => $loggedin ? "profile" : "login",
-            "title" => $loggedin ? "profile" : "login",
+            "text" => isset($loggedin) ? "Profile" : "Login",
+            "url" => isset($loggedin) ? "profile" : "login",
+            "title" => isset($loggedin) ? "profile" : "login",
         ]
     ],
 ];

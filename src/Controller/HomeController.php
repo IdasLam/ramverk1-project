@@ -20,7 +20,7 @@ class HomeController implements ContainerInjectableInterface
             "username" => $username ?? null,
             "posts" => $posts->latestPosts(),
             "vote" => $vote,
-            "gravatar" => "https://www.gravatar.com/avatar/" . md5($users->email($username))
+            "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($users->email($username)) : null
         ];
 
         $this->di->get('page')->add('home/index', $data);
