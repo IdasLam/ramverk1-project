@@ -7,6 +7,7 @@ if (isset($username)) :
     <div class="write-post">
         <img src=<?= $gravatar ?> alt="profile-img">
         <form action="post/post">
+            <input type="text" name="tags" placeholder="Tags, comma seperated">
             <textarea name="content" cols="20" rows="10" placeholder="Markdown supported"></textarea>
             <button>Post</button>
         </form>
@@ -19,17 +20,18 @@ if (isset($username)) :
     $content = explode("\n", $post->content);
     $title = explode("\n", $post->content)[0];
     $content = implode("\n", array_slice($content, 2));
+    
+    $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
 ?>
     <div class="post">
-        <div class="post-points">
-            <p id="upvotecount"><?= $post->upvote?></p>
-            <button id="upvote" data-post-id=<?= $post->id ?>>
+        <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
+            <p id="upvotecount"><?= $post->score?></p>
+            <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
                 Upvote
             </button>
-            <button id="downvote" data-post-id=<?= $post->id ?>>
+            <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
                 downvote
             </button>
-            <p id="downvotecount"><?= $post->downvote?></p>
         </div>
         <div class="post-data">
             <p>u/<?= $post->username ?></p>
@@ -50,45 +52,39 @@ if (isset($username)) :
         </div>
     </div>
 <?php endforeach; ?>
-
-<script>
-    const upvoteButton = document.getElementById("upvote")
-    const downvoteButton = document.getElementById("downvote")
-    const upvoteCount = document.getElementById("upvotecount")
-    const downvoteCount = document.getElementById("downvotecount")
-    
-    let id = upvoteButton.dataset['postId']
-
-    const upvote = async () => {
-        let res = await fetch("votePost", {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({id, "votetype": "upvote"})
-        })
+<?php if ($username !== null): ?>
+    <script>
+        const contaier = document.getElementById("post")
         
-        if (res.ok) {
-            const data = await res.json()
-            upvoteCount.textContent = data.upvote
-        }
-    }
-    
-    const downvote = async () => {
-        let res = await fetch("votePost", {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({id, "votetype": "downvote"})
-        })
+        const upvoteButton = document.getElementById("upvote")
+        const downvoteButton = document.getElementById("downvote")
+        const upvoteCount = document.getElementById("upvotecount")
+        const downvoteCount = document.getElementById("downvotecount")
         
-        if (res.ok) {
-            const data = await res.json()
-            downvoteCount.textContent = data.downvote
-        }
-    }
+        let id = upvoteButton.dataset['postId']
 
-    upvoteButton.addEventListener("click", upvote)
-    downvoteButton.addEventListener("click", downvote)
-</script>
+        const vote = async (type) => {
+            let voted = contaier.dataset['voted']
+            
+            let res = await fetch("votePost", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id,
+                    vote: type
+                })
+            })
+
+            
+            if (res.ok) {
+                const data = await res.json()
+                upvoteCount.textContent = data.score;
+            }
+        }
+        
+        upvoteButton.addEventListener("click", () => vote(1))
+        downvoteButton.addEventListener("click", () => vote(-1))
+    </script>
+<?php endif; ?>
