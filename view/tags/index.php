@@ -6,7 +6,7 @@
     <div class="toptags">
     <p>Current top tags</p>
         <?php foreach ($topTags as $key => $value) : ?>
-            <a href=<?= "tags/" . $key ?>>
+            <a href=<?= "post?tags=" . $key ?>>
                 <div class="toptags">
                     <p><?= $key ?></p>
                 </div>
