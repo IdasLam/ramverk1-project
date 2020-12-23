@@ -6,9 +6,9 @@ if (isset($username)) :
 ?>
     <div class="write-post">
         <img src=<?= $gravatar ?> alt="profile-img">
-        <form action="post/post">
+        <form action="post/newpost" method="post">
             <input type="text" name="tags" placeholder="Tags, comma seperated">
-            <textarea name="content" cols="20" rows="10" placeholder="Markdown supported"></textarea>
+            <textarea name="content" cols="20" rows="10" placeholder="Markdown supported" required></textarea>
             <button>Post</button>
         </form>
     </div>
@@ -35,11 +35,8 @@ if (isset($username)) :
 <?php endforeach; ?>
 </div>
 
-<?php foreach ($posts as $post) : 
-    $content = explode("\n", $post->content);
-    $title = explode("\n", $post->content)[0];
-    $content = implode("\n", array_slice($content, 2));
-    
+<?php foreach ($posts as $post) :
+
     $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
 ?>
     <div class="post">
@@ -53,7 +50,7 @@ if (isset($username)) :
             </button>
         </div>
         <div class="post-data">
-            <p>u/<?= $post->username ?></p>
+            <a href=<?= "profile/" . $post->username ?>>u/ <?= $post->username ?></a>
             <div class="tag-container">
                 <?php if (isset($post->tag)) :
                     $tags = explode(",",$post->tag);
@@ -64,9 +61,8 @@ if (isset($username)) :
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <a href="" style="text-decoration: none; color: unset">
-                <?= $Parsedown->text($title)?>
-                <?= $Parsedown->text($content) ?>
+            <a href=<?= "post?id=" . $post->id ?> style="text-decoration: none; color: unset">
+                <?= $Parsedown->text($post->content) ?>
             </a>
         </div>
     </div>
