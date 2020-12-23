@@ -8,9 +8,9 @@
     <div class="profile">
         <img src=<?= $gravatar ?> alt="profile-img">
         <h1><?= $username ?></h1>
-        <form action="edit" method="get">
+        <a href="profile/edit">
             <button>Edit</button>
-        </form>
+        </a>
         <form action="login/logout" method="post">
             <button>Logout</button>
         </form>
