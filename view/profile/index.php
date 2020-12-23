@@ -8,12 +8,15 @@
     <div class="profile">
         <img src=<?= $gravatar ?> alt="profile-img">
         <h1><?= $username ?></h1>
-        <a href="profile/edit">
-            <button>Edit</button>
-        </a>
-        <form action="login/logout" method="post">
-            <button>Logout</button>
-        </form>
+
+        <?php if ($currentUser === $username) : ?>
+            <a href="profile/edit">
+                <button>Edit</button>
+            </a>
+            <form action="login/logout" method="post">
+                <button>Logout</button>
+            </form>
+        <?php endif; ?>
     </div>
     <div class="posts">
         <p>Posts:</p>

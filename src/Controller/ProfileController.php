@@ -13,22 +13,31 @@ class ProfileController implements ContainerInjectableInterface
     {
         $posts = new \Ida\Database\Posts();
         $comments = new \Ida\Database\Func\Comments();
+        $userdb = new \Ida\Database\Users();
+
+        $user = $this->di->request->getGet("user");
         
         $username = $this->di->session->get("username");
         $email = $this->di->session->get("email");
 
         if (!isset($username)) {
             return $this->di->response->redirect("login");
-        } 
-
+        }
+        
         $data = [
-            "username" => $username,
-            "email" => $email,
-            "posts" => $posts->profilePost($username),
-            "comments" => $comments->profileComments($username),
+            "currentUser" => $username,
+            "username" => $user,
+            "posts" => $posts->profilePost($user),
+            "comments" => $comments->profileComments($user),
             "gravatar" => "https://www.gravatar.com/avatar/" . md5($email)
         ];
 
+        if ($user === $username) {
+            $data["email"] = $email;
+        } else {
+            $data["email"] = $userdb->email($user);
+        }
+        
         $this->di->get('page')->add('profile/index', $data);
         return $this->di->get('page')->render($data);
     }
