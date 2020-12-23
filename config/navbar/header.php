@@ -17,15 +17,15 @@ return [
             "title" => "Första sidan, börja här.",
         ],
         [
+            "text" => "Posts",
+            "url" => "post",
+            "title" => "Latest posts",
+        ],
+        [
             "text" => "Om",
             "url" => "om",
             "title" => "Om denna webbplats.",
         ],
-        // [
-        //     "text" => "IP-validator",
-        //     "url" => "ip",
-        //     "title" => "IP-validator.",
-        // ]
         [
             "text" => isset($loggedin) ? "Profile" : "Login",
             "url" => isset($loggedin) ? "profile" : "login",
