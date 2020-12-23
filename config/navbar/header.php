@@ -12,9 +12,9 @@ return [
     // Here comes the menu items
     "items" => [
         [
-            "text" => "Hem",
+            "text" => "Home",
             "url" => "home",
-            "title" => "Första sidan, börja här.",
+            "title" => "Home",
         ],
         [
             "text" => "Posts",
@@ -27,9 +27,9 @@ return [
             "title" => "tags",
         ],
         [
-            "text" => "Om",
+            "text" => "About",
             "url" => "om",
-            "title" => "Om denna webbplats.",
+            "title" => "About",
         ],
         [
             "text" => isset($loggedin) ? "Profile" : "Login",
