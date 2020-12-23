@@ -34,6 +34,7 @@ CREATE TABLE comments
     postid INT,
     commentid INT DEFAULT NULL,
     username VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
     -- upvote INT DEFAULT 0,
     -- downvote INT DEFAULT 0,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -59,7 +60,15 @@ CREATE TABLE votes
 
 
 
+INSERT INTO users(username, password, email) VALUES("test", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'test@test.com');
 INSERT INTO users(username, password, email) VALUES("admin", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'admin@admin.com');
 
 INSERT INTO posts(username, content, tag) VALUES("admin", "#first post", "admin");
+INSERT INTO posts(username, content, tag) VALUES("admin", "#sec post", "admin,test");
+
+INSERT INTO comments(postid, username, commentid, content) VALUES(1, "admin", 0, "hello");
+INSERT INTO comments(postid, username, commentid, content) VALUES(1, "test", 1, "hello admin");
+INSERT INTO comments(postid, username, commentid, content) VALUES(1, "test", 2, "hello test admin");
+
+INSERT INTO comments(postid, username, commentid, content) VALUES(1, "test", 0, "test");
 
