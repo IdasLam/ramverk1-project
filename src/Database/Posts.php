@@ -11,13 +11,27 @@ class Posts extends DB
 
     public function latestPosts()
     {
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT JOIN votes ORDER BY date DESC LIMIT 0, 10";
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC LIMIT 0, 2";
 
         return $this->db->executeFetchAll($sql);
     }
+    
+    function allLatestPosts()
+    {
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC";
+
+        return $this->db->executeFetchAll($sql);
+    }
+    
+    public function newPosts($tag, $content, $username)
+    {
+        $sql = "INSERT INTO posts (tag, content, username) VALUES (?, ?, ?)";
+
+        return $this->db->execute($sql, [$tag, $content, $username]);
+    }
 
     public function fetchPost($id) {
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT JOIN votes WHERE posts.id = ? LIMIT 1";
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.id = ? GROUP BY posts.id LIMIT 1";
 
         return $this->db->executeFetch($sql, [$id]);
     }
