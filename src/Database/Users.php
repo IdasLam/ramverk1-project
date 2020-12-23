@@ -56,4 +56,30 @@ class Users extends DB
         $res = $this->db->executeFetch($sql, [$username]);
         return $res->email;
     }
+    
+    public function mostActiveUsers()
+    {
+        $sql = "SELECT username FROM users";
+        $res = $this->db->executeFetchAll($sql, []);
+        $topusers = [];
+
+        foreach($res as $row) {
+            $username = $row->username;
+            $count = 0;
+            
+            $sql = "SELECT * FROM comments WHERE username = ?";
+            $res = $this->db->executeFetchAll($sql, [$username]);
+            $count += count($res);
+            
+            $sql = "SELECT * FROM posts WHERE username = ?";
+            $res = $this->db->executeFetchAll($sql, [$username]);
+            $count += count($res);
+
+            $topusers[$username] = $count;
+        }
+
+        arsort($topusers);
+
+        return array_slice($topusers, 0, 4);
+    }
 }
