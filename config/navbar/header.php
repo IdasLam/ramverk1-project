@@ -4,6 +4,7 @@
  */
 
 $loggedin = $_SESSION['loggedin'] ?? null;
+$username = $_SESSION['username'] ?? null;
 return [
     // Use for styling the menu
     "wrapper" => null,
@@ -33,7 +34,7 @@ return [
         ],
         [
             "text" => isset($loggedin) ? "Profile" : "Login",
-            "url" => isset($loggedin) ? "profile" : "login",
+            "url" => isset($loggedin) ? "profile?user=" . $username : "login",
             "title" => isset($loggedin) ? "profile" : "login",
         ]
     ],
