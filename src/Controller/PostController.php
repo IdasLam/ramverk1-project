@@ -20,8 +20,8 @@ class PostController implements ContainerInjectableInterface
 
         $tags = htmlentities(trim($this->di->request->getGet("tag")));
         $id = htmlentities($this->di->request->getGet("id"));
-        
-        if (isset($tags)) {
+
+        if ($tags !== "") {
             $post = $postdb->searchTags($tags);
 
             $data = [
@@ -33,7 +33,7 @@ class PostController implements ContainerInjectableInterface
 
             $this->di->get('page')->add('post/index', $data);
         } else {
-            $post = isset($id) ? $postdb->fetchPost($id) : $postdb->allLatestPosts();
+            $post = $id !== "" ? $postdb->fetchPost($id) : $postdb->allLatestPosts();
             $comments = $commentsdb->postComments($id);
     
             $data = [
@@ -45,7 +45,7 @@ class PostController implements ContainerInjectableInterface
                 "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null
             ];
     
-            if (isset($id)) {
+            if ($id !== "") {
                 $this->di->get('page')->add('post/post', $data);
             } else {
                 $this->di->get('page')->add('post/index', $data);   
