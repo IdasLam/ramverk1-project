@@ -44,4 +44,10 @@ class Posts extends DB
         
         return array_slice($tagCount, 0, 4);
     }
+
+    public function profilePost($username) {
+        $sql = "SELECT * FROM posts WHERE username = ? ORDER BY date DESC ";
+
+        return $this->db->executeFetchAll($sql, [$username]);
+    }
 }
