@@ -1,7 +1,7 @@
 <?php
     $Parsedown = new Parsedown();
     
-    $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
+    $hasvoted = $username !== null ? $vote->hasvotedPost($username, $posts->id) : null;
 
     // function findComment($commentid) {
     //     $commentsdb
