@@ -23,7 +23,7 @@
             $title = explode("\n", $post->content)[0];
             $content = implode("\n", array_slice($content, 2));    
         ?>
-        <a href=<?= "post/" . $post->id ?>>
+        <a href=<?= "post?id=" . $post->id ?>>
             <div class="post">
                 <?= $Parsedown->text($title) ?>
                 <?= $Parsedown->text($content) ?>
@@ -35,7 +35,7 @@
         <p>Answers & Comments:</p>
         <p>Total answers & comments: <?= $commentsCount ?></p>
         <?php foreach($comments as $comment) : ?>
-        <a href=<?=  "post/" . $comment->postid ?>>
+        <a href=<?=  "post?id=" . $comment->postid ?>>
             <div class="comment">
                 <?= $Parsedown->text($comment->content) ?>
             </div>
