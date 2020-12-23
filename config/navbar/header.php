@@ -22,6 +22,11 @@ return [
             "title" => "Latest posts",
         ],
         [
+            "text" => "Tags",
+            "url" => "tag",
+            "title" => "tags",
+        ],
+        [
             "text" => "Om",
             "url" => "om",
             "title" => "Om denna webbplats.",
