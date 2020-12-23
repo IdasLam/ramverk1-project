@@ -27,23 +27,6 @@ class Vote extends DB
     }
 
     public function votePost($postid, $vote, $username) {
-        // if ($vote === 1) {
-        //     $this->vote($username, $id, null, 1);
-        //     $sql = "UPDATE posts SET upvote = upvote + 1 WHERE id = ?";
-        //     $res = $this->db->execute($sql, [$id]);
-            
-        //     $sql = "SELECT upvote FROM posts WHERE id = ?";
-        // } else {
-        //     $this->vote($username, $id, null, 0);
-        //     $sql = "UPDATE posts SET downvote = downvote + 1 WHERE id = ?";
-        //     $res = $this->db->execute($sql, [$id]);
-        //     $sql = "SELECT downvote FROM posts WHERE id = ?";
-        // }
-
-        // $res = $this->db->executeFetch($sql, [$id]);
-
-        // return json_encode($res);
-
         $this->vote($username, $postid, null, $vote);
     }
 
