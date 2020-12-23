@@ -66,10 +66,25 @@ class Posts extends DB
     }
 
     public function searchTags($tags) {
+        $tags = explode(",", $tags);
+        $searchTagsCount = count($tags);
+        $id = [];
+        $matches = [];
+        
+        foreach ($tags as $tag) {
+            $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.tag LIKE ? GROUP BY posts.id";
+            $res = $this->db->executeFetchAll($sql, ["%$tag%"]);
 
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.tag LIKE ? GROUP BY posts.id";
-        $res = $this->db->executeFetchAll($sql, ["%$tags%"]);
+            foreach ($res as $row) {
+                $rowTagsCount = count(explode(",", $row->tag));
 
-        return $res;
+                if (!in_array($row->id, $id) && $rowTagsCount === $searchTagsCount) {
+                    $id[] = $row->id;
+                    $matches[] = $row;
+                }
+            }
+        }
+
+        return $matches;
     }
 }
