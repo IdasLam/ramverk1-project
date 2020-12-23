@@ -10,19 +10,19 @@
 ?>
 <div class="post">
     <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
-        <p id="upvotecount"><?= $post->score?></p>
-        <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
+        <p id="upvotecount"><?= $posts->score?></p>
+        <button class="upvote" id="upvote" data-post-id=<?= $posts->id ?>>
             Upvote
         </button>
-        <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
+        <button class="downvote" id="downvote" data-post-id=<?= $posts->id ?>>
             downvote
         </button>
     </div>
     <div class="post-data">
-        <a href=<?= "profile/" . $post->username ?>>u/ <?= $post->username ?></a>
+        <a href=<?= "profile/" . $posts->username ?>>u/ <?= $posts->username ?></a>
         <div class="tag-container">
-            <?php if (isset($post->tag)) :
-                $tags = explode(",",$post->tag);
+            <?php if (isset($posts->tag)) :
+                $tags = explode(",",$posts->tag);
                 foreach ($tags as $tag) : ?>
                     <div class="tag">
                         <p><?= $tag ?></p>
@@ -30,8 +30,8 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        <a href=<?= "post?id=" . $post->id ?> style="text-decoration: none; color: unset">
-            <?= $Parsedown->text($post->content) ?>
+        <a href=<?= "post?id=" . $posts->id ?> style="text-decoration: none; color: unset">
+            <?= $Parsedown->text($posts->content) ?>
         </a>
     </div>
     <div class="comments">
