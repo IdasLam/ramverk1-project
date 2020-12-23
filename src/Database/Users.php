@@ -56,6 +56,14 @@ class Users extends DB
         $res = $this->db->executeFetch($sql, [$username]);
         return $res->email;
     }
+
+    public function emailExsists($email)
+    {
+        $sql = "SELECT * FROM users WHERE email LIKE ?";
+        $res = $this->db->executeFetchAll($sql, [$email]);
+        
+        return count($res) > 0;
+    }
     
     public function mostActiveUsers()
     {
@@ -81,5 +89,52 @@ class Users extends DB
         arsort($topusers);
 
         return array_slice($topusers, 0, 4);
+    }
+
+    public function changeUsername($oldusername, $newusername)
+    {
+        try {
+            $sql = "UPDATE users SET username = ? WHERE username = ?";
+            $res = $this->db->execute($sql, [$newusername, $oldusername]);
+            
+            $sql = "UPDATE posts SET username = ? WHERE username = ?";
+            $res = $this->db->execute($sql, [$newusername, $oldusername]);
+            
+            $sql = "UPDATE comments SET username = ? WHERE username = ?";
+            $res = $this->db->execute($sql, [$newusername, $oldusername]);
+            
+            $sql = "UPDATE votes SET username = ? WHERE username = ?";
+            $res = $this->db->execute($sql, [$newusername, $oldusername]);
+        } catch (Exception $e) {
+            return 400;
+        }
+
+        return 200;
+    }
+
+    public function changePassword($username, $newPassword)
+    {
+        $hased_password = password_hash($newPassword, PASSWORD_DEFAULT);
+        
+        try {
+            $sql = "UPDATE users SET password = ? WHERE username = ?";
+            $res = $this->db->execute($sql, [$hased_password, $username]);
+        } catch (Exception $e) {
+            return 400;
+        }
+
+        return 200;
+    }
+
+    public function changeEmail($username, $newEmail)
+    {
+        try {
+            $sql = "UPDATE users SET email = ? WHERE username = ?";
+            $res = $this->db->execute($sql, [$hased_password, $username]);
+        } catch (Exception $e) {
+            return 400;
+        }
+
+        return 200;
     }
 }
