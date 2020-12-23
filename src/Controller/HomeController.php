@@ -14,12 +14,19 @@ class HomeController implements ContainerInjectableInterface
         $posts = new \Ida\Database\Posts();
         $vote = new \Ida\Database\Func\Vote();
         $users = new \Ida\Database\Users();
+        
         $username = $this->di->session->get("username");
+
+        $topTags = $posts->topTags();
+        // popular tags
+        $topUsers = $users->mostActiveUsers();
 
         $data = [
             "username" => $username ?? null,
             "posts" => $posts->latestPosts(),
             "vote" => $vote,
+            "topUsers" => $topUsers,
+            "topTags" => $topTags,
             "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($users->email($username)) : null
         ];
 
