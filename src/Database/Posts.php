@@ -64,4 +64,12 @@ class Posts extends DB
 
         return $this->db->executeFetchAll($sql, [$username]);
     }
+
+    public function searchTags($tags) {
+
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.tag LIKE ? GROUP BY posts.id";
+        $res = $this->db->executeFetchAll($sql, ["%$tags%"]);
+
+        return $res;
+    }
 }
