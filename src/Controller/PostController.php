@@ -28,7 +28,8 @@ class PostController implements ContainerInjectableInterface
                 "posts" => $post,
                 "username" => $username,
                 "vote" => $vote,
-                "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null
+                "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null,
+                "title" => "Posts"
             ];
 
             $this->di->get('page')->add('post/index', $data);
@@ -42,7 +43,8 @@ class PostController implements ContainerInjectableInterface
                 "vote" => $vote,
                 "comments" => isset($id) ? $comments : null,
                 "commentsdb" => $commentsdb,
-                "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null
+                "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null,
+                "title" => "Posts"
             ];
     
             if ($id !== "") {

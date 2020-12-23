@@ -25,6 +25,7 @@ class TagController implements ContainerInjectableInterface
             "username" => $username ?? null,
             "posts" => $posts->latestPosts(),
             "topTags" => $topTags,
+            "title" => "Tags"
         ];
 
         $this->di->get('page')->add('tags/index', $data);

@@ -27,6 +27,7 @@ class HomeController implements ContainerInjectableInterface
             "vote" => $vote,
             "topUsers" => $topUsers,
             "topTags" => $topTags,
+            "title" => "Home"
         ];
 
         $this->di->get('page')->add('home/index', $data);

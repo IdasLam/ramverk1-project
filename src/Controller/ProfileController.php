@@ -29,7 +29,8 @@ class ProfileController implements ContainerInjectableInterface
             "username" => $user,
             "posts" => $posts->profilePost($user),
             "comments" => $comments->profileComments($user),
-            "gravatar" => "https://www.gravatar.com/avatar/" . md5($email)
+            "gravatar" => "https://www.gravatar.com/avatar/" . md5($email),
+            "title" => $user
         ];
 
         if ($user === $username) {
@@ -52,7 +53,8 @@ class ProfileController implements ContainerInjectableInterface
         $data = [
             "username" => $username,
             "email" => $email,
-            "gravatar" => "https://www.gravatar.com/avatar/" . md5($email)
+            "gravatar" => "https://www.gravatar.com/avatar/" . md5($email),
+            "title" => "Edit"
         ];
 
         if (isset($edit)) {
