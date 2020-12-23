@@ -85,5 +85,6 @@ class LoginController implements ContainerInjectableInterface
 
     public function logoutActionPost() {
         $this->di->get("session")->destroy();
+        return $this->di->response->redirect("home");
     }
 }
