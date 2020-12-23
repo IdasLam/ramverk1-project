@@ -14,8 +14,27 @@ if (isset($username)) :
     </div>
 
 <?php endif; ?>
+<div class="topusers">
+<?php foreach ($topUsers as $key => $value) : ?>
+    <a href=<?= "profile/" . $key ?>>
+        <div class="topuser">
+            <p><?= $key ?></p>
+            <p>post/comment count: <?= $value ?></p>
+        </div>
+    </a>
+<?php endforeach; ?>
+</div>
 
-<?php #var_dump($posts) ?>
+<div class="toptags">
+<?php foreach ($topTags as $key => $value) : ?>
+    <a href=<?= "tags/" . $key ?>>
+        <div class="toptags">
+            <p><?= $key ?></p>
+        </div>
+    </a>
+<?php endforeach; ?>
+</div>
+
 <?php foreach ($posts as $post) : 
     $content = explode("\n", $post->content);
     $title = explode("\n", $post->content)[0];
