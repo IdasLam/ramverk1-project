@@ -6,7 +6,7 @@ $Parsedown = new Parsedown();
 
 <div class="topusers">
 <?php foreach ($topUsers as $key => $value) : ?>
-    <a href=<?= "profile/" . $key ?>>
+    <a href=<?= "profile?user=" . $key ?>>
         <div class="topuser">
             <p><?= $key ?></p>
             <p>post/comment count: <?= $value ?></p>
@@ -17,7 +17,7 @@ $Parsedown = new Parsedown();
 
 <div class="toptags">
 <?php foreach ($topTags as $key => $value) : ?>
-    <a href=<?= "tags/" . $key ?>>
+    <a href=<?= "post?tags=" . $key ?>>
         <div class="toptags">
             <p><?= $key ?></p>
         </div>
@@ -40,7 +40,7 @@ $Parsedown = new Parsedown();
             </button>
         </div>
         <div class="post-data">
-            <a href=<?= "profile/" . $post->username ?>>u/ <?= $post->username ?></a>
+            <a href=<?= "profile?user=" . $post->username ?>>u/ <?= $post->username ?></a>
             <div class="tag-container">
                 <?php if (isset($post->tag)) :
                     $tags = explode(",",$post->tag);

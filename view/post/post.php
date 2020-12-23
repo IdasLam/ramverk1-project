@@ -19,7 +19,7 @@
         </button>
     </div>
     <div class="post-data">
-        <a href=<?= "profile/" . $posts->username ?>>u/ <?= $posts->username ?></a>
+        <a href=<?= "profile?user=" . $posts->username ?>>u/ <?= $posts->username ?></a>
         <div class="tag-container">
             <?php if (isset($posts->tag)) :
                 $tags = explode(",",$posts->tag);
