@@ -66,7 +66,7 @@ if (isset($username)) :
             </div>
             <a href="" style="text-decoration: none; color: unset">
                 <?= $Parsedown->text($title)?>
-                <?= $content ?>
+                <?= $Parsedown->text($content) ?>
             </a>
         </div>
     </div>
