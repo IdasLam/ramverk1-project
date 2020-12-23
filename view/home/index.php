@@ -2,18 +2,8 @@
 
 $Parsedown = new Parsedown();
 
-if (isset($username)) :
 ?>
-    <div class="write-post">
-        <img src=<?= $gravatar ?> alt="profile-img">
-        <form action="post/newpost" method="post">
-            <input type="text" name="tags" placeholder="Tags, comma seperated">
-            <textarea name="content" cols="20" rows="10" placeholder="Markdown supported" required></textarea>
-            <button>Post</button>
-        </form>
-    </div>
 
-<?php endif; ?>
 <div class="topusers">
 <?php foreach ($topUsers as $key => $value) : ?>
     <a href=<?= "profile/" . $key ?>>
