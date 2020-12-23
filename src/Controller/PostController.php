@@ -16,21 +16,23 @@ class PostController implements ContainerInjectableInterface
         $commentsdb = new \Ida\Database\Func\Comments();
 
         $username = $this->di->session->get("username");
+        $email = $this->di->session->get("email");
 
         $id =  $this->di->request->getGet("id");
         
-        $post = $postdb->fetchPost($id);
+        $post = isset($id) ? $postdb->fetchPost($id) : $postdb->allLatestPosts();
         $comments = $commentsdb->postComments($id);
 
         $data = [
-            "post" => $post,
+            "posts" => $post,
             "username" => $username,
             "vote" => $vote,
-            "comments" => $comments,
-            "commentsdb" => $commentsdb
+            "comments" => isset($id) ? $comments : null,
+            "commentsdb" => $commentsdb,
+            "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null
         ];
 
-        if (isset($post)) {
+        if (isset($id)) {
             $this->di->get('page')->add('post/post', $data);
         } else {
             $this->di->get('page')->add('post/index', $data);   
