@@ -21,18 +21,11 @@ class ProfileController implements ContainerInjectableInterface
             return $this->di->response->redirect("login");
         } 
 
-        // $topTags = $posts->topTags();
-        // // popular tags
-        // $topUsers = $users->mostActiveUsers();
-
         $data = [
             "username" => $username,
             "email" => $email,
             "posts" => $posts->profilePost($username),
             "comments" => $comments->profileComments($username),
-            // "vote" => $vote,
-            // "topUsers" => $topUsers,
-            // "topTags" => $topTags,
             "gravatar" => "https://www.gravatar.com/avatar/" . md5($email)
         ];
 
