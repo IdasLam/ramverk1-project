@@ -20,8 +20,8 @@ class ProfileController implements ContainerInjectableInterface
         $username = $this->di->session->get("username");
         $email = $this->di->session->get("email");
 
-        if (!isset($username)) {
-            return $this->di->response->redirect("login");
+        if (!isset($user)) {
+            return $this->di->response->redirect("home");
         }
         
         $data = [
