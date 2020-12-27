@@ -7159,3 +7159,41 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .site-logo-text-icon {
   display: none;
 }
+.route-home main .topusers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 20px;
+  color: #fff;
+}
+.route-home main .topusers a {
+  text-decoration: unset;
+  border-radius: 20px;
+}
+.route-home main .topusers .topuser {
+  color: #fff;
+  text-align-last: center;
+}
+.route-home main .topusers a:nth-child(1n) {
+  background-color: #e91e63;
+}
+.route-home main .topusers a:nth-child(1n):hover {
+  background-color: #c2185b;
+}
+.route-home main .topusers a:nth-child(2n) {
+  background-color: #9c27b0;
+}
+.route-home main .topusers a:nth-child(2n):hover {
+  background-color: #7b1fa2;
+}
+.route-home main .topusers a:nth-child(3n) {
+  background-color: #673ab7;
+}
+.route-home main .topusers a:nth-child(3n):hover {
+  background-color: #512da8;
+}
+.route-home main .topusers a:nth-child(4n) {
+  background-color: #2196f3;
+}
+.route-home main .topusers a:nth-child(4n):hover {
+  background-color: #1976d2;
+}
