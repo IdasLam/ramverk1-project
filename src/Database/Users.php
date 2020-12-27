@@ -57,6 +57,11 @@ class Users extends DB
         return $res->email;
     }
 
+    public function getGravatar($username)
+    {
+        return "https://www.gravatar.com/avatar/" . md5($this->email($username));
+    }
+
     public function emailExsists($email)
     {
         $sql = "SELECT * FROM users WHERE email LIKE ?";
