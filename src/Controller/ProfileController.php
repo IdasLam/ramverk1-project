@@ -29,6 +29,7 @@ class ProfileController implements ContainerInjectableInterface
             "username" => $user,
             "posts" => $posts->profilePost($user),
             "comments" => $comments->profileComments($user),
+            "answers" => $comments->profileAnswers($user),
             "gravatar" => "https://www.gravatar.com/avatar/" . md5($email),
             "title" => $user
         ];

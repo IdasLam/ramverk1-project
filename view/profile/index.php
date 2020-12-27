@@ -2,6 +2,7 @@
     $Parsedown = new Parsedown();
     $postsCount = count($posts);
     $commentsCount = count($comments);
+    $answersCount = count($answers);
 ?>
 
 <div class="profile-container">
@@ -34,9 +35,20 @@
         </a>
         <?php endforeach; ?>
     </div>
+    <div class="answers">
+        <p>Answers:</p>
+        <p>Total answers: <?= $answersCount ?></p>
+        <?php foreach($answers as $answer) : ?>
+        <a href=<?=  "post?id=" . $answer->postid ?>>
+            <div class="answer">
+                <?= $Parsedown->text($answer->content) ?>
+            </div>
+        </a>
+        <?php endforeach; ?>
+    </div>
     <div class="comments">
-        <p>Answers & Comments:</p>
-        <p>Total answers & comments: <?= $commentsCount ?></p>
+        <p>Comments:</p>
+        <p>Total comments: <?= $commentsCount ?></p>
         <?php foreach($comments as $comment) : ?>
         <a href=<?=  "post?id=" . $comment->postid ?>>
             <div class="comment">
