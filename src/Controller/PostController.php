@@ -48,6 +48,7 @@ class PostController implements ContainerInjectableInterface
             ];
     
             if ($id !== "") {
+                $data["id"] = $id;
                 $this->di->get('page')->add('post/post', $data);
             } else {
                 $this->di->get('page')->add('post/index', $data);   
