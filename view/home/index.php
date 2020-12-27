@@ -4,12 +4,14 @@ $Parsedown = new Parsedown();
 
 ?>
 
+<p>Topusers</p>
+<p>post/comment count</p>
 <div class="topusers">
 <?php foreach ($topUsers as $key => $value) : ?>
     <a href=<?= "profile?user=" . $key ?>>
         <div class="topuser">
             <p><?= $key ?></p>
-            <p>post/comment count: <?= $value ?></p>
+            <p><?= $value ?></p>
         </div>
     </a>
 <?php endforeach; ?>
