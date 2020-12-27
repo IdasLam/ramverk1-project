@@ -31,7 +31,7 @@ $Parsedown = new Parsedown();
 ?>
     <div class="post">
         <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
-            <p id="upvotecount"><?= $post->score?></p>
+            <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
             <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
                 Upvote
             </button>
@@ -59,17 +59,20 @@ $Parsedown = new Parsedown();
 <?php endforeach; ?>
 <?php if ($username !== null): ?>
     <script>
-        const contaier = document.getElementById("post")
+        // const contaier = document.getElementById("post")
+        const contaiers = Array.from(document.querySelectorAll(".post-points"))
         
-        const upvoteButton = document.getElementById("upvote")
-        const downvoteButton = document.getElementById("downvote")
-        const upvoteCount = document.getElementById("upvotecount")
-        const downvoteCount = document.getElementById("downvotecount")
+        // const upvoteButton = document.getElementById("upvote")
+        // const downvoteButton = document.getElementById("downvote")
+        // const upvoteCount = document.getElementById("upvotecount")
         
-        let id = upvoteButton.dataset['postId']
+        const upvote = Array.from(document.querySelectorAll(".upvote"))
+        const downvote = Array.from(document.querySelectorAll(".downvote"))
+        const upvoteCounter = Array.from(document.querySelectorAll(".upvotecount"))
 
-        const vote = async (type) => {
-            let voted = contaier.dataset['voted']
+        const vote = async (type, id, container, upvoteCount) => {
+            console.log(container)
+            let voted = container.dataset.voted
             
             let res = await fetch("votePost", {
                 method: 'POST',
@@ -88,8 +91,17 @@ $Parsedown = new Parsedown();
                 upvoteCount.textContent = data.score;
             }
         }
-        
-        upvoteButton.addEventListener("click", () => vote(1))
-        downvoteButton.addEventListener("click", () => vote(-1))
+
+        for (let i = 0; i < upvote.length; i++ ) {
+            let upvoteButton = upvote[i]
+            let downvoteButton = downvote[i]
+            let upvoteCount = upvoteCounter[i]
+            let container = contaiers[i]
+
+            let id = upvoteButton.dataset.postId
+
+            upvoteButton.addEventListener("click", () => vote(1, id, container, upvoteCount))
+            downvoteButton.addEventListener("click", () => vote(-1, id, container, upvoteCount))
+        }
     </script>
 <?php endif; ?>
