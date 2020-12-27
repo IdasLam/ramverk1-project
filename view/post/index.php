@@ -49,12 +49,7 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
 <?php endforeach; ?>
 <?php if ($username !== null): ?>
 <script>
-    // const contaier = document.getElementById("post")
     const contaiers = Array.from(document.querySelectorAll(".post-points"))
-    
-    // const upvoteButton = document.getElementById("upvote")
-    // const downvoteButton = document.getElementById("downvote")
-    // const upvoteCount = document.getElementById("upvotecount")
     
     const upvote = Array.from(document.querySelectorAll(".upvote"))
     const downvote = Array.from(document.querySelectorAll(".downvote"))
@@ -74,7 +69,6 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
                 vote: type
             })
         })
-
         
         if (res.ok) {
             const data = await res.json()
