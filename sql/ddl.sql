@@ -76,6 +76,9 @@ CREATE TABLE votes
 
 INSERT INTO users(username, password, email) VALUES("test", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'test@test.com');
 INSERT INTO users(username, password, email) VALUES("admin", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'admin@admin.com');
+INSERT INTO users(username, password, email) VALUES("ida", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asd@admin.com');
+INSERT INTO users(username, password, email) VALUES("Stinky", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asdasd@admin.com');
+INSERT INTO users(username, password, email) VALUES("stonl", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asdasdas@admin.com');
 
 INSERT INTO posts(username, content, tag) VALUES("admin", "#first post", "admin");
 INSERT INTO posts(username, content, tag) VALUES("admin", "#sec post", "admin,test");
