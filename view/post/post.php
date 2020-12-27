@@ -2,11 +2,6 @@
     $Parsedown = new Parsedown();
     
     $hasvoted = $username !== null ? $vote->hasvotedPost($username, $posts->id) : null;
-
-    // function findComment($commentid) {
-    //     $commentsdb
-
-    // }
 ?>
 <div class="post">
     <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
@@ -34,17 +29,52 @@
             <?= $Parsedown->text($posts->content) ?>
         </a>
     </div>
+    <?php if ($username !== null): ?>
+    <div class="write-answer">
+        <form action="comment/answer" method="post">
+            <label for="content">Wrte Your Answer</label>
+            <textarea name="content" cols="30" rows="10"></textarea>
+            <input type="hidden" name="postid" value=<?= $id ?>>
+            <button>Submit</button>
+        </form>
+    </div>
+    <?php endif; ?>
     <div class="comments">
-        <p>Comments</p>
-        <?php foreach ($comments as $comment) :?>
-            <div class="comment">
-                <a href=<?= "profile/" . $comment->username ?>>u/ <?= $comment->username ?></a>
-                <?= $Parsedown->text($comment->content) ?>
+        <p>Answers</p>
+        <?php foreach ($answers as $answer) :?>
+            <div class="answer">
+                <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
+                <div>
+                    <a href=<?= "profile/" . $answer->username ?>>u/ <?= $answer->username ?></a>
+                    <?= $Parsedown->text($answer->content) ?>
+                </div>
+                <button class="reply" id="reply" data-reply-comment-id=<?= $answer->id ?>>reply</button>
+                <?php if ($username !== null): ?>
+                <div class=<?= "reply-form-" . $answer->id?> style="display: none;">
+                    <img src=<?= $gravatar ?> alt="profile-img">
+                    <form action="comment/comment" method="post">
+                        <label for="content">Comment</label>
+                        <textarea name="content" cols="30" rows="10"></textarea>
+                        <input type="hidden" name="postid" value=<?= $id ?>>
+                        <input type="hidden" name="answerid" value=<?= $answer->id ?>>
+                        <button>Reply</button>
+                    </form>
+                </div>
+                <?php
+                endif;
+                $comments = $commentsdb->postComments($id, $answer->id);
+                foreach ($comments as $comment) :
+                ?>
+                <div class="comment">
+                    <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
+                    <div>
+                        <a href=<?= "profile/" . $comment->username ?>>u/ <?= $comment->username ?></a>
+                        <?= $Parsedown->text($comment->content) ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
-            <?php 
-
-            
-            ?>
+    
         <?php endforeach; ?>
     </div>
 </div>
@@ -82,5 +112,15 @@
         
         upvoteButton.addEventListener("click", () => vote(1))
         downvoteButton.addEventListener("click", () => vote(-1))
+    </script>
+    <script>
+        const replies = Array.from(document.querySelectorAll(".reply"))
+
+        replies.map((reply) => {
+            let replyCommentId = reply.dataset.replyCommentId
+
+            let form = document.querySelector(".reply-form-" + replyCommentId)
+            reply.addEventListener("click", () => {form.style.display = "block"})
+        })
     </script>
 <?php endif; ?>
