@@ -14,6 +14,7 @@ class PostController implements ContainerInjectableInterface
         $postdb = new \Ida\Database\Posts();
         $vote = new \Ida\Database\Func\Vote();
         $commentsdb = new \Ida\Database\Func\Comments();
+        $users = new \Ida\Database\Users();
 
         $username = $this->di->session->get("username");
         $email = $this->di->session->get("email");
@@ -29,22 +30,24 @@ class PostController implements ContainerInjectableInterface
                 "username" => $username,
                 "vote" => $vote,
                 "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null,
-                "title" => "Posts"
+                "title" => "Posts",
+                "usersdb" => $users
             ];
 
             $this->di->get('page')->add('post/index', $data);
         } else {
             $post = $id !== "" ? $postdb->fetchPost($id) : $postdb->allLatestPosts();
-            $comments = $commentsdb->postComments($id);
+            $comments = $commentsdb->postAnswers($id);
     
             $data = [
                 "posts" => $post,
                 "username" => $username,
                 "vote" => $vote,
-                "comments" => isset($id) ? $comments : null,
+                "answers" => isset($id) ? $comments : null,
                 "commentsdb" => $commentsdb,
                 "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null,
-                "title" => "Posts"
+                "title" => "Posts",
+                "usersdb" => $users
             ];
     
             if ($id !== "") {
