@@ -15,15 +15,21 @@ class Comments extends DB
         return $this->db->executeFetchAll($sql, [$username]);
     }
     
+    public function profileAnswers($username) {
+        $sql = "SELECT * FROM answers WHERE username = ? ORDER BY date DESC ";
+
+        return $this->db->executeFetchAll($sql, [$username]);
+    }
+    
     public function postComments($id) {
-        $sql = "SELECT * FROM comments WHERE postid = ? AND commentid = 0";
+        $sql = "SELECT * FROM answers WHERE postid = ?";
         
         return $this->db->executeFetchAll($sql, [$id]);
     }
     
-    public function commentComments($postid, $commentid) {
-        $sql = "SELECT * FROM comments WHERE postid = ? AND commentid = ?";
+    public function commentComments($postid, $answerid) {
+        $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
         
-        return $this->db->executeFetchAll($sql, [$id, $commentid]);
+        return $this->db->executeFetchAll($sql, [$id, $answerid]);
     }
 }
