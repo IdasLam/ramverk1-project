@@ -3,6 +3,7 @@
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS votes;
 
@@ -27,21 +28,34 @@ CREATE TABLE posts
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
+CREATE TABLE answers
+(
+    id INTEGER PRIMARY KEY,
+
+    postid INT,
+    username VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (postid) REFERENCES posts(postid),
+    FOREIGN KEY (username) REFERENCES users(username)
+);
+
 CREATE TABLE comments
 (
     id INTEGER PRIMARY KEY,
 
     postid INT,
-    commentid INT DEFAULT NULL,
+    answerid INT NOT NULL,
     username VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    -- upvote INT DEFAULT 0,
-    -- downvote INT DEFAULT 0,
+
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (postid) REFERENCES posts(postid),
-    FOREIGN KEY (username) REFERENCES users(username),
-    FOREIGN KEY (commentid) REFERENCES comments(commentid)
+    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (answerid) REFERENCES answers(answerid)
 );
 
 CREATE TABLE votes
@@ -66,9 +80,10 @@ INSERT INTO users(username, password, email) VALUES("admin", '$2y$10$mIp8cfJ/pCw
 INSERT INTO posts(username, content, tag) VALUES("admin", "#first post", "admin");
 INSERT INTO posts(username, content, tag) VALUES("admin", "#sec post", "admin,test");
 
-INSERT INTO comments(postid, username, commentid, content) VALUES(1, "admin", 0, "hello");
-INSERT INTO comments(postid, username, commentid, content) VALUES(1, "test", 1, "hello admin");
-INSERT INTO comments(postid, username, commentid, content) VALUES(1, "test", 2, "hello test admin");
+INSERT INTO answers(postid, username, content) VALUES(1, "admin", "hello");
+INSERT INTO answers(postid, username, content) VALUES(1, "test", "test");
 
-INSERT INTO comments(postid, username, commentid, content) VALUES(1, "test", 0, "test");
+INSERT INTO comments(postid, username, content, answerid) VALUES(1, "test", "hello admin", 1);
+INSERT INTO comments(postid, username, content, answerid) VALUES(1, "test", "hello test admin", 1);
+
 
