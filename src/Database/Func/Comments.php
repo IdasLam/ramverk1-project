@@ -21,15 +21,33 @@ class Comments extends DB
         return $this->db->executeFetchAll($sql, [$username]);
     }
     
-    public function postComments($id) {
+    public function postAnswers($id) {
         $sql = "SELECT * FROM answers WHERE postid = ?";
         
         return $this->db->executeFetchAll($sql, [$id]);
+    }
+    
+    public function postComments($id, $answerid) {
+        $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
+        
+        return $this->db->executeFetchAll($sql, [$id, $answerid]);
     }
     
     public function commentComments($postid, $answerid) {
         $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
         
         return $this->db->executeFetchAll($sql, [$id, $answerid]);
+    }
+
+    public function newComment($content, $postid, $answerid, $username) {
+        $sql = "INSERT INTO comments (content, postid, answerid, username) VALUES (?, ?, ?, ?)";
+
+        return $this->db->execute($sql, [$content, $postid, $answerid, $username]);
+    }
+    
+    public function newAnswer($content, $postid, $username) {
+        $sql = "INSERT INTO answers (content, postid, username) VALUES (?, ?, ?)";
+
+        return $this->db->execute($sql, [$content, $postid, $username]);
     }
 }
