@@ -34,29 +34,29 @@ class Vote extends DB
         $sql = "DELETE FROM votes WHERE id = ? AND username = ? AND commentid IS NULL";
         $res = $this->db->execute($sql, [$postid, $username]);
     }
-
-    public function voteStatusPost($postid, $vote)
-    {
-        if ($vote === 1) {
-            $sql = "SELECT upvote FROM posts WHERE id = ?";
-        } else {
-            $sql = "SELECT downvote FROM posts WHERE id = ?";
-        }
-
-        $res = $this->db->executeFetch($sql, [$postid]);
-
-        return json_encode($res);
-    }
     
     public function updateVotePost($postid, $vote, $username)
     {
         $voteScore = $vote > 0 ? 1 : -1;
         ([$postid, $vote, $username, $voteScore]);
         $sql = "UPDATE votes SET vote = $voteScore WHERE postid = ? AND username = ? AND commentid IS NULL";
-        // $sql = "UPDATE vote SET vote = $voteScore WHERE id = ? AND username = ? AND commentid = 0";
 
         $this->db->execute($sql, [$postid, $username]);
+    }
+    
+    public function hasVotedAnswerPost($username, $postid, $answerid)
+    {
+        $sql = "SELECT * FROM votes WHERE postid = ? AND username = ? AND answerid = ? AND commentid IS NULL";
+        $res = $this->db->executeFetch($sql, [$postid, $username, $answerid]);
 
-        // $this->votePost($postid, $vote, $username);
+        return $res != null ? $res->vote : null;
+    }
+    
+    public function hasVotedCommentPost($username, $postid, $answerid, $commentsid)
+    {
+        $sql = "SELECT * FROM votes WHERE postid = ? AND username = ? AND answerid = ? AND commentid IS NULL";
+        $res = $this->db->executeFetch($sql, [$postid, $username, $answerid]);
+
+        return $res != null ? $res->vote : null;
     }
 }
