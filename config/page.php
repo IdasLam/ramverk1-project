@@ -12,12 +12,13 @@ return [
         "region" => "layout",
         "template" => "anax/v2/layout/dbwebb_se",
         "data" => [
-            "baseTitle" => " | FOODIE",
+            "baseTitle" => " | Bananas",
             "bodyClass" => null,
             "favicon" => "favicon.ico",
             "htmlClass" => null,
             "lang" => "sv",
             "stylesheets" => [
+                // "https://unpkg.com/tailwindcss@%5E2/dist/tailwind.min.css",
                 "css/style.min.css",
             ],
             "javascripts" => [
@@ -30,21 +31,10 @@ return [
     "views" => [
         [
             "region" => "header-col-1",
-            "template" => "anax/v2/header/site_logo",
-            "data" => [
-                "class" => "large",
-                "siteLogo"      => "image/theme/leaf_256x256.png",
-                "siteLogoAlt"   => "Löv",
-            ],
-        ],
-        [
-            "region" => "header-col-1",
             "template" => "anax/v2/header/site_logo_text",
             "data" => [
                 "homeLink"      => "",
-                "siteLogoText"  => "FOODIE",
-                "siteLogoTextIcon" => "image/theme/leaf_40x40.png",
-                "siteLogoTextIconAlt" => "Löv-bild",
+                "siteLogoText"  => "Bananas",
             ],
         ],
         [
