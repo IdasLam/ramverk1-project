@@ -22,13 +22,16 @@ class Comments extends DB
     }
     
     public function postAnswers($id) {
-        $sql = "SELECT * FROM answers WHERE postid = ?";
+        $sql = "SELECT answers.*, SUM(votes.vote) as score FROM answers LEFT OUTER JOIN votes ON votes.answerid = answers.id WHERE answers.postid = ?";
+
+        // $sql = "SELECT * FROM answers WHERE postid = ?";
         
         return $this->db->executeFetchAll($sql, [$id]);
     }
     
     public function postComments($id, $answerid) {
-        $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
+        // $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
+        $sql = "SELECT comments.*, SUM(votes.vote) as score FROM comments LEFT OUTER JOIN votes ON votes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? GROUP BY comments.id";
         
         return $this->db->executeFetchAll($sql, [$id, $answerid]);
     }
