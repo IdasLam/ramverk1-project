@@ -63,6 +63,7 @@ CREATE TABLE votes
     id INTEGER PRIMARY KEY,
 
     postid INT DEFAULT NULL,
+    answerid INT DEFAULT NULL,
     commentid INT DEFAULT NULL,
     username VARCHAR(255) NOT NULL,
     vote INT NOT NULL,
