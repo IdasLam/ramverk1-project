@@ -41,8 +41,21 @@
     <?php endif; ?>
     <div class="comments">
         <p>Answers</p>
-        <?php foreach ($answers as $answer) :?>
+        <?php foreach ($answers as $answer) :
+            $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $posts->id, $answer->id) : null;    
+        ?>
             <div class="answer">
+            <!-- har inte fixat så att det funkar -->
+                <div class="answer-points <?= $hasvotedAnswer ?>" id="answer" data-voted=<?= $hasvotedAnswer ?>>
+                    <p id="upvotecount"><?= $posts->score?></p>
+                    <button class="upvote" id="answer-upvote" data-answer-id=<?= $answer->id ?>>
+                        Upvote
+                    </button>
+                    <button class="downvote" id="answer-downvote" data-answer-id=<?= $answer->id ?>>
+                        downvote
+                    </button>
+                </div>
+
                 <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
                 <div>
                     <a href=<?= "profile/" . $answer->username ?>>u/ <?= $answer->username ?></a>
@@ -64,8 +77,20 @@
                 endif;
                 $comments = $commentsdb->postComments($id, $answer->id);
                 foreach ($comments as $comment) :
+                $hasvotedAnswer = $username !== null ? $vote->hasVotedCommentPost($username, $posts->id, $answer->id, $comment->id) : null;    
+                
                 ?>
                 <div class="comment">
+                    <!-- har inte fixat så att det funkar -->
+                    <div class="answer-points <?= $hasvotedAnswer ?>" id="comment" data-voted=<?= $hasvotedAnswer ?>>
+                        <p id="upvotecount"><?= $comment->score?></p>
+                        <button class="upvote" id="comment-upvote" data-comment-id=<?= $comment->id ?>>
+                            Upvote
+                        </button>
+                        <button class="downvote" id="comment-downvote" data-comment-id=<?= $comment->id ?>>
+                            downvote
+                        </button>
+                    </div>
                     <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
                     <div>
                         <a href=<?= "profile/" . $comment->username ?>>u/ <?= $comment->username ?></a>
