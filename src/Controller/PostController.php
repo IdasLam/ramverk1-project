@@ -19,7 +19,7 @@ class PostController implements ContainerInjectableInterface
         $username = $this->di->session->get("username");
         $email = $this->di->session->get("email");
 
-        $tags = htmlentities(trim($this->di->request->getGet("tag")));
+        $tags = htmlentities(trim($this->di->request->getGet("tags")));
         $id = htmlentities($this->di->request->getGet("id"));
 
         if ($tags !== "") {

@@ -78,7 +78,7 @@ class Posts extends DB
             foreach ($res as $row) {
                 $rowTagsCount = count(explode(",", $row->tag));
 
-                if (!in_array($row->id, $id) && $rowTagsCount === $searchTagsCount) {
+                if (!in_array($row->id, $id)) {
                     $id[] = $row->id;
                     $matches[] = $row;
                 }

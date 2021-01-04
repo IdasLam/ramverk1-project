@@ -55,7 +55,9 @@ class Users extends DB
         $sql = "SELECT email FROM users WHERE username = ?";
         $res = $this->db->executeFetch($sql, [$username]);
 
-        return $res->email;
+        if ($res !== null) {
+            return $res->email;
+        }
     }
 
     public function getGravatar($username)
