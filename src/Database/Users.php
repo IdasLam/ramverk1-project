@@ -54,6 +54,7 @@ class Users extends DB
     {
         $sql = "SELECT email FROM users WHERE username = ?";
         $res = $this->db->executeFetch($sql, [$username]);
+
         return $res->email;
     }
 
