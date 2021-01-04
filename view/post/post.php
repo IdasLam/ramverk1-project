@@ -4,13 +4,13 @@
     $hasvoted = $username !== null ? $vote->hasvotedPost($username, $posts->id) : null;
 ?>
 <div class="post">
-    <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
+    <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
         <p id="upvotecount"><?= $posts->score?></p>
         <button class="upvote" id="upvote" data-post-id=<?= $posts->id ?> data-username=<?= $posts->username ?>>
-            Upvote
+            🍌
         </button>
         <button class="downvote" id="downvote" data-post-id=<?= $posts->id ?>>
-            downvote
+            🍌
         </button>
     </div>
     <div class="post-data">
@@ -69,13 +69,13 @@
                 </form>
             </div>
             <?php endif; ?>
-            <div class="answer-points <?= $hasvotedAnswer ?>" id="answer" data-voted=<?= $hasvotedAnswer ?>>
+            <div class="answer-points <?= $hasvotedAnswer === "1" ? "vote-up" : ($hasvotedAnswer === "-1" ? "vote-down" : null) ?>"" id="answer" data-voted=<?= $hasvotedAnswer ?>>
                 <p class="answer-upvotecount" id="answer-upvotecount"><?= $answer->score?></p>
                 <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
-                    Upvote
+                    🍌
                 </button>
                 <button class="downvote answer-downvote" id="answer-downvote" data-answer-id=<?= $answer->id ?>>
-                    downvote
+                    🍌
                 </button>
             </div>
 
@@ -109,13 +109,13 @@
             ?>
             <div class="comment">
                 <!-- har inte fixat så att det funkar -->
-                <div class="comment-points <?= $hasvotedComment ?>" id="comment" data-voted=<?= $hasvotedComment ?>>
+                <div class="comment-points <?= $hasvotedComment === "1" ? "vote-up" : ($hasvotedComment === "-1" ? "vote-down" : null) ?>"" id="comment" data-voted=<?= $hasvotedComment ?>>
                     <p class="comment-upvotecount" id="comment-upvotecount"><?= $comment->score?></p>
                     <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?> data-username=<?= $comment->username ?>>
-                        Upvote
+                        🍌
                     </button>
                     <button class="downvote comment-downvote" id="comment-downvote" data-comment-id=<?= $comment->id ?>>
-                        downvote
+                        🍌
                     </button>
                 </div>
                 <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
@@ -143,6 +143,18 @@
 
         const vote = async (type) => {
             let voted = contaier.dataset['voted']
+
+            if (voted === type) {
+                container.classList = "post-points"
+            }
+            
+            if (type === -1) {
+                container.classList.toggle("vote-down")
+                container.classList.remove("vote-up")
+            } else {
+                container.classList.toggle("vote-up")
+                container.classList.remove("vote-down")
+            }
             
             let res = await fetch("votePost", {
                 method: 'POST',
@@ -173,8 +185,19 @@
 
 
         const voteAnswer = async (username, type, postid, answerid, container, upvoteCount) => {
-            console.log(container)
             let voted = container.dataset.voted
+
+            if (voted === type) {
+                container.classList = "post-points"
+            }
+            
+            if (type === -1) {
+                container.classList.toggle("vote-down")
+                container.classList.remove("vote-up")
+            } else {
+                container.classList.toggle("vote-up")
+                container.classList.remove("vote-down")
+            }
             
             let res = await fetch("votePost", {
                 method: 'POST',
@@ -218,6 +241,18 @@
 
         const votecomment = async (username, type, postid, answerid, commentid, container, upvoteCount) => {
             let voted = container.dataset.voted
+
+            if (voted === type) {
+                container.classList = "post-points"
+            }
+            
+            if (type === -1) {
+                container.classList.toggle("vote-down")
+                container.classList.remove("vote-up")
+            } else {
+                container.classList.toggle("vote-up")
+                container.classList.remove("vote-down")
+            }
             
             let res = await fetch("votePost", {
                 method: 'POST',

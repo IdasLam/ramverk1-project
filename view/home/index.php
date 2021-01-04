@@ -5,19 +5,19 @@ $Parsedown = new Parsedown();
 ?>
 
 <p>Topusers</p>
-<p>post/comment count</p>
 <div class="topusers">
 <?php foreach ($topUsers as $key => $value) : ?>
     <a href=<?= "profile?user=" . $key ?>>
         <div class="topuser">
             <p><?= $key ?></p>
-            <p><?= $value ?></p>
+            <p>🍌<?= $value ?></p>
         </div>
     </a>
 <?php endforeach; ?>
 </div>
 
 <div class="toptags">
+    <p>Top tags</p>
 <?php foreach ($topTags as $key => $value) : ?>
     <a href=<?= "post?tags=" . $key ?>>
         <div class="toptags">
@@ -32,13 +32,13 @@ $Parsedown = new Parsedown();
     $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
 ?>
     <div class="post">
-        <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
+        <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
             <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
             <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
-                Upvote
+                🍌
             </button>
             <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
-                downvote
+                🍌
             </button>
         </div>
         <div class="post-data">
@@ -73,8 +73,19 @@ $Parsedown = new Parsedown();
         const upvoteCounter = Array.from(document.querySelectorAll(".upvotecount"))
 
         const vote = async (type, id, container, upvoteCount) => {
-            console.log(container)
-            let voted = container.dataset.voted
+            let voted = parseInt(container.dataset.voted)
+
+            if (voted === type) {
+                container.classList = "post-points"
+            }
+            
+            if (type === -1) {
+                container.classList.toggle("vote-down")
+                container.classList.remove("vote-up")
+            } else {
+                container.classList.toggle("vote-up")
+                container.classList.remove("vote-down")
+            }
             
             let res = await fetch("votePost", {
                 method: 'POST',

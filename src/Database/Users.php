@@ -75,23 +75,25 @@ class Users extends DB
     
     public function mostActiveUsers()
     {
+        $vote = new \Ida\Database\Func\Vote();
+
         $sql = "SELECT username FROM users";
         $res = $this->db->executeFetchAll($sql, []);
         $topusers = [];
 
         foreach($res as $row) {
             $username = $row->username;
-            $count = 0;
+            // $count = 0;
             
-            $sql = "SELECT * FROM comments WHERE username = ?";
-            $res = $this->db->executeFetchAll($sql, [$username]);
-            $count += count($res);
+            // $sql = "SELECT * FROM comments WHERE username = ?";
+            // $res = $this->db->executeFetchAll($sql, [$username]);
+            // $count += count($res);
             
-            $sql = "SELECT * FROM posts WHERE username = ?";
-            $res = $this->db->executeFetchAll($sql, [$username]);
-            $count += count($res);
+            // $sql = "SELECT * FROM posts WHERE username = ?";
+            // $res = $this->db->executeFetchAll($sql, [$username]);
+            // $count += count($res);
 
-            $topusers[$username] = $count;
+            $topusers[$username] = $vote->profilePoints($username);
         }
 
         arsort($topusers);

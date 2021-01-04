@@ -256,8 +256,82 @@ img.responsive {
 
 
 @import "./website/home.less";
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
 
 body {
     background-color: #fff566;
+}
+
+.wrap-all {
+    .outer-wrap.outer-wrap-header {
+        height: unset;
+
+        .inner-wrap.inner-wrap-header .row {
+            background-color: #ffec3d;
+            margin: unset;
+
+            .region-header {
+                place-items: center;
+                display: grid;
+                grid-template-rows: 1fr 1fr;
+                padding-top: 2%;
+                padding-bottom: 1%;
+                border-bottom: 10px solid #874d00;
+
+                .region-header-col-1 {
+                    width: unset;
+                    
+                    .site-logo-text {
+                        font-family: 'Pacifico', cursive;
+                        color: black;
+                        border: unset;
+                        text-shadow: unset;
+                    }
+                    
+                    .site-logo-text a:hover {
+                        text-shadow: unset;
+                    }
+                }
+                .region-header-col-1 .rm-navbar{
+                    font-family: 'Roboto', sans-serif !important;
+                }
+            }
+        }
+    }
+
+    .outer-wrap-footer {
+        background-color: rgb(22, 22, 22);
+    }
+
+}
+
+.rm-navbar{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.downvote {
+    transform: rotate(-180deg);
+}
+
+.downvote,
+.upvote {
+    filter: grayscale(50%);
+    font-size: 2rem;
+}
+
+.vote-down {
+    .downvote {
+        filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+    }
+}
+
+.vote-up {
+    .upvote {
+        filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(0.8);
+    }
+}
+
+button:focus {
+    outline: unset;
 }
  

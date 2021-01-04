@@ -7197,6 +7197,73 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .route-home main .topusers a:nth-child(4n):hover {
   background-color: #1976d2;
 }
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/pacifico/v17/FwZY7-Qmy14u9lezJ96A.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+}
 body {
   background-color: #fff566;
+}
+.wrap-all .outer-wrap.outer-wrap-header {
+  height: unset;
+}
+.wrap-all .outer-wrap.outer-wrap-header .inner-wrap.inner-wrap-header .row {
+  background-color: #ffec3d;
+  margin: unset;
+}
+.wrap-all .outer-wrap.outer-wrap-header .inner-wrap.inner-wrap-header .row .region-header {
+  place-items: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  border-bottom: 10px solid #874d00;
+}
+.wrap-all .outer-wrap.outer-wrap-header .inner-wrap.inner-wrap-header .row .region-header .region-header-col-1 {
+  width: unset;
+}
+.wrap-all .outer-wrap.outer-wrap-header .inner-wrap.inner-wrap-header .row .region-header .region-header-col-1 .site-logo-text {
+  font-family: 'Pacifico', cursive;
+  color: black;
+  border: unset;
+  text-shadow: unset;
+}
+.wrap-all .outer-wrap.outer-wrap-header .inner-wrap.inner-wrap-header .row .region-header .region-header-col-1 .site-logo-text a:hover {
+  text-shadow: unset;
+}
+.wrap-all .outer-wrap.outer-wrap-header .inner-wrap.inner-wrap-header .row .region-header .region-header-col-1 .rm-navbar {
+  font-family: 'Roboto', sans-serif !important;
+}
+.wrap-all .outer-wrap-footer {
+  background-color: #161616;
+}
+.rm-navbar {
+  font-family: 'Roboto', sans-serif !important;
+}
+.downvote {
+  transform: rotate(-180deg);
+}
+.downvote,
+.upvote {
+  filter: grayscale(50%);
+  font-size: 2rem;
+}
+.vote-down .downvote {
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+}
+.vote-up .upvote {
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(0.8);
+}
+button:focus {
+  outline: unset;
 }

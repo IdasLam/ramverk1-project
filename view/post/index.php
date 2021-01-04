@@ -21,13 +21,13 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
 ?>
 <div class="post">
     <p>Latest posts:</p>
-    <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
+    <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
         <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
         <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
-            Upvote
+            🍌
         </button>
         <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
-            downvote
+            🍌
         </button>
     </div>
     <div class="post-data">
@@ -57,8 +57,19 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
     const upvoteCounter = Array.from(document.querySelectorAll(".upvotecount"))
 
     const vote = async (type, id, container, upvoteCount) => {
-        console.log(container)
         let voted = container.dataset.voted
+
+        if (voted === type) {
+            container.classList = "post-points"
+        }
+        
+        if (type === -1) {
+            container.classList.toggle("vote-down")
+            container.classList.remove("vote-up")
+        } else {
+            container.classList.toggle("vote-up")
+            container.classList.remove("vote-down")
+        }
         
         let res = await fetch("votePost", {
             method: 'POST',
