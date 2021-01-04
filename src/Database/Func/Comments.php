@@ -22,7 +22,7 @@ class Comments extends DB
     }
     
     public function postAnswers($id) {
-        $sql = "SELECT answers.*, SUM(answerCommentVotes.vote) as score FROM answers LEFT OUTER JOIN answerCommentVotes ON answerCommentVotes.answerid = answers.id WHERE answers.postid = ?";
+        $sql = "SELECT answers.*, SUM(answerVotes.vote) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ?";
 
         // $sql = "SELECT * FROM answers WHERE postid = ?";
         
@@ -31,13 +31,7 @@ class Comments extends DB
     
     public function postComments($id, $answerid) {
         // $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
-        $sql = "SELECT comments.*, SUM(answerCommentVotes.vote) as score FROM comments LEFT OUTER JOIN answerCommentVotes ON answerCommentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? GROUP BY comments.id ORDER BY date DESC";
-        
-        return $this->db->executeFetchAll($sql, [$id, $answerid]);
-    }
-    
-    public function commentComments($postid, $answerid) {
-        $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
+        $sql = "SELECT comments.*, SUM(commentVotes.vote) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? GROUP BY comments.id ORDER BY date DESC";
         
         return $this->db->executeFetchAll($sql, [$id, $answerid]);
     }

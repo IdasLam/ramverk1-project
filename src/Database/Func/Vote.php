@@ -19,11 +19,11 @@ class Vote extends DB
             $sql = "INSERT INTO votes (username, postid, vote) VALUES (?, ?, ?)";
             $res = $this->db->execute($sql, [$username, intval($postid), $vote > 0 ? 1 : -1]);
         } elseif (isset($answerid) && !isset($commentid)){
-            $sql = "INSERT INTO answerCommentVotes (username, postid, answerid, commentid, vote) VALUES (?, ?, ?, ?, ?)";
-            $res = $this->db->execute($sql, [$username, intval($postid), $answerid, $commentid, $vote > 0 ? 1 : -1]);
+            $sql = "INSERT INTO answerVotes (username, postid, answerid, vote) VALUES ( ?, ?, ?, ?)";
+            $res = $this->db->execute($sql, [$username, intval($postid), $answerid, $vote > 0 ? 1 : -1]);
         } elseif (isset($commentid)) {
-            $sql = "INSERT INTO answerCommentVotes (username, commentid, postid, vote) VALUES (?, ?, ?, ?)";
-            $res = $this->db->execute($sql, [$username, $commentid, intval($postid), $vote > 0 ? 1 : -1]);
+            $sql = "INSERT INTO commentVotes (username, commentid, postid, answerid, vote) VALUES (?, ?, ?, ?, ?)";
+            $res = $this->db->execute($sql, [$username, $commentid, $answerid, intval($postid), $vote > 0 ? 1 : -1]);
         }
     }
     
@@ -54,7 +54,7 @@ class Vote extends DB
     
     public function hasVotedAnswerPost($username, $postid, $answerid)
     {
-        $sql = "SELECT * FROM answerCommentVotes WHERE postid = ? AND username = ? AND answerid = ?";
+        $sql = "SELECT * FROM answerVotes WHERE postid = ? AND username = ? AND answerid = ?";
         $res = $this->db->executeFetch($sql, [$postid, $username, $answerid]);
 
         return $res != null ? $res->vote : null;
@@ -65,21 +65,21 @@ class Vote extends DB
     }
 
     public function removeVoteAnswer($postid, $answerid, $vote, $username) {
-        $sql = "DELETE FROM answerCommentVotes WHERE id = ? AND username = ? AND answerid = ? AND commentid IS NULL";
+        $sql = "DELETE FROM answerVotes WHERE id = ? AND username = ? AND answerid = ?";
         $res = $this->db->execute($sql, [$postid, $username, $answerid]);
     }
 
     public function updateVoteAnswer($postid, $answerid, $vote, $username)
     {
         $voteScore = $vote > 0 ? 1 : -1;
-        $sql = "UPDATE answerCommentVotes SET vote = $voteScore WHERE postid = ? AND username = ? AND commentid IS NULL AND answerid = ?";
+        $sql = "UPDATE answerVotes SET vote = $voteScore WHERE postid = ? AND username = ? AND answerid = ?";
 
         $this->db->execute($sql, [$postid, $username, $answerid]);
     }
 
     public function answerStatus($postid, $answerid, $username)
     {
-        $sql = "SELECT answers.*, SUM(answerCommentVotes.vote) as score FROM answers LEFT OUTER JOIN answerCommentVotes ON answerCommentVotes.answerid = answers.id WHERE answers.postid = ? AND answers.id = ? AND answers.username = ?";
+        $sql = "SELECT answers.*, SUM(answerVotes.vote) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND answers.id = ? AND answers.username = ?";
         $res = $this->db->executeFetch($sql, [$postid, $answerid, $username]);
 
         return $res;
@@ -87,7 +87,7 @@ class Vote extends DB
     
     public function hasVotedCommentPost($username, $postid, $answerid, $commentid)
     {
-        $sql = "SELECT * FROM answerCommentVotes WHERE postid = ? AND username = ? AND answerid = ? AND commentid = ?";
+        $sql = "SELECT * FROM commentVotes WHERE postid = ? AND username = ? AND answerid = ? AND commentid = ?";
         $res = $this->db->executeFetch($sql, [$postid, $username, $answerid, $commentid]);
 
         return $res != null ? $res->vote : null;
@@ -98,21 +98,21 @@ class Vote extends DB
     }
 
     public function removeVoteComment($postid, $answerid, $vote, $username , $commentid) {
-        $sql = "DELETE FROM answerCommentVotes WHERE id = ? AND username = ? AND answerid = ? AND commentid = ?";
+        $sql = "DELETE FROM commentVotes WHERE id = ? AND username = ? AND answerid = ? AND commentid = ?";
         $res = $this->db->execute($sql, [$postid, $username, $answerid, $commentid]);
     }
 
     public function updateVoteComment($postid, $answerid, $vote, $username, $commentid)
     {
         $voteScore = $vote > 0 ? 1 : -1;
-        $sql = "UPDATE answerCommentVotes SET vote = $voteScore WHERE postid = ? AND username = ? AND commentid = ? AND answerid = ?";
+        $sql = "UPDATE commentVotes SET vote = $voteScore WHERE postid = ? AND username = ? AND commentid = ? AND answerid = ?";
 
         $this->db->execute($sql, [$postid, $username, $commentid, $answerid]);
     }
 
     public function commentStatus($postid, $answerid, $username, $commentid)
     {
-        $sql = "SELECT comments.*, SUM(answerCommentVotes.vote) as score FROM comments LEFT OUTER JOIN answerCommentVotes ON answerCommentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? AND comments.username = ? AND comments.id = ?";
+        $sql = "SELECT comments.*, SUM(commentVotes.vote) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? AND comments.username = ? AND comments.id = ?";
         $res = $this->db->executeFetch($sql, [$postid, $answerid, $username, $commentid]);
 
         return $res;

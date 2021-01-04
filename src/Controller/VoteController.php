@@ -17,6 +17,7 @@ class VoteController implements ContainerInjectableInterface
         $input =  json_decode($this->di->request->getBody());
 
         $postid = intval(htmlentities($input->id));
+        $usernameInput = isset($input->username) ? htmlentities($input->username) : null;
         $type = intval(htmlentities($input->vote));
         $answerid = isset($input->answerid) ? intval(htmlentities($input->answerid)) : null;
         $commentid = isset($input->commentid) ? intval(htmlentities($input->commentid)) : null;
@@ -52,12 +53,12 @@ class VoteController implements ContainerInjectableInterface
                 $votedb->updateVoteAnswer($postid, $answerid, $type, $username);
             }
 
-            $res = $votedb->answerStatus($postid, $answerid, $username);
+            $res = $votedb->answerStatus($postid, $answerid, $usernameInput);
         } elseif (isset($commentid)) {
             $voted = $votedb->hasVotedCommentPost($username, $postid, $answerid, $commentid);
             $userHasVoted = $voted === null ? null : intval($voted);
 
-            // var_dump($voted, $userHasVoted);
+            // var_dump($postid, $answerid, $usernameInput, $commentid);
 
             if ($userHasVoted === $type) {
                 // unvote
@@ -69,7 +70,7 @@ class VoteController implements ContainerInjectableInterface
                 $votedb->updateVoteComment($postid, $answerid, $type, $username, $commentid);
             }
 
-            $res = $votedb->commentStatus($postid, $answerid, $username, $commentid);
+            $res = $votedb->commentStatus($postid, $answerid, $usernameInput, $commentid);
         }
 
         return json_encode($res);

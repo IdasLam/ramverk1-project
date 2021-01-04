@@ -6,7 +6,7 @@
 <div class="post">
     <div class="post-points <?= $hasvoted ?>" id="post" data-voted=<?= $hasvoted ?>>
         <p id="upvotecount"><?= $posts->score?></p>
-        <button class="upvote" id="upvote" data-post-id=<?= $posts->id ?>>
+        <button class="upvote" id="upvote" data-post-id=<?= $posts->id ?> data-username=<?= $posts->username ?>>
             Upvote
         </button>
         <button class="downvote" id="downvote" data-post-id=<?= $posts->id ?>>
@@ -47,7 +47,7 @@
             <div class="answer">
                 <div class="answer-points <?= $hasvotedAnswer ?>" id="answer" data-voted=<?= $hasvotedAnswer ?>>
                     <p class="answer-upvotecount" id="answer-upvotecount"><?= $answer->score?></p>
-                    <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?>>
+                    <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
                         Upvote
                     </button>
                     <button class="downvote answer-downvote" id="answer-downvote" data-answer-id=<?= $answer->id ?>>
@@ -82,7 +82,7 @@
                     <!-- har inte fixat så att det funkar -->
                     <div class="comment-points <?= $hasvotedComment ?>" id="comment" data-voted=<?= $hasvotedComment ?>>
                         <p class="comment-upvotecount" id="comment-upvotecount"><?= $comment->score?></p>
-                        <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?>>
+                        <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?> data-username=<?= $comment->username ?>>
                             Upvote
                         </button>
                         <button class="downvote comment-downvote" id="comment-downvote" data-comment-id=<?= $comment->id ?>>
@@ -137,14 +137,14 @@
     </script>
     <script>
         const answerContaiers = Array.from(document.querySelectorAll(".answer-points"))
-    
+
         const answerUpvoteButton = Array.from(document.querySelectorAll(".answer-upvote"))
         const answerDownvoteButton = Array.from(document.querySelectorAll(".answer-downvote"))
         const answerUpvoteCount = Array.from(document.querySelectorAll(".answer-upvotecount"))
 
 
-        const voteAnswer = async (type, postid, answerid, container, upvoteCount) => {
-            // console.log(container.dataset)
+        const voteAnswer = async (username, type, postid, answerid, container, upvoteCount) => {
+            console.log(container)
             let voted = container.dataset.voted
             
             let res = await fetch("votePost", {
@@ -153,6 +153,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    username,
                     answerid,
                     id: postid,
                     vote: type
@@ -173,9 +174,10 @@
 
             let postid = upvoteButton.dataset.postId
             let answerid = upvoteButton.dataset.answerId
+            let username = upvoteButton.dataset.username
 
-            upvoteButton.addEventListener("click", () => voteAnswer(1, postid, answerid, contaier, upvoteCount))
-            downvoteButton.addEventListener("click", () => voteAnswer(-1, postid, answerid, contaier, upvoteCount))
+            upvoteButton.addEventListener("click", () => voteAnswer(username, 1, postid, answerid, contaier, upvoteCount))
+            downvoteButton.addEventListener("click", () => voteAnswer(username, -1, postid, answerid, contaier, upvoteCount))
         }
     </script>
     <script>
@@ -185,7 +187,7 @@
         const commentDownvoteButton = Array.from(document.querySelectorAll(".comment-downvote"))
         const commentUpvoteCount = Array.from(document.querySelectorAll(".comment-upvotecount"))
 
-        const votecomment = async (type, postid, answerid, commentid, container, upvoteCount) => {
+        const votecomment = async (username, type, postid, answerid, commentid, container, upvoteCount) => {
             let voted = container.dataset.voted
             
             let res = await fetch("votePost", {
@@ -194,6 +196,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    username,
                     commentid,
                     answerid,
                     id: postid,
@@ -216,9 +219,10 @@
             let postid = upvoteButton.dataset.postId
             let answerid = upvoteButton.dataset.answerId
             let commentid = upvoteButton.dataset.commentId
+            let username = upvoteButton.dataset.username
 
-            upvoteButton.addEventListener("click", () => votecomment(1, postid, answerid, commentid, contaier, upvoteCount))
-            downvoteButton.addEventListener("click", () => votecomment(-1, postid, answerid, commentid, contaier, upvoteCount))
+            upvoteButton.addEventListener("click", () => votecomment(username, 1, postid, answerid, commentid, contaier, upvoteCount))
+            downvoteButton.addEventListener("click", () => votecomment(username, -1, postid, answerid, commentid, contaier, upvoteCount))
         }
     </script>
     <script>
