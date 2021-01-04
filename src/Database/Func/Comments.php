@@ -21,17 +21,52 @@ class Comments extends DB
         return $this->db->executeFetchAll($sql, [$username]);
     }
     
-    public function postAnswers($id) {
-        $sql = "SELECT answers.*, SUM(answerVotes.vote) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id";
+    public function postAnswers($id, $answerid) {
+        if (isset($answerid)) {
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND answers.id = ?";
+            $res = $this->db->executeFetch($sql, [$id, $answerid]);
+            
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND NOT answers.id = ? GROUP BY answers.id";
+            
+            
+            $answers = $this->db->executeFetchAll($sql, [$id, $answerid]);
+            
+            array_unshift($answers, $res);
+        } else {
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id";
+            $answers = $this->db->executeFetchAll($sql, [$id]);
 
-        // $sql = "SELECT * FROM answers WHERE postid = ?";
-        
+        }
+
+        return $answers;
+    }
+
+    public function dateAnswers($id, $order) {
+        if ($order === "DESC") {
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id ORDER BY answers.date DESC";
+            
+        } else {
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id ORDER BY answers.date ASC";
+            
+        }
+
+        return $this->db->executeFetchAll($sql, [$id]);
+    }
+    
+    
+    public function orderUpvotesAnswers($id, $order) {
+        if ($order === "DESC") {
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id ORDER BY score DESC";
+        } else {
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id ORDER BY score ASC"; 
+        }
+
         return $this->db->executeFetchAll($sql, [$id]);
     }
     
     public function postComments($id, $answerid) {
         // $sql = "SELECT * FROM comments WHERE postid = ? AND answerid = ?";
-        $sql = "SELECT comments.*, SUM(commentVotes.vote) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? GROUP BY comments.id ORDER BY date DESC";
+        $sql = "SELECT comments.*, COALESCE(SUM(commentVotes.vote), 0) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? GROUP BY comments.id ORDER BY score DESC";
         
         return $this->db->executeFetchAll($sql, [$id, $answerid]);
     }
