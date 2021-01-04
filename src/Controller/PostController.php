@@ -81,4 +81,22 @@ class PostController implements ContainerInjectableInterface
 
         return $this->di->response->redirect("post?tag=" . $search);
     }
+
+    public function markAnswerActionPost()
+    {
+        $post = new \Ida\Database\Posts();
+
+        $postid = htmlentities($this->di->request->getPost("postid"));
+        $answerid = htmlentities($this->di->request->getPost("answerid"));
+        $currentAnswer = htmlentities($this->di->request->getPost("currentAnswer"));
+
+        if ($answerid === $currentAnswer) {
+            $post->unsetAnswer($postid);
+
+        } else {
+            $post->setAnswer($postid, $answerid);
+        }
+
+        return $this->di->response->redirect("post?id=" . $postid);
+    }
 }

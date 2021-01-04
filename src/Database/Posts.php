@@ -87,4 +87,14 @@ class Posts extends DB
 
         return $matches;
     }
+
+    public function setAnswer($postid, $answerid) {
+        $sql = "UPDATE posts SET answer = ? WHERE id = ?";
+        $res = $this->db->execute($sql, [$answerid, $postid]);
+    }
+    
+    public function unsetAnswer($postid) {
+        $sql = "UPDATE posts SET answer = null WHERE id = ?";
+        $res = $this->db->execute($sql, [$postid]);
+    }
 }

@@ -44,59 +44,68 @@
         <?php foreach ($answers as $answer) :
             $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $posts->id, $answer->id) : null;    
         ?>
-            <div class="answer">
-                <div class="answer-points <?= $hasvotedAnswer ?>" id="answer" data-voted=<?= $hasvotedAnswer ?>>
-                    <p class="answer-upvotecount" id="answer-upvotecount"><?= $answer->score?></p>
-                    <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
+        <div class="answer">
+            <?php if ($username === $posts->username): ?>
+            <div class="mark-answer">
+                <form action="post/markAnswer" method="post">
+                    <input type="hidden" name="postid" value=<?= $id ?>>
+                    <input type="hidden" name="currentAnswer" value=<?= $posts->answer?>>
+                    <button name="answerid" value=<?= $answer->id ?>><?= $posts->answer === $answer->id ? "✅" : "✔️" ?></button>
+                </form>
+            </div>
+            <?php endif; ?>
+            <div class="answer-points <?= $hasvotedAnswer ?>" id="answer" data-voted=<?= $hasvotedAnswer ?>>
+                <p class="answer-upvotecount" id="answer-upvotecount"><?= $answer->score?></p>
+                <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
+                    Upvote
+                </button>
+                <button class="downvote answer-downvote" id="answer-downvote" data-answer-id=<?= $answer->id ?>>
+                    downvote
+                </button>
+            </div>
+
+            <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
+            <div>
+                <a href=<?= "profile/" . $answer->username ?>>u/ <?= $answer->username ?></a>
+                <?= $Parsedown->text($answer->content) ?>
+            </div>
+            <button class="reply" id="reply" data-reply-comment-id=<?= $answer->id ?>>reply</button>
+            <?php if ($username !== null): ?>
+            <div class=<?= "reply-form-" . $answer->id?> style="display: none;">
+                <img src=<?= $gravatar ?> alt="profile-img">
+                <form action="comment/comment" method="post">
+                    <label for="content">Comment</label>
+                    <textarea name="content" cols="30" rows="10"></textarea>
+                    <input type="hidden" name="postid" value=<?= $id ?>>
+                    <input type="hidden" name="answerid" value=<?= $answer->id ?>>
+                    <button>Reply</button>
+                </form>
+            </div>
+            <?php
+            endif;
+            $comments = $commentsdb->postComments($id, $answer->id);
+            foreach ($comments as $comment) :
+            $hasvotedComment = $username !== null ? $vote->hasVotedCommentPost($username, $posts->id, $answer->id, $comment->id) : null;
+            ?>
+            <div class="comment">
+                <!-- har inte fixat så att det funkar -->
+                <div class="comment-points <?= $hasvotedComment ?>" id="comment" data-voted=<?= $hasvotedComment ?>>
+                    <p class="comment-upvotecount" id="comment-upvotecount"><?= $comment->score?></p>
+                    <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?> data-username=<?= $comment->username ?>>
                         Upvote
                     </button>
-                    <button class="downvote answer-downvote" id="answer-downvote" data-answer-id=<?= $answer->id ?>>
+                    <button class="downvote comment-downvote" id="comment-downvote" data-comment-id=<?= $comment->id ?>>
                         downvote
                     </button>
                 </div>
-
                 <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
                 <div>
-                    <a href=<?= "profile/" . $answer->username ?>>u/ <?= $answer->username ?></a>
-                    <?= $Parsedown->text($answer->content) ?>
+                    <a href=<?= "profile/" . $comment->username ?>>u/ <?= $comment->username ?></a>
+                    <?= $Parsedown->text($comment->content) ?>
                 </div>
-                <button class="reply" id="reply" data-reply-comment-id=<?= $answer->id ?>>reply</button>
-                <?php if ($username !== null): ?>
-                <div class=<?= "reply-form-" . $answer->id?> style="display: none;">
-                    <img src=<?= $gravatar ?> alt="profile-img">
-                    <form action="comment/comment" method="post">
-                        <label for="content">Comment</label>
-                        <textarea name="content" cols="30" rows="10"></textarea>
-                        <input type="hidden" name="postid" value=<?= $id ?>>
-                        <input type="hidden" name="answerid" value=<?= $answer->id ?>>
-                        <button>Reply</button>
-                    </form>
-                </div>
-                <?php
-                endif;
-                $comments = $commentsdb->postComments($id, $answer->id);
-                foreach ($comments as $comment) :
-                $hasvotedComment = $username !== null ? $vote->hasVotedCommentPost($username, $posts->id, $answer->id, $comment->id) : null;
-                ?>
-                <div class="comment">
-                    <!-- har inte fixat så att det funkar -->
-                    <div class="comment-points <?= $hasvotedComment ?>" id="comment" data-voted=<?= $hasvotedComment ?>>
-                        <p class="comment-upvotecount" id="comment-upvotecount"><?= $comment->score?></p>
-                        <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?> data-username=<?= $comment->username ?>>
-                            Upvote
-                        </button>
-                        <button class="downvote comment-downvote" id="comment-downvote" data-comment-id=<?= $comment->id ?>>
-                            downvote
-                        </button>
-                    </div>
-                    <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
-                    <div>
-                        <a href=<?= "profile/" . $comment->username ?>>u/ <?= $comment->username ?></a>
-                        <?= $Parsedown->text($comment->content) ?>
-                    </div>
-                </div>
-                <?php endforeach; ?>
             </div>
+            <?php endforeach; ?>
+        </div>
     
         <?php endforeach; ?>
     </div>
