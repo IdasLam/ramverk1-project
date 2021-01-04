@@ -117,4 +117,44 @@ class Vote extends DB
 
         return $res;
     }
+
+    public function profilePoints($username)
+    {
+        $postPoints = 0;
+        $votePoints = 0;
+        // points for question, comment, answer
+        // points for total question votes
+        // points for total comment votes
+        // points for total answer votes
+
+        $sql = "SELECT * FROM posts WHERE username = ?";
+        $posts = $this->db->executeFetchAll($sql, [$username]);
+        $postPoints += count($posts);
+
+        foreach ($posts as $post) {
+            $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE votes.postid = ?";
+
+            $votePoints += ($this->db->executeFetch($sql, [$post->id]))->score;
+        }
+
+        $sql = "SELECT * FROM answers WHERE username = ?";
+        $answers = $this->db->executeFetchAll($sql, [$username]);
+        $postPoints += count($answers);
+
+        foreach ($answers as $answer) {
+            $score = $this->answerStatus($answer->postid, $answer->id, $username);
+            $votePoints += $score->score;
+        }
+        
+        $sql = "SELECT * FROM comments WHERE username = ?";
+        $comments = $this->db->executeFetchAll($sql, [$username]);
+        $postPoints += count($comments);
+
+        foreach ($comments as $comment) {
+            $score = $this->commentStatus($comment->postid, $comment->answerid, $username, $comment->id);
+            $votePoints += $score->score;
+        }
+
+        return $postPoints + $votePoints;
+    }
 }

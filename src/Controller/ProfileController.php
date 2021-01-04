@@ -14,6 +14,7 @@ class ProfileController implements ContainerInjectableInterface
         $posts = new \Ida\Database\Posts();
         $comments = new \Ida\Database\Func\Comments();
         $userdb = new \Ida\Database\Users();
+        $vote = new \Ida\Database\Func\Vote();
 
         $user = $this->di->request->getGet("user");
         
@@ -27,6 +28,7 @@ class ProfileController implements ContainerInjectableInterface
         $data = [
             "currentUser" => $username,
             "username" => $user,
+            "points" => $vote->profilePoints($user),
             "posts" => $posts->profilePost($user),
             "comments" => $comments->profileComments($user),
             "answers" => $comments->profileAnswers($user),

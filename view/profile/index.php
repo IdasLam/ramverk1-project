@@ -6,9 +6,10 @@
 ?>
 
 <div class="profile-container">
-    <div class="profile">
+    <div class="profile-info">
         <img src=<?= $gravatar ?> alt="profile-img">
         <h1><?= $username ?></h1>
+        <p>Bananas: <?= $points ?> </p>
 
         <?php if ($currentUser === $username) : ?>
             <a href="profile/edit">
