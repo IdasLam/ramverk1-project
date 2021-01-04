@@ -40,11 +40,26 @@
     </div>
     <?php endif; ?>
     <div class="comments">
-        <p>Answers</p>
+        <form action="" method="get">
+            <label for="sort-by">sort by</label>
+            <input type="hidden" name="id" value=<?= $posts->id ?>>
+            <select name="sort-by">
+                <option value="default">default</option>
+                <option value="latest">latest</option>
+                <option value="oldest">oldest</option>
+                <option value="upvotes">upvotes</option>
+                <option value="controversial">controversial</option>
+            </select>
+            <button>Sort</button>
+        </form>
+        <p>Answers: <?= count($answers) ?> </p>
         <?php foreach ($answers as $answer) :
             $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $posts->id, $answer->id) : null;    
         ?>
         <div class="answer">
+            <?php if ($username !== $posts->username): ?>
+            <p><?= $posts->answer === $answer->id ? "✅" : null ?></p>
+            <?php endif; ?>
             <?php if ($username === $posts->username): ?>
             <div class="mark-answer">
                 <form action="post/markAnswer" method="post">
@@ -84,6 +99,11 @@
             <?php
             endif;
             $comments = $commentsdb->postComments($id, $answer->id);
+            ?>
+            <div class="comment-count">
+                <p>comments: <?= count($comments) ?></p>
+            </div>
+            <?php
             foreach ($comments as $comment) :
             $hasvotedComment = $username !== null ? $vote->hasVotedCommentPost($username, $posts->id, $answer->id, $comment->id) : null;
             ?>
