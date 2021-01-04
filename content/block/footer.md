@@ -1,1 +1,1 @@
-Copyright 2020 Ida Lam
+Copyright © 2021 Ida Lam. All rights reserved.
