@@ -26,8 +26,11 @@ CREATE TABLE posts
     -- downvote INT DEFAULT 0,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
     tag TEXT,
+    answer INT DEFAULT NULL,
 
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (answer) REFERENCES answers(id)
+
 );
 
 CREATE TABLE answers
