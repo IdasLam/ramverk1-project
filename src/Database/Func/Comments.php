@@ -22,7 +22,7 @@ class Comments extends DB
     }
     
     public function postAnswers($id) {
-        $sql = "SELECT answers.*, SUM(answerVotes.vote) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ?";
+        $sql = "SELECT answers.*, SUM(answerVotes.vote) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? GROUP BY answers.id";
 
         // $sql = "SELECT * FROM answers WHERE postid = ?";
         
