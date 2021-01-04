@@ -81,7 +81,7 @@
 
             <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
             <div>
-                <a href=<?= "profile/" . $answer->username ?>>u/ <?= $answer->username ?></a>
+                <a href=<?= "profile?user=" . $answer->username ?>>u/ <?= $answer->username ?></a>
                 <?= $Parsedown->text($answer->content) ?>
             </div>
             <button class="reply" id="reply" data-reply-comment-id=<?= $answer->id ?>>reply</button>
