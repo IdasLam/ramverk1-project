@@ -40,10 +40,9 @@ class LoginController implements ContainerInjectableInterface
             $userValid = $user->checkPassword($username, $password);
 
             if ($userValid) {
-                $email = $user->email($username);
                 $this->di->session->set("username", $username);
                 $this->di->session->set("loggedin", true);
-                $this->di->session->set("email", $email);
+                $this->di->session->set("email", $user->email($username));
 
                 return $this->di->response->redirect("home");
             } else {
