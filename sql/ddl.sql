@@ -6,7 +6,8 @@ DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS votes;
-DROP TABLE IF EXISTS answerCommentVotes;
+DROP TABLE IF EXISTS answerVotes;
+DROP TABLE IF EXISTS commentVotes;
 
 CREATE TABLE users
 (
@@ -71,7 +72,21 @@ CREATE TABLE votes
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
-CREATE TABLE answerCommentVotes
+CREATE TABLE answerVotes
+(
+    id INTEGER PRIMARY KEY,
+
+    postid INT DEFAULT NULL,
+    answerid INT DEFAULT NULL,
+    -- commentid INT DEFAULT NULL,
+    username VARCHAR(255) NOT NULL,
+    vote INT NOT NULL,
+
+    FOREIGN KEY (postid) REFERENCES posts(postid),
+    FOREIGN KEY (username) REFERENCES users(username)
+);
+
+CREATE TABLE commentVotes
 (
     id INTEGER PRIMARY KEY,
 
