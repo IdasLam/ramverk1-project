@@ -22,10 +22,10 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
 <div class="post">
     <p>Latest posts:</p>
     <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
-        <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
         <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
             🍌
         </button>
+        <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
         <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
             🍌
         </button>

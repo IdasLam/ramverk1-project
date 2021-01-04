@@ -4,7 +4,7 @@ $Parsedown = new Parsedown();
 
 ?>
 
-<p>Topusers</p>
+<p class="font-semibold">Topusers</p>
 <div class="topusers">
 <?php foreach ($topUsers as $key => $value) : ?>
     <a href=<?= "profile?user=" . $key ?>>
@@ -16,8 +16,8 @@ $Parsedown = new Parsedown();
 <?php endforeach; ?>
 </div>
 
+<p class="font-semibold">Top tags</p>
 <div class="toptags">
-    <p>Top tags</p>
 <?php foreach ($topTags as $key => $value) : ?>
     <a href=<?= "post?tags=" . $key ?>>
         <div class="toptags">
@@ -26,17 +26,17 @@ $Parsedown = new Parsedown();
     </a>
 <?php endforeach; ?>
 </div>
-
-<?php foreach ($posts as $post) :
-
-    $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
-?>
+<div class="post-container">
+    <?php foreach ($posts as $post) :
+    
+        $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
+    ?>
     <div class="post">
         <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
-            <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
             <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
                 🍌
             </button>
+            <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
             <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
                 🍌
             </button>
@@ -44,12 +44,11 @@ $Parsedown = new Parsedown();
         <div class="post-data">
             <a href=<?= "profile?user=" . $post->username ?>>u/ <?= $post->username ?></a>
             <div class="tag-container">
-                <?php if (isset($post->tag)) :
+                <?php 
+                if (isset($post->tag)) :
                     $tags = explode(",",$post->tag);
                     foreach ($tags as $tag) : ?>
-                        <div class="tag">
-                            <p><?= $tag ?></p>
-                        </div>
+                    <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
@@ -58,7 +57,8 @@ $Parsedown = new Parsedown();
             </a>
         </div>
     </div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
+</div>
 <?php if ($username !== null): ?>
     <script>
         // const contaier = document.getElementById("post")

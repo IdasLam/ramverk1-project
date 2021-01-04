@@ -7159,43 +7159,83 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .site-logo-text-icon {
   display: none;
 }
-.route-home main .topusers {
+.route-home main .topusers,
+.route-home main .toptags,
+.route-home main .tag-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 20px;
   color: #fff;
 }
-.route-home main .topusers a {
+.route-home main .topusers a,
+.route-home main .toptags a,
+.route-home main .tag-container a {
   text-decoration: unset;
   border-radius: 20px;
+  border: 1x solid black;
+  transition: 0.6s linear background-color;
 }
-.route-home main .topusers .topuser {
+.route-home main .topusers .topuser,
+.route-home main .toptags .topuser,
+.route-home main .tag-container .topuser,
+.route-home main .topusers .toptags,
+.route-home main .toptags .toptags,
+.route-home main .tag-container .toptags,
+.route-home main .topusers span,
+.route-home main .toptags span,
+.route-home main .tag-container span {
   color: #fff;
   text-align-last: center;
 }
-.route-home main .topusers a:nth-child(1n) {
-  background-color: #e91e63;
+.route-home main .topusers a:nth-child(1n),
+.route-home main .toptags a:nth-child(1n),
+.route-home main .tag-container a:nth-child(1n) {
+  background-color: #d3f261;
 }
-.route-home main .topusers a:nth-child(1n):hover {
-  background-color: #c2185b;
+.route-home main .topusers a:nth-child(1n):hover,
+.route-home main .toptags a:nth-child(1n):hover,
+.route-home main .tag-container a:nth-child(1n):hover {
+  background-color: #7cb305;
 }
-.route-home main .topusers a:nth-child(2n) {
-  background-color: #9c27b0;
+.route-home main .topusers a:nth-child(2n),
+.route-home main .toptags a:nth-child(2n),
+.route-home main .tag-container a:nth-child(2n) {
+  background-color: #fadb14;
 }
-.route-home main .topusers a:nth-child(2n):hover {
-  background-color: #7b1fa2;
+.route-home main .topusers a:nth-child(2n):hover,
+.route-home main .toptags a:nth-child(2n):hover,
+.route-home main .tag-container a:nth-child(2n):hover {
+  background-color: #d6ba04;
 }
-.route-home main .topusers a:nth-child(3n) {
-  background-color: #673ab7;
+.route-home main .topusers a:nth-child(3n),
+.route-home main .toptags a:nth-child(3n),
+.route-home main .tag-container a:nth-child(3n) {
+  background-color: #b67c46;
 }
-.route-home main .topusers a:nth-child(3n):hover {
-  background-color: #512da8;
+.route-home main .topusers a:nth-child(3n):hover,
+.route-home main .toptags a:nth-child(3n):hover,
+.route-home main .tag-container a:nth-child(3n):hover {
+  background-color: #8b5e33;
 }
-.route-home main .topusers a:nth-child(4n) {
-  background-color: #2196f3;
+.route-home main .topusers a:nth-child(4n),
+.route-home main .toptags a:nth-child(4n),
+.route-home main .tag-container a:nth-child(4n) {
+  background-color: #704925;
 }
-.route-home main .topusers a:nth-child(4n):hover {
-  background-color: #1976d2;
+.route-home main .topusers a:nth-child(4n):hover,
+.route-home main .toptags a:nth-child(4n):hover,
+.route-home main .tag-container a:nth-child(4n):hover {
+  background-color: #553518;
+}
+.route-home main .topusers a:nth-child(5n),
+.route-home main .toptags a:nth-child(5n),
+.route-home main .tag-container a:nth-child(5n) {
+  background-color: #57371a;
+}
+.route-home main .topusers a:nth-child(5n):hover,
+.route-home main .toptags a:nth-child(5n):hover,
+.route-home main .tag-container a:nth-child(5n):hover {
+  background-color: #472d14;
 }
 @font-face {
   font-family: 'Pacifico';
@@ -7266,4 +7306,35 @@ body {
 }
 button:focus {
   outline: unset;
+}
+.post-container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.post {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.post .post-points {
+  justify-self: center;
+}
+.post .post-points p {
+  text-align: center;
+}
+.post h1 {
+  margin: unset;
+}
+.upvotecount {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.tag-container {
+  text-align: center;
+}
+h1,
+h2,
+h3 {
+  border: unset;
 }

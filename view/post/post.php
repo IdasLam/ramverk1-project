@@ -5,10 +5,10 @@
 ?>
 <div class="post">
     <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
-        <p id="upvotecount"><?= $posts->score?></p>
         <button class="upvote" id="upvote" data-post-id=<?= $posts->id ?> data-username=<?= $posts->username ?>>
             🍌
         </button>
+        <p id="upvotecount"><?= $posts->score?></p>
         <button class="downvote" id="downvote" data-post-id=<?= $posts->id ?>>
             🍌
         </button>
@@ -70,10 +70,10 @@
             </div>
             <?php endif; ?>
             <div class="answer-points <?= $hasvotedAnswer === "1" ? "vote-up" : ($hasvotedAnswer === "-1" ? "vote-down" : null) ?>"" id="answer" data-voted=<?= $hasvotedAnswer ?>>
-                <p class="answer-upvotecount" id="answer-upvotecount"><?= $answer->score?></p>
                 <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
                     🍌
                 </button>
+                <p class="answer-upvotecount" id="answer-upvotecount"><?= $answer->score?></p>
                 <button class="downvote answer-downvote" id="answer-downvote" data-answer-id=<?= $answer->id ?>>
                     🍌
                 </button>
@@ -110,10 +110,10 @@
             <div class="comment">
                 <!-- har inte fixat så att det funkar -->
                 <div class="comment-points <?= $hasvotedComment === "1" ? "vote-up" : ($hasvotedComment === "-1" ? "vote-down" : null) ?>"" id="comment" data-voted=<?= $hasvotedComment ?>>
-                    <p class="comment-upvotecount" id="comment-upvotecount"><?= $comment->score?></p>
                     <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?> data-username=<?= $comment->username ?>>
                         🍌
                     </button>
+                    <p class="comment-upvotecount" id="comment-upvotecount"><?= $comment->score?></p>
                     <button class="downvote comment-downvote" id="comment-downvote" data-comment-id=<?= $comment->id ?>>
                         🍌
                     </button>
