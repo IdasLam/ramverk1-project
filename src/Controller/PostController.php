@@ -84,7 +84,7 @@ class PostController implements ContainerInjectableInterface
 
         $post->newPosts($tags, $content, $username);
 
-        return $this->di->response->redirect("home");
+        return $this->di->response->redirect("post");
     }
     
     public function searchTagActionGet()
