@@ -39,8 +39,8 @@ class PostController implements ContainerInjectableInterface
             $sort = htmlentities($this->di->request->getGet("sort-by"));
 
             $post = $id !== "" ? $postdb->fetchPost($id) : $postdb->allLatestPosts();
-            
-            if (!isset($sort) || $sort === "default") {
+
+            if ($sort === "" || $sort === "default") {
                 $comments = $id !== "" ? $commentsdb->postAnswers($id, $post->answer) : null;
             } elseif ($sort === "latest") {
                 $comments = $id !== "" ? $commentsdb->dateAnswers($id, "DESC") : null;
