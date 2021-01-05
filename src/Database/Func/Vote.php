@@ -23,7 +23,7 @@ class Vote extends DB
             $res = $this->db->execute($sql, [$username, intval($postid), $answerid, $vote > 0 ? 1 : -1]);
         } elseif (isset($commentid)) {
             $sql = "INSERT INTO commentVotes (username, commentid, postid, answerid, vote) VALUES (?, ?, ?, ?, ?)";
-            $res = $this->db->execute($sql, [$username, $commentid, $answerid, intval($postid), $vote > 0 ? 1 : -1]);
+            $res = $this->db->execute($sql, [$username, $commentid, intval($postid), $answerid,$vote > 0 ? 1 : -1]);
         }
     }
     
@@ -79,7 +79,7 @@ class Vote extends DB
 
     public function answerStatus($postid, $answerid, $username)
     {
-        $sql = "SELECT answers.*, SUM(answerVotes.vote) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND answers.id = ? AND answers.username = ?";
+        $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND answers.id = ? AND answers.username = ?";
         $res = $this->db->executeFetch($sql, [$postid, $answerid, $username]);
 
         return $res;
@@ -89,7 +89,7 @@ class Vote extends DB
     {
         $sql = "SELECT * FROM commentVotes WHERE postid = ? AND username = ? AND answerid = ? AND commentid = ?";
         $res = $this->db->executeFetch($sql, [$postid, $username, $answerid, $commentid]);
-
+        // var_dump($res);
         return $res != null ? $res->vote : null;
     }
 
@@ -112,7 +112,7 @@ class Vote extends DB
 
     public function commentStatus($postid, $answerid, $username, $commentid)
     {
-        $sql = "SELECT comments.*, SUM(commentVotes.vote) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? AND comments.username = ? AND comments.id = ?";
+        $sql = "SELECT comments.*, COALESCE(SUM(commentVotes.vote), 0) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.postid = ? AND comments.answerid = ? AND comments.username = ? AND comments.id = ?";
         $res = $this->db->executeFetch($sql, [$postid, $answerid, $username, $commentid]);
 
         return $res;
@@ -132,7 +132,7 @@ class Vote extends DB
         $postPoints += count($posts);
 
         foreach ($posts as $post) {
-            $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE votes.postid = ?";
+            $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE votes.postid = ?";
 
             $votePoints += ($this->db->executeFetch($sql, [$post->id]))->score;
         }
