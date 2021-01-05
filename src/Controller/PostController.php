@@ -82,6 +82,8 @@ class PostController implements ContainerInjectableInterface
         $content = htmlentities($this->di->request->getPost("content"));
         $username = $this->di->session->get("username");
 
+        $tags = $tags === "" ? null : $tags;
+
         $post->newPosts($tags, $content, $username);
 
         return $this->di->response->redirect("post");
