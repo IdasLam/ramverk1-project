@@ -11,7 +11,7 @@ class Posts extends DB
 
     public function latestPosts()
     {
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC LIMIT 0, 2";
+        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC LIMIT 0, 10";
 
         return $this->db->executeFetchAll($sql);
     }
