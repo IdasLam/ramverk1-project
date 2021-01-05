@@ -4,23 +4,27 @@ $Parsedown = new Parsedown();
 
 if (isset($username)) :
 ?>
-    <div class="write-post">
+<p class="font-semibold">Ask a question:</p>
+<div class="write-post">
+    <div>
         <img src=<?= $gravatar ?> alt="profile-img">
-        <form action="post/newpost" method="post">
-            <input type="text" name="tags" placeholder="Tags, comma seperated">
-            <textarea name="content" cols="20" rows="10" placeholder="Markdown supported" required></textarea>
-            <button>Post</button>
-        </form>
+        <a href=<?= "profile?user=" . $username ?>>u/<?= $username ?></a>
     </div>
+    <form action="post/newpost" method="post">
+        <input type="text" name="tags" placeholder="Tags, comma seperated">
+        <textarea name="content" cols="20" rows="10" placeholder="Markdown supported" required></textarea>
+        <button>Post</button>
+    </form>
+</div>
 
 <?php endif; ?>
 
+<p class="font-semibold">Latest posts:</p>
 <?php foreach ($posts as $post) :
 
 $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
 ?>
 <div class="post">
-    <p>Latest posts:</p>
     <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
         <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
             🍌
@@ -36,9 +40,7 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
             <?php if (isset($post->tag)) :
                 $tags = explode(",",$post->tag);
                 foreach ($tags as $tag) : ?>
-                    <div class="tag">
-                        <p><?= $tag ?></p>
-                    </div>
+                    <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

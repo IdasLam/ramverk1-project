@@ -7159,83 +7159,118 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .site-logo-text-icon {
   display: none;
 }
-.route-home main .topusers,
-.route-home main .toptags,
-.route-home main .tag-container {
+main .topusers,
+main .toptags,
+main .tag-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 20px;
-  color: #fff;
+  color: #000;
 }
-.route-home main .topusers a,
-.route-home main .toptags a,
-.route-home main .tag-container a {
+main .topusers a,
+main .toptags a,
+main .tag-container a {
   text-decoration: unset;
   border-radius: 20px;
   border: 1x solid black;
   transition: 0.6s linear background-color;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-.route-home main .topusers .topuser,
-.route-home main .toptags .topuser,
-.route-home main .tag-container .topuser,
-.route-home main .topusers .toptags,
-.route-home main .toptags .toptags,
-.route-home main .tag-container .toptags,
-.route-home main .topusers span,
-.route-home main .toptags span,
-.route-home main .tag-container span {
+main .topusers p,
+main .toptags p,
+main .tag-container p {
+  margin: unset;
+}
+main .topusers span,
+main .toptags span,
+main .tag-container span {
   color: #fff;
   text-align-last: center;
 }
-.route-home main .topusers a:nth-child(1n),
-.route-home main .toptags a:nth-child(1n),
-.route-home main .tag-container a:nth-child(1n) {
-  background-color: #d3f261;
-}
-.route-home main .topusers a:nth-child(1n):hover,
-.route-home main .toptags a:nth-child(1n):hover,
-.route-home main .tag-container a:nth-child(1n):hover {
+main .topusers a:nth-child(1n),
+main .toptags a:nth-child(1n),
+main .tag-container a:nth-child(1n) {
   background-color: #7cb305;
 }
-.route-home main .topusers a:nth-child(2n),
-.route-home main .toptags a:nth-child(2n),
-.route-home main .tag-container a:nth-child(2n) {
-  background-color: #fadb14;
+main .topusers a:nth-child(1n):hover,
+main .toptags a:nth-child(1n):hover,
+main .tag-container a:nth-child(1n):hover {
+  background-color: #628f01;
 }
-.route-home main .topusers a:nth-child(2n):hover,
-.route-home main .toptags a:nth-child(2n):hover,
-.route-home main .tag-container a:nth-child(2n):hover {
-  background-color: #d6ba04;
+main .topusers a:nth-child(2n),
+main .toptags a:nth-child(2n),
+main .tag-container a:nth-child(2n) {
+  background-color: #d4b106;
 }
-.route-home main .topusers a:nth-child(3n),
-.route-home main .toptags a:nth-child(3n),
-.route-home main .tag-container a:nth-child(3n) {
+main .topusers a:nth-child(2n):hover,
+main .toptags a:nth-child(2n):hover,
+main .tag-container a:nth-child(2n):hover {
+  background-color: #917d00;
+}
+main .topusers a:nth-child(3n),
+main .toptags a:nth-child(3n),
+main .tag-container a:nth-child(3n) {
   background-color: #b67c46;
 }
-.route-home main .topusers a:nth-child(3n):hover,
-.route-home main .toptags a:nth-child(3n):hover,
-.route-home main .tag-container a:nth-child(3n):hover {
+main .topusers a:nth-child(3n):hover,
+main .toptags a:nth-child(3n):hover,
+main .tag-container a:nth-child(3n):hover {
   background-color: #8b5e33;
 }
-.route-home main .topusers a:nth-child(4n),
-.route-home main .toptags a:nth-child(4n),
-.route-home main .tag-container a:nth-child(4n) {
+main .topusers a:nth-child(4n),
+main .toptags a:nth-child(4n),
+main .tag-container a:nth-child(4n) {
   background-color: #704925;
 }
-.route-home main .topusers a:nth-child(4n):hover,
-.route-home main .toptags a:nth-child(4n):hover,
-.route-home main .tag-container a:nth-child(4n):hover {
+main .topusers a:nth-child(4n):hover,
+main .toptags a:nth-child(4n):hover,
+main .tag-container a:nth-child(4n):hover {
   background-color: #553518;
 }
-.route-home main .topusers a:nth-child(5n),
-.route-home main .toptags a:nth-child(5n),
-.route-home main .tag-container a:nth-child(5n) {
+main .topusers a:nth-child(5n),
+main .toptags a:nth-child(5n),
+main .tag-container a:nth-child(5n) {
   background-color: #57371a;
 }
-.route-home main .topusers a:nth-child(5n):hover,
-.route-home main .toptags a:nth-child(5n):hover,
-.route-home main .tag-container a:nth-child(5n):hover {
+main .topusers a:nth-child(5n):hover,
+main .toptags a:nth-child(5n):hover,
+main .tag-container a:nth-child(5n):hover {
   background-color: #472d14;
+}
+main .topusers,
+main .toptags {
+  grid-template-columns: unset;
+  gap: 20px;
+}
+.post-points p {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.home-container {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  column-gap: 40px;
+}
+.write-post {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  margin-bottom: 5%;
+}
+.write-post form input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+form button {
+  background-color: #fdec3e;
+  padding: 10px;
+  border: 2px solid #874d00;
+}
+.answer-comment-field {
+  border-top: 2px solid #874d00;
+  grid-column: 2;
+  padding-top: 20px;
 }
 @font-face {
   font-family: 'Pacifico';
@@ -7287,6 +7322,9 @@ body {
 .wrap-all .outer-wrap-footer {
   background-color: #161616;
 }
+html {
+  background-color: #161616 !important;
+}
 .rm-navbar {
   font-family: 'Roboto', sans-serif !important;
 }
@@ -7316,6 +7354,9 @@ button:focus {
   grid-template-columns: 1fr 7fr;
   margin-top: 5%;
   margin-bottom: 5%;
+  background-color: #fff6c2;
+  padding: 10px;
+  border-radius: 15px;
 }
 .post .post-points {
   justify-self: center;
@@ -7337,4 +7378,8 @@ h1,
 h2,
 h3 {
   border: unset;
+}
+a {
+  text-decoration: unset;
+  color: black !important;
 }

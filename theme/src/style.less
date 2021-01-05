@@ -256,6 +256,7 @@ img.responsive {
 
 
 @import "./website/home.less";
+@import "./website/post.less";
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
 
 body {
@@ -302,7 +303,11 @@ body {
     .outer-wrap-footer {
         background-color: rgb(22, 22, 22);
     }
+    
+}
 
+html {
+    background-color: rgb(22, 22, 22) !important;
 }
 
 .rm-navbar{
@@ -345,6 +350,9 @@ button:focus {
     grid-template-columns: 1fr 7fr;
     margin-top: 5%;
     margin-bottom: 5%;
+    background-color: rgb(255, 246, 194);
+    padding: 10px;
+    border-radius: 15px;
 
     .post-points {
         justify-self: center;
@@ -372,5 +380,10 @@ h1,
 h2,
 h3 {
     border: unset;
+}
+
+a {
+    text-decoration: unset;
+    color: black !important;
 }
  

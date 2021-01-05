@@ -11,14 +11,14 @@ class Posts extends DB
 
     public function latestPosts()
     {
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC LIMIT 0, 10";
+        $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC LIMIT 0, 10";
 
         return $this->db->executeFetchAll($sql);
     }
     
     function allLatestPosts()
     {
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC";
+        $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC";
 
         return $this->db->executeFetchAll($sql);
     }
@@ -31,7 +31,7 @@ class Posts extends DB
     }
 
     public function fetchPost($id) {
-        $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.id = ? GROUP BY posts.id LIMIT 1";
+        $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.id = ? GROUP BY posts.id LIMIT 1";
 
         return $this->db->executeFetch($sql, [$id]);
     }
@@ -72,7 +72,7 @@ class Posts extends DB
         $matches = [];
         
         foreach ($tags as $tag) {
-            $sql = "SELECT posts.*, SUM(votes.vote) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.tag LIKE ? GROUP BY posts.id";
+            $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.tag LIKE ? GROUP BY posts.id";
             $res = $this->db->executeFetchAll($sql, ["%$tag%"]);
 
             foreach ($res as $row) {

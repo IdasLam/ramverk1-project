@@ -4,60 +4,68 @@ $Parsedown = new Parsedown();
 
 ?>
 
-<p class="font-semibold">Topusers</p>
-<div class="topusers">
-<?php foreach ($topUsers as $key => $value) : ?>
-    <a href=<?= "profile?user=" . $key ?>>
-        <div class="topuser">
-            <p><?= $key ?></p>
-            <p>🍌<?= $value ?></p>
-        </div>
-    </a>
-<?php endforeach; ?>
-</div>
-
-<p class="font-semibold">Top tags</p>
-<div class="toptags">
-<?php foreach ($topTags as $key => $value) : ?>
-    <a href=<?= "post?tags=" . $key ?>>
-        <div class="toptags">
-            <p><?= $key ?></p>
-        </div>
-    </a>
-<?php endforeach; ?>
-</div>
-<div class="post-container">
-    <?php foreach ($posts as $post) :
-    
-        $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
-    ?>
-    <div class="post">
-        <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
-            <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
-                🍌
-            </button>
-            <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
-            <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
-                🍌
-            </button>
-        </div>
-        <div class="post-data">
-            <a href=<?= "profile?user=" . $post->username ?>>u/ <?= $post->username ?></a>
-            <div class="tag-container">
-                <?php 
-                if (isset($post->tag)) :
-                    $tags = explode(",",$post->tag);
-                    foreach ($tags as $tag) : ?>
-                    <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+<div class="home-container">
+    <div class="post-container">
+        <p class="font-semibold">Latest posts</p>
+        <?php foreach ($posts as $post) :
+        
+            $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
+        ?>
+        <div class="post">
+            <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
+                <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
+                    🍌
+                </button>
+                <p class="upvotecount" id="upvotecount"><?= $post->score?></p>
+                <button class="downvote" id="downvote" data-post-id=<?= $post->id ?>>
+                    🍌
+                </button>
             </div>
-            <a href=<?= "post?id=" . $post->id ?> style="text-decoration: none; color: unset">
-                <?= $Parsedown->text($post->content) ?>
-            </a>
+            <div class="post-data">
+                <a href=<?= "profile?user=" . $post->username ?>>u/ <?= $post->username ?></a>
+                <div class="tag-container">
+                    <?php 
+                    if (isset($post->tag)) :
+                        $tags = explode(",",$post->tag);
+                        foreach ($tags as $tag) : ?>
+                        <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <a href=<?= "post?id=" . $post->id ?> style="text-decoration: none; color: unset">
+                    <?= $Parsedown->text($post->content) ?>
+                </a>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <div>
+        <div class="p-2.5">
+            <p class="font-semibold">Topusers</p>
+            <div class="topusers">
+                <?php foreach ($topUsers as $key => $value) : ?>
+                <a href=<?= "profile?user=" . $key ?>>
+                    <span class="topuser-user">
+                        <p><?= $key ?></p>
+                        <p>🍌<?= $value ?></p>
+                    </span>
+                </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="p-2.5">
+            <p class="font-semibold">Top tags</p>
+            <div class="toptags">
+            <?php foreach ($topTags as $key => $value) : ?>
+                <a href=<?= "post?tags=" . $key ?>>
+                    <span class="toptags-tag">
+                        <p><?= $key ?></p>
+                    </span>
+                </a>
+            <?php endforeach; ?>
+            </div>
         </div>
     </div>
-    <?php endforeach; ?>
 </div>
 <?php if ($username !== null): ?>
     <script>
