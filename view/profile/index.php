@@ -7,30 +7,37 @@
 
 <div class="profile-container">
     <div class="profile-info">
-        <img src=<?= $gravatar ?> alt="profile-img">
-        <h1><?= $username ?></h1>
-        <p>Bananas: <?= $points ?> </p>
+        <div class="info">
+            <img src=<?= $gravatar ?> alt="profile-img">
+            <div>
+                <h1><?= $username ?></h1>
+                <span class="counter font-semibold">
+                    <p class="count">🍌</p>
+                    <p>count: <?= $points ?></p>
+                </span>
+                <?php if ($currentUser === $username) : ?>
+                    <div class="user-edit">
+                        <a href="profile/edit">
+                            <button>Edit</button>
+                        </a>
+                        <form action="login/logout" method="post">
+                            <button>Logout</button>
+                        </form>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
 
-        <?php if ($currentUser === $username) : ?>
-            <a href="profile/edit">
-                <button>Edit</button>
-            </a>
-            <form action="login/logout" method="post">
-                <button>Logout</button>
-            </form>
-        <?php endif; ?>
     </div>
     <div class="posts">
-        <p>Posts:</p>
-        <p>Total posts: <?= $postsCount ?></p>
+        <p class="font-semibold">Posts: <?= $postsCount ?></p>
         <?php foreach($posts as $post): 
             $content = explode("\n", $post->content);
             $title = explode("\n", $post->content)[0];
             $content = implode("\n", array_slice($content, 2));
-            $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
+            $hasvoted = $currentUser !== null ? $vote->hasvotedPost($currentUser, $post->id) : null;
         ?>
         <div class="post">
-
             <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
                 <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
                     🍌
@@ -59,11 +66,10 @@
     </div>
     <div class="grid grid-cols-2 gap-2">
         <div class="answers">
-            <p>Answers:</p>
-            <p>Total answers: <?= $answersCount ?></p>
+            <p class="font-semibold">Answers: <?= $answersCount ?></p>
             <?php
             foreach($answers as $answer) : 
-                $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $answer->postid, $answer->id) : null;    
+                $hasvotedAnswer = $currentUser !== null ? $vote->hasVotedAnswerPost($currentUser, $answer->postid, $answer->id) : null;    
             ?>
             <div class="answer">
                 <div class="answer-points <?= $hasvotedAnswer === "1" ? "vote-up" : ($hasvotedAnswer === "-1" ? "vote-down" : null) ?>"" id="answer" data-voted=<?= $hasvotedAnswer ?>>
@@ -84,11 +90,10 @@
             <?php endforeach; ?>
         </div>
         <div class="comments">
-            <p>Comments:</p>
-            <p>Total comments: <?= $commentsCount ?></p>
+            <p class="font-semibold">Comments: <?= $commentsCount ?></p>
             <?php 
             foreach($comments as $comment) :
-                $hasvotedComment = $username !== null ? $vote->hasVotedCommentPost($username, $comment->postid, $comment->answerid, $comment->id) : null;
+                $hasvotedComment = $currentUser !== null ? $vote->hasVotedCommentPost($currentUser, $comment->postid, $comment->answerid, $comment->id) : null;
             ?>
                 <div class="comment">
                         <!-- har inte fixat så att det funkar -->

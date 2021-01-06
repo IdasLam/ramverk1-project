@@ -55,7 +55,7 @@
             <?php foreach ($answers as $answer) :
                 $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $posts->id, $answer->id) : null;    
             ?>
-            <div class="answer<?= isset($username) ? " poster" : ($posts->answer === $answer->id ? " marked-answer-grid" : null) ?>">
+            <div class="answer<?= $username === $posts->username ? " poster" : ($posts->answer === $answer->id ? " marked-answer-grid" : null) ?>">
                 <?php if ($username === $posts->username): ?>
                     <div class="mark-answer">
                         <form action="post/markAnswer" method="post">

@@ -65,8 +65,6 @@ class LoginController implements ContainerInjectableInterface
         
         $res = $user->createUser($email, $username, $password);
 
-        $this->di->get("session")->start();
-    
         if ($res) {
             $this->di->session->set("username", $username);
             $this->di->session->set("loggedin", true);

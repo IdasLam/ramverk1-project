@@ -42,7 +42,7 @@ class Users extends DB
             $hased_password = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (username, email, password) VALUES
             (?, ?, ?)";
-            $this->db->execute($sql, [$username, $email, $password]);
+            $this->db->execute($sql, [$username, $email, $hased_password]);
 
             return $this->userExsists($username);
         }

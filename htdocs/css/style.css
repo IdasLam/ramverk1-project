@@ -7314,6 +7314,10 @@ form button {
 .answer.marked-answer-grid {
   grid-template-columns: 1fr 10fr 1fr !important;
 }
+.post-data > p a {
+  color: cornflowerblue !important;
+  text-decoration: underline !important;
+}
 .post-data.individual-post {
   border-bottom: 2px solid #874d00;
 }
@@ -7361,6 +7365,11 @@ form button {
   padding: 10px;
   border: 2px solid #874d00;
 }
+input,
+textarea {
+  padding: 0.5em 1em;
+  resize: none;
+}
 .profile-container .answer,
 .profile-container .comment {
   display: grid;
@@ -7370,6 +7379,7 @@ form button {
   background-color: #fff6c2;
   padding: 10px;
   border-radius: 15px;
+  border: 4px solid #874d00;
 }
 .profile-container .answer a,
 .profile-container .comment a {
@@ -7381,9 +7391,55 @@ form button {
 .profile-container .comment a .comment {
   display: block;
   margin: unset;
+  border: unset;
 }
 .profile-container .comments {
   padding-top: unset;
+}
+.profile-container .profile-info .info {
+  padding: 1em 4em;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  background-color: #c0ef5c;
+  border: 2px solid #c2e479;
+  color: black;
+  align-items: center;
+  border-radius: 15px;
+}
+.profile-container .profile-info .info .counter {
+  display: flex;
+}
+.profile-container .profile-info .info .count {
+  font-size: 2rem;
+}
+.profile-container .posts {
+  margin-top: 20px;
+}
+.profile-container .user-edit {
+  display: -webkit-inline-box;
+  gap: 20px;
+}
+.profile-container .user-edit button {
+  background-color: #fdec3e;
+  padding: 10px;
+  border: 2px solid #874d00;
+}
+.login-page form,
+.register-page form {
+  display: grid;
+  gap: 10px;
+}
+.login-page form input,
+.register-page form input {
+  padding: 5px 10px;
+}
+.login-page button,
+.register-page button {
+  background-color: #fdec3e;
+  padding: 10px;
+  border: 2px solid #874d00;
+  width: 20%;
+  margin-top: 20px;
 }
 @font-face {
   font-family: 'Pacifico';
@@ -7470,6 +7526,7 @@ button:focus {
   background-color: #fff6c2;
   padding: 10px;
   border-radius: 15px;
+  border: 4px solid #874d00;
 }
 .post .post-points {
   justify-self: center;
