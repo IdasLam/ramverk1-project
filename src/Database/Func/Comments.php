@@ -10,13 +10,13 @@ class Comments extends DB
     }
 
     public function profileComments($username) {
-        $sql = "SELECT * FROM comments WHERE username = ? ORDER BY date DESC";
+        $sql = "SELECT comments.*, COALESCE(SUM(commentVotes.vote), 0) as score FROM comments LEFT OUTER JOIN commentVotes ON commentVotes.commentid = comments.id WHERE comments.username = ? GROUP BY comments.id ORDER BY date DESC";
 
         return $this->db->executeFetchAll($sql, [$username]);
     }
     
     public function profileAnswers($username) {
-        $sql = "SELECT * FROM answers WHERE username = ? ORDER BY date DESC";
+        $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.username = ? ORDER BY date DESC";
 
         return $this->db->executeFetchAll($sql, [$username]);
     }

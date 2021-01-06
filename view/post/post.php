@@ -14,7 +14,7 @@
         </button>
     </div>
     <div class="post-data individual-post">
-        <a href=<?= "profile?user=" . $posts->username ?>>u/ <?= $posts->username ?></a>
+        <a href=<?= "profile?user=" . $posts->username ?>>u/<?= $posts->username ?></a>
         <div class="tag-container">
             <?php if (isset($posts->tag)) :
                 $tags = explode(",",$posts->tag);
@@ -78,7 +78,7 @@
                     <div class="answer-profile">
                         <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
                         <div>
-                            <a href=<?= "profile?user=" . $answer->username ?>>u/ <?= $answer->username ?></a>
+                            <a href=<?= "profile?user=" . $answer->username ?>>u/<?= $answer->username ?></a>
                             <?= $Parsedown->text($answer->content) ?>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                     <div class="comment-info">
                         <img src=<?= $usersdb->getGravatar($answer->username) ?> alt=<?= $answer->username . "-profile-img" ?>>
                         <div>
-                            <a href=<?= "profile/" . $comment->username ?>>u/ <?= $comment->username ?></a>
+                            <a href=<?= "profile/" . $comment->username ?>>u/<?= $comment->username ?></a>
                             <?= $Parsedown->text($comment->content) ?>
                         </div>
                     </div>

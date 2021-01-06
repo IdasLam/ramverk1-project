@@ -33,7 +33,8 @@ class ProfileController implements ContainerInjectableInterface
             "comments" => $comments->profileComments($user),
             "answers" => $comments->profileAnswers($user),
             "gravatar" => $userdb->getGravatar($username),
-            "title" => $user
+            "title" => $user,
+            "vote" => $vote
         ];
 
         if ($user === $username) {

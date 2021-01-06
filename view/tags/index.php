@@ -4,7 +4,7 @@
 
 <div class="tag-page">
     <div class="toptags">
-    <p>Current top tags</p>
+        <p class="font-semibold">Current top tags</p>
         <?php foreach ($topTags as $key => $value) : ?>
             <a href=<?= "post?tags=" . $key ?>>
                 <div class="toptags">
@@ -13,7 +13,7 @@
             </a>
         <?php endforeach; ?>
     </div>
-
+    <p class="font-semibold">Search tags</p>
     <form action="post/searchTag" method="get">
         <input name="search" type="text" placeholder="Tags, comma seperated">
         <button>Search</button>

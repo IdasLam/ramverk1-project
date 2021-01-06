@@ -7350,6 +7350,41 @@ form button {
   grid-template-columns: 1fr 5fr;
   gap: 10px;
 }
+.tag-page .toptags {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.tag-page a p {
+  text-align: center;
+}
+.tag-page input {
+  padding: 10px;
+  border: 2px solid #874d00;
+}
+.profile-container .answer,
+.profile-container .comment {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: #fff6c2;
+  padding: 10px;
+  border-radius: 15px;
+}
+.profile-container .answer a,
+.profile-container .comment a {
+  align-self: center;
+}
+.profile-container .answer a .answer,
+.profile-container .comment a .answer,
+.profile-container .answer a .comment,
+.profile-container .comment a .comment {
+  display: block;
+  margin: unset;
+}
+.profile-container .comments {
+  padding-top: unset;
+}
 @font-face {
   font-family: 'Pacifico';
   font-style: normal;

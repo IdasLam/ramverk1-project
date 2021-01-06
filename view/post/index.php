@@ -35,7 +35,7 @@ $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : nul
         </button>
     </div>
     <div class="post-data">
-        <a href=<?= "profile?user=" . $post->username ?>>u/ <?= $post->username ?></a>
+        <a href=<?= "profile?user=" . $post->username ?>>u/<?= $post->username ?></a>
         <div class="tag-container">
             <?php if (isset($post->tag)) :
                 $tags = explode(",",$post->tag);

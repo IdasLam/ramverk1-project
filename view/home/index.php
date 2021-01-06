@@ -22,7 +22,7 @@ $Parsedown = new Parsedown();
                 </button>
             </div>
             <div class="post-data">
-                <a href=<?= "profile?user=" . $post->username ?>>u/ <?= $post->username ?></a>
+                <a href=<?= "profile?user=" . $post->username ?>>u/<?= $post->username ?></a>
                 <div class="tag-container">
                     <?php 
                     if (isset($post->tag)) :

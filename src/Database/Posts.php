@@ -60,7 +60,8 @@ class Posts extends DB
     }
 
     public function profilePost($username) {
-        $sql = "SELECT * FROM posts WHERE username = ? ORDER BY date DESC ";
+        // $sql = "SELECT * FROM posts WHERE username = ? ORDER BY date DESC ";
+        $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.username = ? GROUP BY posts.id ORDER BY date DESC ";
 
         return $this->db->executeFetchAll($sql, [$username]);
     }

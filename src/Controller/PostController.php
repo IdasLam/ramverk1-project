@@ -78,7 +78,7 @@ class PostController implements ContainerInjectableInterface
     {
         $post = new \Ida\Database\Posts();
 
-        $tags = htmlentities($this->di->request->getPost("tags"));
+        $tags = trim(htmlentities($this->di->request->getPost("tags")));
         $content = htmlentities($this->di->request->getPost("content"));
         $username = $this->di->session->get("username");
 
@@ -92,9 +92,9 @@ class PostController implements ContainerInjectableInterface
     public function searchTagActionGet()
     {
         $post = new \Ida\Database\Posts();
-        $search = htmlentities(trim($this->di->request->getGet("search")));
+        $search = trim(htmlentities(trim($this->di->request->getGet("search"))));
 
-        return $this->di->response->redirect("post?tag=" . $search);
+        return $this->di->response->redirect("post?tags=" . $search);
     }
 
     public function markAnswerActionPost()
