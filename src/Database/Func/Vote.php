@@ -40,7 +40,7 @@ class Vote extends DB
     }
 
     public function removeVotePost($postid, $vote, $username) {
-        $sql = "DELETE FROM votes WHERE id = ? AND username = ?";
+        $sql = "DELETE FROM votes WHERE postid = ? AND username = ?";
         $res = $this->db->execute($sql, [$postid, $username]);
     }
     
@@ -65,7 +65,8 @@ class Vote extends DB
     }
 
     public function removeVoteAnswer($postid, $answerid, $vote, $username) {
-        $sql = "DELETE FROM answerVotes WHERE id = ? AND username = ? AND answerid = ?";
+        // var_dump($postid, $answerid, $vote, $username);
+        $sql = "DELETE FROM answerVotes WHERE postid = ? AND username = ? AND answerid = ?";
         $res = $this->db->execute($sql, [$postid, $username, $answerid]);
     }
 

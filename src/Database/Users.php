@@ -140,7 +140,7 @@ class Users extends DB
     {
         try {
             $sql = "UPDATE users SET email = ? WHERE username = ?";
-            $res = $this->db->execute($sql, [$hased_password, $username]);
+            $res = $this->db->execute($sql, [$newEmail, $username]);
         } catch (Exception $e) {
             return 400;
         }

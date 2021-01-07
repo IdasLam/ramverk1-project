@@ -85,7 +85,7 @@ class ProfileController implements ContainerInjectableInterface
         $users = new \Ida\Database\Users();
         
         $edit = $this->di->request->getPost("edit");
-        $new = htmlentities($this->di->request->getPost($edit));
+        $new = htmlentities($this->di->request->getPost("new"));
 
         $username = $this->di->session->get("username");
         $email = $this->di->session->get("email");
@@ -109,7 +109,7 @@ class ProfileController implements ContainerInjectableInterface
             
             if ($alreadyExsist === true) {
                 $this->di->session->set("userEditError", "Email is unavailable.");
-                return $this->di->response->redirect("edit?type=" . $edit);
+                return $this->di->response->redirect("profile/edit?type=" . $edit);
             }
             
             $res = $users->changeEmail($username, $new);
@@ -122,6 +122,6 @@ class ProfileController implements ContainerInjectableInterface
             $users->changePassword($username, $new);
         }
 
-        return $this->di->response->redirect("profile");
+        return $this->di->response->redirect("profile/edit");
     }
 }

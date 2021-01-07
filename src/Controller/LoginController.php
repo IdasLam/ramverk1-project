@@ -24,6 +24,7 @@ class LoginController implements ContainerInjectableInterface
     {
         $data = ["title" => "Register", "di" => $this->di, "createError" => $this->di->session->get("createError")];
         $this->di->get('page')->add('login/register', $data);
+        $this->di->session->delete("createError");
         return $this->di->get('page')->render($data);
     }
     
@@ -63,6 +64,13 @@ class LoginController implements ContainerInjectableInterface
         $password = trim(htmlentities($this->di->request->getPost("password")));
         $email = trim(htmlentities($this->di->request->getPost("email")));
         
+        $exsists = $user->userExsists($username) || $user->emailExsists($email);
+
+        if ($exsists) {
+            $this->di->session->set("createError", "Username or email already exists");
+            return $this->di->response->redirect("login/register");
+        }
+
         $res = $user->createUser($email, $username, $password);
 
         if ($res) {
@@ -73,11 +81,10 @@ class LoginController implements ContainerInjectableInterface
             return $this->di->response->redirect("home");
         } elseif ($res === "something went wrong") {
             $this->di->session->set("createError", $res);
-        } else {
-            $this->di->session->set("createError", "Username already exsists");
         }
         
-        return $this->di->response->redirect("register");
+        return $this->di->response->redirect("login/register");
+
     }
 
     public function logoutActionPost() {
