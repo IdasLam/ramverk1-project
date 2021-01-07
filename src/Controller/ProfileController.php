@@ -4,6 +4,10 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use \Ida\Database\Posts;
+use \Ida\Database\Func\Vote;
+use \Ida\Database\Users;
+use \Ida\Database\Func\Comments;
 
 class ProfileController implements ContainerInjectableInterface
 {
@@ -11,10 +15,10 @@ class ProfileController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        $posts = new \Ida\Database\Posts();
-        $comments = new \Ida\Database\Func\Comments();
-        $userdb = new \Ida\Database\Users();
-        $vote = new \Ida\Database\Func\Vote();
+        $posts = new Posts();
+        $comments = new Comments();
+        $userdb = new Users();
+        $vote = new Vote();
 
         $user = $this->di->request->getGet("user");
         
@@ -81,7 +85,7 @@ class ProfileController implements ContainerInjectableInterface
 
     public function editActionPost()
     {
-        $users = new \Ida\Database\Users();
+        $users = new Users();
         
         $edit = $this->di->request->getPost("edit");
         $new = htmlentities($this->di->request->getPost("new"));

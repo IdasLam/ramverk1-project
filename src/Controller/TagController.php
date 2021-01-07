@@ -4,6 +4,8 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use \Ida\Database\Posts;
+use \Ida\Database\Users;
 
 class TagController implements ContainerInjectableInterface
 {
@@ -11,9 +13,8 @@ class TagController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        $posts = new \Ida\Database\Posts();
-        $users = new \Ida\Database\Users();
-        
+        $posts = new Posts();
+
         $username = $this->di->session->get("username");
 
         $topTags = $posts->topTags();

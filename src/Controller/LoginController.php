@@ -4,6 +4,7 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use \Ida\Database\Users;
 
 class LoginController implements ContainerInjectableInterface
 {
@@ -26,7 +27,7 @@ class LoginController implements ContainerInjectableInterface
     
     public function userloginActionPost()
     {
-        $user = new \Ida\Database\Users();
+        $user = new Users();
 
         $username = htmlentities($this->di->request->getPost("username"));
         $password = htmlentities($this->di->request->getPost("password"));
@@ -54,7 +55,7 @@ class LoginController implements ContainerInjectableInterface
 
     public function signupActionPost()
     {
-        $user = new \Ida\Database\Users();
+        $user = new Users();
 
         $username = trim(htmlentities($this->di->request->getPost("username")));
         $password = trim(htmlentities($this->di->request->getPost("password")));

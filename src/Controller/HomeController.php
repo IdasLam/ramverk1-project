@@ -5,6 +5,8 @@ namespace Anax\Controller;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use \Ida\Database\Posts;
+use \Ida\Database\Func\Vote;
+use \Ida\Database\Users;
 
 class HomeController implements ContainerInjectableInterface
 {
@@ -12,9 +14,9 @@ class HomeController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        $posts = new \Ida\Database\Posts();
-        $vote = new \Ida\Database\Func\Vote();
-        $users = new \Ida\Database\Users();
+        $posts = new Posts();
+        $vote = new Vote();
+        $users = new Users();
         
         $username = $this->di->session->get("username");
 

@@ -4,6 +4,7 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use \Ida\Database\Func\Comments;
 
 class CommentController implements ContainerInjectableInterface
 {
@@ -11,7 +12,7 @@ class CommentController implements ContainerInjectableInterface
 
     public function commentActionPost()
     {
-        $comments = new \Ida\Database\Func\Comments();
+        $comments = new Comments();
         
         $username = $this->di->session->get("username");
 
@@ -26,7 +27,7 @@ class CommentController implements ContainerInjectableInterface
     
     public function answerActionPost()
     {
-        $comments = new \Ida\Database\Func\Comments();
+        $comments = new Comments();
         
         $username = $this->di->session->get("username");
 

@@ -4,6 +4,10 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use \Ida\Database\Posts;
+use \Ida\Database\Func\Vote;
+use \Ida\Database\Users;
+use \Ida\Database\Func\Comments;
 
 class PostController implements ContainerInjectableInterface
 {
@@ -11,10 +15,10 @@ class PostController implements ContainerInjectableInterface
 
     public function indexActionGet()
     {
-        $postdb = new \Ida\Database\Posts();
-        $vote = new \Ida\Database\Func\Vote();
-        $commentsdb = new \Ida\Database\Func\Comments();
-        $users = new \Ida\Database\Users();
+        $postdb = new Posts();
+        $vote = new Vote();
+        $commentsdb = new Comments();
+        $users = new Users();
 
         $username = $this->di->session->get("username");
         $email = $this->di->session->get("email");
@@ -76,7 +80,7 @@ class PostController implements ContainerInjectableInterface
     
     public function newpostActionPost()
     {
-        $post = new \Ida\Database\Posts();
+        $post = new Posts();
 
         $tags = trim(htmlentities($this->di->request->getPost("tags")));
         $content = htmlentities($this->di->request->getPost("content"));
@@ -98,7 +102,7 @@ class PostController implements ContainerInjectableInterface
 
     public function markAnswerActionPost()
     {
-        $post = new \Ida\Database\Posts();
+        $post = new Posts();
 
         $postid = htmlentities($this->di->request->getPost("postid"));
         $answerid = htmlentities($this->di->request->getPost("answerid"));

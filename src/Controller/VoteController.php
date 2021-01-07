@@ -4,6 +4,8 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use \Ida\Database\Posts;
+use \Ida\Database\Func\Vote;
 
 class VoteController implements ContainerInjectableInterface
 {
@@ -12,8 +14,8 @@ class VoteController implements ContainerInjectableInterface
     public function indexActionPost()
     {
         // Vote for post
-        $votedb = new \Ida\Database\Func\Vote();
-        $postsdb = new \Ida\Database\Posts();
+        $votedb = new Vote();
+        $postsdb = new Posts();
         $input =  json_decode($this->di->request->getBody());
 
         $postid = intval(htmlentities($input->id));
