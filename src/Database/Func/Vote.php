@@ -1,5 +1,6 @@
 <?php
 namespace Ida\Database\Func;
+
 use Ida\Database\DB;
 
 class Vote extends DB
@@ -18,7 +19,7 @@ class Vote extends DB
         if (!isset($answerid) && !isset($commentid)) {
             $sql = "INSERT INTO votes (username, postid, vote) VALUES (?, ?, ?)";
             $res = $this->db->execute($sql, [$username, intval($postid), $vote > 0 ? 1 : -1]);
-        } elseif (isset($answerid) && !isset($commentid)){
+        } elseif (isset($answerid) && !isset($commentid)) {
             $sql = "INSERT INTO answerVotes (username, postid, answerid, vote) VALUES ( ?, ?, ?, ?)";
             $res = $this->db->execute($sql, [$username, intval($postid), $answerid, $vote > 0 ? 1 : -1]);
         } elseif (isset($commentid)) {
@@ -35,13 +36,15 @@ class Vote extends DB
         return $res != null ? $res->vote : null;
     }
 
-    public function votePost($postid, $vote, $username) {
+    public function votePost($postid, $vote, $username)
+    {
         $this->vote($username, $postid, null, null, $vote);
     }
 
-    public function removeVotePost($postid, $vote, $username) {
+    public function removeVotePost($postid, $username)
+    {
         $sql = "DELETE FROM votes WHERE postid = ? AND username = ?";
-        $res = $this->db->execute($sql, [$postid, $username]);
+        $this->db->execute($sql, [$postid, $username]);
     }
     
     public function updateVotePost($postid, $vote, $username)
@@ -60,14 +63,16 @@ class Vote extends DB
         return $res != null ? $res->vote : null;
     }
 
-    public function voteAnswer($postid, $answerid, $vote, $username) {
+    public function voteAnswer($postid, $answerid, $vote, $username)
+    {
         $this->vote($username, $postid, $answerid, null, $vote);
     }
 
-    public function removeVoteAnswer($postid, $answerid, $vote, $username) {
+    public function removeVoteAnswer($postid, $answerid, $username)
+    {
         // var_dump($postid, $answerid, $vote, $username);
         $sql = "DELETE FROM answerVotes WHERE postid = ? AND username = ? AND answerid = ?";
-        $res = $this->db->execute($sql, [$postid, $username, $answerid]);
+        $this->db->execute($sql, [$postid, $username, $answerid]);
     }
 
     public function updateVoteAnswer($postid, $answerid, $vote, $username)
@@ -94,13 +99,15 @@ class Vote extends DB
         return $res != null ? $res->vote : null;
     }
 
-    public function voteComment($postid, $answerid, $vote, $username, $commentid) {
+    public function voteComment($postid, $answerid, $vote, $username, $commentid)
+    {
         $this->vote($username, $postid, $answerid, $commentid, $vote);
     }
 
-    public function removeVoteComment($postid, $answerid, $vote, $username , $commentid) {
+    public function removeVoteComment($postid, $answerid, $username, $commentid)
+    {
         $sql = "DELETE FROM commentVotes WHERE id = ? AND username = ? AND answerid = ? AND commentid = ?";
-        $res = $this->db->execute($sql, [$postid, $username, $answerid, $commentid]);
+        $this->db->execute($sql, [$postid, $username, $answerid, $commentid]);
     }
 
     public function updateVoteComment($postid, $answerid, $vote, $username, $commentid)

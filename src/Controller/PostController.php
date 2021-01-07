@@ -67,7 +67,7 @@ class PostController implements ContainerInjectableInterface
                 $data["id"] = $id;
                 $this->di->get('page')->add('post/post', $data);
             } else {
-                $this->di->get('page')->add('post/index', $data);   
+                $this->di->get('page')->add('post/index', $data);
             }
         }
 
@@ -91,7 +91,6 @@ class PostController implements ContainerInjectableInterface
     
     public function searchTagActionGet()
     {
-        $post = new \Ida\Database\Posts();
         $search = trim(htmlentities(trim($this->di->request->getGet("search"))));
 
         return $this->di->response->redirect("post?tags=" . $search);
@@ -107,7 +106,6 @@ class PostController implements ContainerInjectableInterface
 
         if ($answerid === $currentAnswer) {
             $post->unsetAnswer($postid);
-
         } else {
             $post->setAnswer($postid, $answerid);
         }

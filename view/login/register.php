@@ -1,7 +1,7 @@
 <h1>Register</h1>
 <?php
-    if ($di->session->get("loggedin") === null) :
-?>
+if ($di->session->get("loggedin") === null) :
+    ?>
     <div class="register-page">
         <?php if (isset($createError)) : ?>
             <div class="error">

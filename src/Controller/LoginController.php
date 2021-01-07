@@ -9,12 +9,8 @@ class LoginController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    private $loggedIn;
-
     public function indexActionGet()
     {
-        $db = new \Ida\Database\DB();
-
         $data = ["title" => "Login", "di" => $this->di];
         $this->di->get('page')->add('login/index', $data);
         return $this->di->get('page')->render($data);
@@ -84,10 +80,10 @@ class LoginController implements ContainerInjectableInterface
         }
         
         return $this->di->response->redirect("login/register");
-
     }
 
-    public function logoutActionPost() {
+    public function logoutActionPost()
+    {
         $this->di->get("session")->destroy();
         return $this->di->response->redirect("home");
     }

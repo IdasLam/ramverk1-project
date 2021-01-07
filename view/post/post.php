@@ -17,7 +17,7 @@
         <a href=<?= "profile?user=" . $posts->username ?>>u/<?= $posts->username ?></a>
         <div class="tag-container">
             <?php if (isset($posts->tag)) :
-                $tags = explode(",",$posts->tag);
+                $tags = explode(",", $posts->tag);
                 foreach ($tags as $tag) : ?>
                     <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
                 <?php endforeach; ?>
@@ -28,7 +28,7 @@
         </p>
     </div>
     <div class="answer-comment-field">
-        <?php if ($username !== null): ?>
+        <?php if ($username !== null) : ?>
         <div class="write-answer">
             <form action="comment/answer" method="post">
                 <label for="content" class="font-semibold">Write Your Answer</label>
@@ -53,10 +53,10 @@
             </form>
             <p class="font-semibold">Answers: <?= count($answers) ?> </p>
             <?php foreach ($answers as $answer) :
-                $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $posts->id, $answer->id) : null;    
-            ?>
+                $hasvotedAnswer = $username !== null ? $vote->hasVotedAnswerPost($username, $posts->id, $answer->id) : null;
+                ?>
             <div class="answer<?= $username === $posts->username ? " poster" : ($posts->answer === $answer->id ? " marked-answer-grid" : null) ?>">
-                <?php if ($username === $posts->username): ?>
+                <?php if ($username === $posts->username) : ?>
                     <div class="mark-answer">
                         <form action="post/markAnswer" method="post">
                         <input type="hidden" name="postid" value=<?= $id ?>>
@@ -82,18 +82,18 @@
                             <?= $Parsedown->text($answer->content) ?>
                         </div>
                     </div>
-                    <?php 
+                    <?php
                         $comments = $commentsdb->postComments($id, $answer->id);
                     ?>
                     <div class="profile-extra">
                         <div class="comment-count">
                             <p class="font-semibold">comments: <?= count($comments) ?></p>
                         </div>
-                        <?php if ($username !== null): ?>
+                        <?php if ($username !== null) : ?>
                             <button class="reply font-semibold" id="reply" data-reply-comment-id=<?= $answer->id ?>>reply</button>
                         <?php endif; ?>
                     </div>
-                    <?php if ($username !== null): ?>
+                    <?php if ($username !== null) : ?>
                     <div class="reply-form <?= "reply-form-" . $answer->id?>" style="display: none;">
                         <img src=<?= $gravatar ?> alt="profile-img">
                         <form action="comment/comment" method="post">
@@ -104,17 +104,15 @@
                             <button>Reply</button>
                         </form>
                     </div>
-                    <?php
-                    endif;
-                    ?>
+                    <?php endif; ?>
                 </div>
-                <?php if ($username !== $posts->username && $posts->answer === $answer->id): ?>
+                <?php if ($username !== $posts->username && $posts->answer === $answer->id) : ?>
                 <p class="marked-answer">✅</p>
                 <?php endif; ?>
                 <?php
                 foreach ($comments as $comment) :
-                $hasvotedComment = $username !== null ? $vote->hasVotedCommentPost($username, $posts->id, $answer->id, $comment->id) : null;
-                ?>
+                    $hasvotedComment = $username !== null ? $vote->hasVotedCommentPost($username, $posts->id, $answer->id, $comment->id) : null;
+                    ?>
                 <div class="comment">
                     <!-- har inte fixat så att det funkar -->
                     <div class="comment-points <?= $hasvotedComment === "1" ? "vote-up" : ($hasvotedComment === "-1" ? "vote-down" : null) ?>"" id="comment" data-voted=<?= $hasvotedComment ?>>
@@ -141,7 +139,7 @@
     </div>
 </div>
 
-<?php if ($username !== null): ?>
+<?php if ($username !== null) : ?>
     <script>
         const contaier = document.getElementById("post")
         

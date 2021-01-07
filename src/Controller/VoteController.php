@@ -30,7 +30,7 @@ class VoteController implements ContainerInjectableInterface
     
             if ($userHasVoted === $type) {
                 // unvote
-                $votedb->removeVotePost($postid, $type, $username);
+                $votedb->removeVotePost($postid, $username);
             } elseif ($userHasVoted === null) {
                 // update vote
                 $votedb->votePost($postid, $type, $username);
@@ -48,7 +48,7 @@ class VoteController implements ContainerInjectableInterface
             if ($userHasVoted === $type) {
                 // var_dump("unvote");
                 // unvote
-                $votedb->removeVoteAnswer($postid, $answerid, $type, $username);
+                $votedb->removeVoteAnswer($postid, $answerid, $username);
             } elseif ($userHasVoted === null) {
                 // update vote
                 $votedb->voteAnswer($postid, $answerid, $type, $username);
@@ -61,12 +61,9 @@ class VoteController implements ContainerInjectableInterface
             $voted = $votedb->hasVotedCommentPost($username, $postid, $answerid, $commentid);
             $userHasVoted = $voted === null ? null : intval($voted);
 
-            // var_dump($userHasVoted, $type, $voted);
-            // var_dump([$username, $postid, $answerid, $commentid]);
-
             if ($userHasVoted === $type) {
                 // unvote
-                $votedb->removeVoteComment($postid, $answerid, $type, $username, $commentid);
+                $votedb->removeVoteComment($postid, $answerid, $username, $commentid);
             } elseif ($userHasVoted === null) {
                 // update vote
                 $votedb->voteComment($postid, $answerid, $type, $username, $commentid);
@@ -79,34 +76,4 @@ class VoteController implements ContainerInjectableInterface
 
         return json_encode($res);
     }
-
-    // public function AnswerActionPost()
-    // {
-    //     // Vote for answer
-    //     $votedb = new \Ida\Database\Func\Vote();
-    //     $postsdb = new \Ida\Database\Posts();
-    //     $input =  json_decode($this->di->request->getBody());
-
-    //     $postid = htmlentities($input->postid);
-    //     $type = intval(htmlentities($input->vote));
-    //     $answerid = htmlentities($input->answerid);
-    //     $username = $this->di->session->get("username");
-
-    //     $voted = $votedb->hasVotedAnswerPost($username, $postid, $answerid);
-    //     $userHasVoted = $voted === null ? null : intval($voted);
-
-    //     if ($userHasVoted === $type) {
-    //         // unvote
-    //         $votedb->removeVoteAnswer($postid, $answerid, $type, $username);
-    //     } elseif ($userHasVoted === null) {
-    //         // update vote
-    //         $votedb->voteAnswer($postid, $answerid, $type, $username);
-    //     } else {
-    //         $votedb->updateVoteAnswer($postid, $answerid, $type, $username);
-    //     }
-
-    //     $res = $votedb->answerStatus($postid);
-
-    //     return json_encode($res);
-    // }
 }

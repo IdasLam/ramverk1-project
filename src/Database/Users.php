@@ -39,10 +39,10 @@ class Users extends DB
         $nameExsists = $this->userExsists($username);
 
         if ($nameExsists == false) {
-            $hased_password = password_hash($password, PASSWORD_DEFAULT);
+            $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (username, email, password) VALUES
             (?, ?, ?)";
-            $this->db->execute($sql, [$username, $email, $hased_password]);
+            $this->db->execute($sql, [$username, $email, $hasedPassword]);
 
             return $this->userExsists($username);
         }
@@ -81,17 +81,8 @@ class Users extends DB
         $res = $this->db->executeFetchAll($sql, []);
         $topusers = [];
 
-        foreach($res as $row) {
+        foreach ($res as $row) {
             $username = $row->username;
-            // $count = 0;
-            
-            // $sql = "SELECT * FROM comments WHERE username = ?";
-            // $res = $this->db->executeFetchAll($sql, [$username]);
-            // $count += count($res);
-            
-            // $sql = "SELECT * FROM posts WHERE username = ?";
-            // $res = $this->db->executeFetchAll($sql, [$username]);
-            // $count += count($res);
 
             $topusers[$username] = $vote->profilePoints($username);
         }
@@ -124,11 +115,11 @@ class Users extends DB
 
     public function changePassword($username, $newPassword)
     {
-        $hased_password = password_hash($newPassword, PASSWORD_DEFAULT);
+        $hasedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         
         try {
             $sql = "UPDATE users SET password = ? WHERE username = ?";
-            $res = $this->db->execute($sql, [$hased_password, $username]);
+            $this->db->execute($sql, [$hasedPassword, $username]);
         } catch (Exception $e) {
             return 400;
         }
@@ -140,7 +131,7 @@ class Users extends DB
     {
         try {
             $sql = "UPDATE users SET email = ? WHERE username = ?";
-            $res = $this->db->execute($sql, [$newEmail, $username]);
+            $this->db->execute($sql, [$newEmail, $username]);
         } catch (Exception $e) {
             return 400;
         }

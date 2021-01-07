@@ -12,14 +12,11 @@ class TagController implements ContainerInjectableInterface
     public function indexActionGet()
     {
         $posts = new \Ida\Database\Posts();
-        $vote = new \Ida\Database\Func\Vote();
         $users = new \Ida\Database\Users();
         
         $username = $this->di->session->get("username");
 
         $topTags = $posts->topTags();
-        // popular tags
-        $topUsers = $users->mostActiveUsers();
 
         $data = [
             "username" => $username ?? null,

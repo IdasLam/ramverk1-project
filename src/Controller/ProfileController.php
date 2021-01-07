@@ -73,7 +73,6 @@ class ProfileController implements ContainerInjectableInterface
 
             $this->di->get('page')->add('profile/edit-specific', $data);
             return $this->di->get('page')->render($data);
-
         } else {
             $this->di->get('page')->add('profile/edit', $data);
             return $this->di->get('page')->render($data);
@@ -88,7 +87,6 @@ class ProfileController implements ContainerInjectableInterface
         $new = htmlentities($this->di->request->getPost("new"));
 
         $username = $this->di->session->get("username");
-        $email = $this->di->session->get("email");
         
         if ($edit === "username") {
             $alreadyExsist = $users->userExsists($new);
@@ -103,7 +101,6 @@ class ProfileController implements ContainerInjectableInterface
             if ($res === 200) {
                 $this->di->session->set("username", $new);
             }
-            
         } elseif ($edit === "email") {
             $alreadyExsist = $users->emailExsists($new);
             
@@ -117,7 +114,6 @@ class ProfileController implements ContainerInjectableInterface
             if ($res === 200) {
                 $this->di->session->set("email", $new);
             }
-            
         } else {
             $users->changePassword($username, $new);
         }

@@ -1,16 +1,14 @@
-<?php 
-
+<?php
 $Parsedown = new Parsedown();
-
 ?>
 
 <div class="home-container">
     <div class="post-container">
         <p class="font-semibold">Latest posts</p>
-        <?php foreach ($posts as $post) :
-        
+        <?php
+        foreach ($posts as $post) :
             $hasvoted = $username !== null ? $vote->hasvotedPost($username, $post->id) : null;
-        ?>
+            ?>
         <div class="post">
             <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
                 <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
@@ -24,9 +22,9 @@ $Parsedown = new Parsedown();
             <div class="post-data">
                 <a href=<?= "profile?user=" . $post->username ?>>u/<?= $post->username ?></a>
                 <div class="tag-container">
-                    <?php 
+                    <?php
                     if (isset($post->tag)) :
-                        $tags = explode(",",$post->tag);
+                        $tags = explode(",", $post->tag);
                         foreach ($tags as $tag) : ?>
                         <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
                         <?php endforeach; ?>
@@ -67,14 +65,9 @@ $Parsedown = new Parsedown();
         </div>
     </div>
 </div>
-<?php if ($username !== null): ?>
+<?php if ($username !== null) : ?>
     <script>
-        // const contaier = document.getElementById("post")
         const contaiers = Array.from(document.querySelectorAll(".post-points"))
-        
-        // const upvoteButton = document.getElementById("upvote")
-        // const downvoteButton = document.getElementById("downvote")
-        // const upvoteCount = document.getElementById("upvotecount")
         
         const upvote = Array.from(document.querySelectorAll(".upvote"))
         const downvote = Array.from(document.querySelectorAll(".downvote"))

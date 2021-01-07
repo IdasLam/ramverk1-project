@@ -16,7 +16,7 @@ class Posts extends DB
         return $this->db->executeFetchAll($sql);
     }
     
-    function allLatestPosts()
+    public function allLatestPosts()
     {
         $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id GROUP BY posts.id ORDER BY date DESC";
 
@@ -30,19 +30,21 @@ class Posts extends DB
         return $this->db->execute($sql, [$tag, $content, $username]);
     }
 
-    public function fetchPost($id) {
+    public function fetchPost($id)
+    {
         $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.id = ? GROUP BY posts.id LIMIT 1";
 
         return $this->db->executeFetch($sql, [$id]);
     }
 
-    public function topTags() {
+    public function topTags()
+    {
         $sql = "SELECT tag FROM posts";
         $res = $this->db->executeFetchAll($sql);
 
         $tagCount = [];
 
-        foreach($res as $row) {
+        foreach ($res as $row) {
             $tags = explode(",", $row->tag);
 
             foreach ($tags as $tag) {
@@ -59,16 +61,17 @@ class Posts extends DB
         return array_slice($tagCount, 0, 4);
     }
 
-    public function profilePost($username) {
+    public function profilePost($username)
+    {
         // $sql = "SELECT * FROM posts WHERE username = ? ORDER BY date DESC ";
         $sql = "SELECT posts.*, COALESCE(SUM(votes.vote), 0) as score FROM posts LEFT OUTER JOIN votes ON votes.postid = posts.id WHERE posts.username = ? GROUP BY posts.id ORDER BY date DESC ";
 
         return $this->db->executeFetchAll($sql, [$username]);
     }
 
-    public function searchTags($tags) {
+    public function searchTags($tags)
+    {
         $tags = explode(",", $tags);
-        $searchTagsCount = count($tags);
         $id = [];
         $matches = [];
         
@@ -77,8 +80,6 @@ class Posts extends DB
             $res = $this->db->executeFetchAll($sql, ["%$tag%"]);
 
             foreach ($res as $row) {
-                $rowTagsCount = count(explode(",", $row->tag));
-
                 if (!in_array($row->id, $id)) {
                     $id[] = $row->id;
                     $matches[] = $row;
@@ -89,13 +90,15 @@ class Posts extends DB
         return $matches;
     }
 
-    public function setAnswer($postid, $answerid) {
+    public function setAnswer($postid, $answerid)
+    {
         $sql = "UPDATE posts SET answer = ? WHERE id = ?";
-        $res = $this->db->execute($sql, [$answerid, $postid]);
+        $this->db->execute($sql, [$answerid, $postid]);
     }
     
-    public function unsetAnswer($postid) {
+    public function unsetAnswer($postid)
+    {
         $sql = "UPDATE posts SET answer = null WHERE id = ?";
-        $res = $this->db->execute($sql, [$postid]);
+        $this->db->execute($sql, [$postid]);
     }
 }

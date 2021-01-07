@@ -31,12 +31,12 @@
     </div>
     <div class="posts">
         <p class="font-semibold">Posts: <?= $postsCount ?></p>
-        <?php foreach($posts as $post): 
+        <?php foreach ($posts as $post) :
             $content = explode("\n", $post->content);
             $title = explode("\n", $post->content)[0];
             $content = implode("\n", array_slice($content, 2));
             $hasvoted = $currentUser !== null ? $vote->hasvotedPost($currentUser, $post->id) : null;
-        ?>
+            ?>
         <div class="post">
             <div class="post-points <?= $hasvoted === "1" ? "vote-up" : ($hasvoted === "-1" ? "vote-down" : null) ?>" id="post" data-voted=<?= $hasvoted ?>>
                 <button class="upvote" id="upvote" data-post-id=<?= $post->id ?>>
@@ -51,7 +51,7 @@
                 <a href=<?= "profile?user=" . $post->username ?>>u/<?= $post->username ?></a>
                 <div class="tag-container">
                     <?php if (isset($post->tag)) :
-                        $tags = explode(",",$post->tag);
+                        $tags = explode(",", $post->tag);
                         foreach ($tags as $tag) : ?>
                             <a href=<?= "post?tags=" . $tag?>><span><?= $tag ?></span></a>
                         <?php endforeach; ?>
@@ -68,9 +68,9 @@
         <div class="answers">
             <p class="font-semibold">Answers: <?= $answersCount ?></p>
             <?php
-            foreach($answers as $answer) : 
-                $hasvotedAnswer = $currentUser !== null ? $vote->hasVotedAnswerPost($currentUser, $answer->postid, $answer->id) : null;    
-            ?>
+            foreach ($answers as $answer) :
+                $hasvotedAnswer = $currentUser !== null ? $vote->hasVotedAnswerPost($currentUser, $answer->postid, $answer->id) : null;
+                ?>
             <div class="answer">
                 <div class="answer-points <?= $hasvotedAnswer === "1" ? "vote-up" : ($hasvotedAnswer === "-1" ? "vote-down" : null) ?>"" id="answer" data-voted=<?= $hasvotedAnswer ?>>
                     <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $answer->postid ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
@@ -91,10 +91,10 @@
         </div>
         <div class="comments">
             <p class="font-semibold">Comments: <?= $commentsCount ?></p>
-            <?php 
-            foreach($comments as $comment) :
+            <?php
+            foreach ($comments as $comment) :
                 $hasvotedComment = $currentUser !== null ? $vote->hasVotedCommentPost($currentUser, $comment->postid, $comment->answerid, $comment->id) : null;
-            ?>
+                ?>
                 <div class="comment">
                         <!-- har inte fixat så att det funkar -->
                         <div class="comment-points <?= $hasvotedComment === "1" ? "vote-up" : ($hasvotedComment === "-1" ? "vote-down" : null) ?>" id="comment" data-voted=<?= $hasvotedComment ?>>
@@ -117,7 +117,7 @@
     </div>
 </div>
 
-<?php if ($username !== null): ?>
+<?php if ($username !== null) : ?>
 <script>
     const contaiers = Array.from(document.querySelectorAll(".post-points"))
     

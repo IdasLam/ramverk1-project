@@ -1,7 +1,7 @@
 <?php
-    if ($di->session->get("userId") !== null) {
-        $di->response->redirect("home");
-    }
+if ($di->session->get("userId") !== null) {
+    $di->response->redirect("home");
+}
 ?>
 <div class="login-page">
     <h1>Login</h1>
