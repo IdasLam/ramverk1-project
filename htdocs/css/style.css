@@ -7441,6 +7441,36 @@ textarea {
   width: 20%;
   margin-top: 20px;
 }
+.edit-name,
+.edit-email,
+.edit-password {
+  display: -webkit-inline-box;
+  -webkit-box-align: center;
+}
+.profile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: #fff6c2;
+  padding: 10px;
+  border-radius: 15px;
+  border: 4px solid #874d00;
+}
+.profile img {
+  align-self: center;
+}
+.profile p,
+.profile h1 {
+  margin: unset;
+}
+.profile .edit {
+  text-align: -webkit-left;
+}
+.profile input {
+  margin-top: 10px;
+}
 @font-face {
   font-family: 'Pacifico';
   font-style: normal;
