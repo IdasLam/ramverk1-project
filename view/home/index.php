@@ -55,9 +55,9 @@ $Parsedown = new Parsedown();
         <div class="p-2.5">
             <p class="font-semibold">Top tags</p>
             <div class="toptags">
-            <?php foreach ($topTags as $key => $value) : 
-                    if ($key !== "") :
-                ?>
+            <?php foreach ($topTags as $key => $value) :
+                if ($key !== "") :
+                    ?>
                 <a href=<?= "post?tags=" . $key ?>>
                     <span class="toptags-tag">
                         <p><?= $key ?></p>

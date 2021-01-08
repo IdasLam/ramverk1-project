@@ -53,7 +53,7 @@ class PostControllerTest extends TestCase
         $res = $this->controller->indexActionGet();
         $this->assertEquals(gettype($res), "object");
 
-        $this->di->request->setGet('sort-by', "oldest");      
+        $this->di->request->setGet('sort-by', "oldest");
         $res = $this->controller->indexActionGet();
         $this->assertEquals(gettype($res), "object");
         
