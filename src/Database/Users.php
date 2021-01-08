@@ -2,6 +2,8 @@
 
 namespace Ida\Database;
 
+use \Ida\Database\Func\Vote;
+
 class Users extends DB
 {
     public function __construct()
@@ -75,7 +77,7 @@ class Users extends DB
     
     public function mostActiveUsers()
     {
-        $vote = new \Ida\Database\Func\Vote();
+        $vote = new Vote();
 
         $sql = "SELECT username FROM users";
         $res = $this->db->executeFetchAll($sql, []);
