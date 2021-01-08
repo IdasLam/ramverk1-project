@@ -65,7 +65,7 @@
                     </form>
                 </div>
                 <?php endif; ?>
-                <div class="answer-points <?= $hasvotedAnswer === "1" ? "vote-up" : ($hasvotedAnswer === "-1" ? "vote-down" : null) ?>"" id="answer" data-voted=<?= $hasvotedAnswer ?>>
+                <div class="answer-points <?= $hasvotedAnswer === "1" ? "vote-up" : ($hasvotedAnswer === "-1" ? "vote-down" : null) ?>" id="answer" data-voted=<?= $hasvotedAnswer ?>>
                     <button class="upvote answer-upvote" id="answer-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-username=<?= $answer->username ?>>
                         🍌
                     </button>
@@ -115,7 +115,7 @@
                     ?>
                 <div class="comment">
                     <!-- har inte fixat så att det funkar -->
-                    <div class="comment-points <?= $hasvotedComment === "1" ? "vote-up" : ($hasvotedComment === "-1" ? "vote-down" : null) ?>"" id="comment" data-voted=<?= $hasvotedComment ?>>
+                    <div class="comment-points <?= $hasvotedComment === "1" ? "vote-up" : ($hasvotedComment === "-1" ? "vote-down" : null) ?>" id="comment" data-voted=<?= $hasvotedComment ?>>
                         <button class="upvote comment-upvote" id="comment-upvote" data-post-id=<?= $posts->id ?> data-answer-id=<?= $answer->id ?> data-comment-id=<?= $comment->id ?> data-username=<?= $comment->username ?>>
                             🍌
                         </button>
@@ -141,7 +141,7 @@
 
 <?php if ($username !== null) : ?>
     <script>
-        const contaier = document.getElementById("post")
+        const container = document.getElementById("post")
         
         const upvoteButton = document.getElementById("upvote")
         const downvoteButton = document.getElementById("downvote")
@@ -149,8 +149,9 @@
         
         let id = upvoteButton.dataset['postId']
 
+        console.log(container)
         const vote = async (type) => {
-            let voted = contaier.dataset['voted']
+            let voted = container.dataset['voted']
 
             if (voted === type) {
                 container.classList = "post-points"

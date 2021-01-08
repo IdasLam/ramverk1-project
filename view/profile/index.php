@@ -60,6 +60,7 @@
                 <a href="post?id= <?= $post->id ?>">
                     <?= $Parsedown->text($post->content) ?>
                 </a>
+                <p class="font-semibold mt-2">Answers: <?= count($commentsdb->postAnswers($post->id, null)) ?> </p>
             </div>
         </div>
         <?php endforeach; ?>
@@ -85,6 +86,7 @@
                     <div class="answer">
                         <?= $Parsedown->text($answer->content) ?>
                     </div>
+                    <p class="font-semibold mt-2">comments: <?= count($commentsdb->postComments($answer->postid, $answer->id)) ?></p>
                 </a>
             </div>
             <?php endforeach; ?>

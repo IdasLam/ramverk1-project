@@ -33,6 +33,7 @@ $Parsedown = new Parsedown();
                 <a href=<?= "post?id=" . $post->id ?> style="text-decoration: none; color: unset">
                     <?= $Parsedown->text($post->content) ?>
                 </a>
+                <p class="font-semibold mt-2">Answers: <?= count($commentsdb->postAnswers($post->id, null)) ?> </p>
             </div>
         </div>
         <?php endforeach; ?>
@@ -54,12 +55,15 @@ $Parsedown = new Parsedown();
         <div class="p-2.5">
             <p class="font-semibold">Top tags</p>
             <div class="toptags">
-            <?php foreach ($topTags as $key => $value) : ?>
+            <?php foreach ($topTags as $key => $value) : 
+                    if ($key !== "") :
+                ?>
                 <a href=<?= "post?tags=" . $key ?>>
                     <span class="toptags-tag">
                         <p><?= $key ?></p>
                     </span>
                 </a>
+                <?php endif; ?>
             <?php endforeach; ?>
             </div>
         </div>
