@@ -17,8 +17,11 @@ git:
 
 before_script:
     - make install check
+    - sudo apt-get install sqlite3
 
 script:
+    - sqlite3 data/db.sqlite < sql/ddl.sql
+    - chmod -R 777 data
     - make test
 
 env:
