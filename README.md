@@ -8,7 +8,7 @@ This project was developed for the course DV1610 at Blekinge Institute of Techno
 ## Prerequisites
 
 ### System
-Running this project will require you to have `docker`, `docker-compose`, `composer` and `sqlite3` on your system.
+Running this project will require you to have `docker`, `docker-compose` on your system.
 
 ### Other
 Clone the [reposiory](https://github.com/IdasLam/ramverk1-project) from GitHub.
@@ -27,4 +27,5 @@ Now the web application should be setup and running!
 ### Notes
 
 #### Tests
-Before running the test please run `sqlite3 data/db.sqlite < sql/ddl.sql` before running `make test`.
+Make sure that you have `sqlite3` on your system before testing.
+Before running the test please run `sqlite3 data/db.sqlite < sql/ddl.sql` then run `make test` to create the test. The results will be available at `build/coverage`.
