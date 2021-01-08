@@ -45,8 +45,6 @@ class VoteController implements ContainerInjectableInterface
             $voted = $votedb->hasVotedAnswerPost($username, $postid, $answerid);
             $userHasVoted = $voted === null ? null : intval($voted);
 
-            // var_dump([$userHasVoted, $type]);
-
             if ($userHasVoted === $type) {
                 // var_dump("unvote");
                 // unvote
