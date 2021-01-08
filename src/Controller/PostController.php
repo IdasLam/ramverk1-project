@@ -45,6 +45,10 @@ class PostController implements ContainerInjectableInterface
 
             $post = $id !== "" ? $postdb->fetchPost($id) : $postdb->allLatestPosts();
 
+            if (empty($post)) {
+                return $this->di->response->redirect("post");
+            }
+
             if ($sort === "" || $sort === "default") {
                 $comments = $id !== "" ? $commentsdb->postAnswers($id, $post->answer) : null;
             } elseif ($sort === "latest") {

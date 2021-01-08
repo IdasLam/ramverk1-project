@@ -12,8 +12,11 @@
             <div>
                 <h1><?= $username ?></h1>
                 <span class="counter font-semibold">
-                    <p class="count">🍌</p>
-                    <p>count: <?= $points ?></p>
+                    <div class="flex">
+                        <p class="count">🍌</p>
+                        <p class="self-center"> count: <?= $points ?></p>
+                    </div>
+                    <p>Votes: <?= $vote->profileVotes($username) ?></p>
                 </span>
                 <?php if ($currentUser === $username) : ?>
                     <div class="user-edit">

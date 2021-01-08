@@ -7405,9 +7405,7 @@ textarea {
   color: black;
   align-items: center;
   border-radius: 15px;
-}
-.profile-container .profile-info .info .counter {
-  display: flex;
+  gap: 20px;
 }
 .profile-container .profile-info .info .count {
   font-size: 2rem;

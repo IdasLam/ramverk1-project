@@ -106,19 +106,19 @@ CREATE TABLE commentVotes
 
 
 
-INSERT INTO users(username, password, email) VALUES("test", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'test@test.com');
+INSERT INTO users(username, password, email) VALUES("Banana", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'test@test.com');
 INSERT INTO users(username, password, email) VALUES("admin", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'admin@admin.com');
-INSERT INTO users(username, password, email) VALUES("ida", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asd@admin.com');
-INSERT INTO users(username, password, email) VALUES("Stinky", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asdasd@admin.com');
-INSERT INTO users(username, password, email) VALUES("stonl", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asdasdas@admin.com');
+INSERT INTO users(username, password, email) VALUES("Bnan", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asd@admin.com');
+INSERT INTO users(username, password, email) VALUES("Bana", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asdasd@admin.com');
+INSERT INTO users(username, password, email) VALUES("nana", '$2y$10$mIp8cfJ/pCw72pE6uDjlaen8zWUyIl5XzhxT/SWBDIRxZeL3EnT16', 'asdasdas@admin.com');
 
-INSERT INTO posts(username, content, tag) VALUES("admin", "#first post", "admin");
-INSERT INTO posts(username, content, tag) VALUES("admin", "#sec post", "admin,test");
+INSERT INTO posts(username, content, tag) VALUES("admin", "#Is bananas toxic?", "admin");
+INSERT INTO posts(username, content, tag) VALUES("admin", "#Banana vaccine?", "admin,test");
 
-INSERT INTO answers(postid, username, content) VALUES(1, "admin", "hello");
-INSERT INTO answers(postid, username, content) VALUES(1, "test", "test");
+INSERT INTO answers(postid, username, content) VALUES(1, "admin", "👀");
+INSERT INTO answers(postid, username, content) VALUES(1, "test", "OMEGALUL BANANA FARM");
 
-INSERT INTO comments(postid, username, content, answerid) VALUES(1, "test", "hello admin", 1);
-INSERT INTO comments(postid, username, content, answerid) VALUES(1, "test", "hello test admin", 1);
+INSERT INTO comments(postid, username, content, answerid) VALUES(1, "test", "👀", 1);
+INSERT INTO comments(postid, username, content, answerid) VALUES(1, "test", "ded", 1);
 
 

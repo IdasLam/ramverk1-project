@@ -165,4 +165,26 @@ class Vote extends DB
 
         return $postPoints + $votePoints;
     }
+
+    public function profileVotes($username)
+    {
+        $total = 0;
+
+        $sql = "SELECT COALESCE(SUM(id), 0) as count FROM votes WHERE username = ?";
+        $res = $this->db->executeFetchAll($sql, [$username]);
+
+        $total += !empty($res) ? intval($res[0]->count) : 0;
+
+        $sql = "SELECT COALESCE(SUM(id), 0) as count FROM answerVotes WHERE username = ?";
+        $res = $this->db->executeFetchAll($sql, [$username]);
+
+        $total += !empty($res) ? intval($res[0]->count) : 0;
+
+        $sql = "SELECT COALESCE(SUM(id), 0) as count FROM commentVotes WHERE username = ?";
+        $res = $this->db->executeFetchAll($sql, [$username]);
+
+        $total += !empty($res) ? intval($res[0]->count) : 0;
+
+        return $total;
+    }
 }
