@@ -20,8 +20,6 @@ class VoteControllerTest extends TestCase
     protected function setUp(): void
     {
         // Init service container $di to contain $app as a service
-        global $di;
-        global $controller;
 
         $this->di = new DIMagic();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
@@ -38,8 +36,52 @@ class VoteControllerTest extends TestCase
     public function testIndexActionGet()
     {
         // Test post
-        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"1\", \"vote\": \"1\"}");
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"1\"}");
         $res = $this->controller->indexActionPost();
-        var_dump(gettype($res));
+
+        $this->assertEquals(json_decode($res)->id, "1");
+        
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"-1\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->id, "1");
+        
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"-1\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->id, "1");
+        
+        // Test answer
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"1\", \"answerid\": \"1\", \"username\": \"admin\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->postid, "1");
+        
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"-1\", \"answerid\": \"1\", \"username\": \"admin\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->postid, "1");
+        
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"-1\", \"answerid\": \"1\", \"username\": \"admin\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->postid, "1");
+        
+        // Test comment
+        
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"1\", \"answerid\": \"1\", \"username\": \"test\", \"commentid\": \"1\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->postid, "1");
+
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"-1\", \"answerid\": \"1\", \"username\": \"test\", \"commentid\": \"1\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->postid, "1");
+        
+        $this->di->request->setBody("{\"id\": \"1\", \"vote\": \"-1\", \"answerid\": \"1\", \"username\": \"test\", \"commentid\": \"1\"}");
+        $res = $this->controller->indexActionPost();
+
+        $this->assertEquals(json_decode($res)->postid, "1");
     }
 }
