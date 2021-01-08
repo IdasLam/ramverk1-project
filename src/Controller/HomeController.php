@@ -7,6 +7,7 @@ use Anax\Commons\ContainerInjectableTrait;
 use \Ida\Database\Posts;
 use \Ida\Database\Func\Vote;
 use \Ida\Database\Users;
+use \Ida\Database\Func\Comments;
 
 class HomeController implements ContainerInjectableInterface
 {
@@ -17,6 +18,7 @@ class HomeController implements ContainerInjectableInterface
         $posts = new Posts();
         $vote = new Vote();
         $users = new Users();
+        $commentsdb = new Comments();
         
         $username = $this->di->session->get("username");
 
@@ -28,6 +30,7 @@ class HomeController implements ContainerInjectableInterface
             "username" => $username ?? null,
             "posts" => $posts->latestPosts(),
             "vote" => $vote,
+            "commentsdb" => $commentsdb,
             "topUsers" => $topUsers,
             "topTags" => $topTags,
             "title" => "Home"

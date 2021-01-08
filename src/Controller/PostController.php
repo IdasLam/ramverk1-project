@@ -35,7 +35,8 @@ class PostController implements ContainerInjectableInterface
                 "vote" => $vote,
                 "gravatar" => isset($username) ? "https://www.gravatar.com/avatar/" . md5($email) : null,
                 "title" => "Posts",
-                "usersdb" => $users
+                "usersdb" => $users,
+                "commentsdb" => $commentsdb,
             ];
 
             $this->di->get('page')->add('post/index', $data);

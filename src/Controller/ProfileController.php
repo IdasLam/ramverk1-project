@@ -38,6 +38,7 @@ class ProfileController implements ContainerInjectableInterface
             "answers" => $comments->profileAnswers($user),
             "gravatar" => $userdb->getGravatar($user),
             "title" => $user,
+            "commentsdb" => $comments,
             "vote" => $vote,
         ];
 
@@ -91,7 +92,7 @@ class ProfileController implements ContainerInjectableInterface
         $new = htmlentities($this->di->request->getPost("new"));
 
         $username = $this->di->session->get("username");
-        
+
         if ($edit === "username") {
             $alreadyExsist = $users->userExsists($new);
 
