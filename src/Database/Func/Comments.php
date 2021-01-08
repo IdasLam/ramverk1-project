@@ -31,7 +31,7 @@ class Comments extends DB
             $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND answers.id = ?";
             $res = $this->db->executeFetch($sql, [$id, $answerid]);
             
-            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND NOT answers.id = ? GROUP BY answers.id";
+            $sql = "SELECT answers.*, COALESCE(SUM(answerVotes.vote), 0) as score FROM answers LEFT OUTER JOIN answerVotes ON answerVotes.answerid = answers.id WHERE answers.postid = ? AND NOT answers.id = ? GROUP BY answers.id ORDER BY score DESC";
             
             
             $answers = $this->db->executeFetchAll($sql, [$id, $answerid]);
