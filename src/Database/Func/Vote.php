@@ -106,7 +106,7 @@ class Vote extends DB
 
     public function removeVoteComment($postid, $answerid, $username, $commentid)
     {
-        $sql = "DELETE FROM commentVotes WHERE id = ? AND username = ? AND answerid = ? AND commentid = ?";
+        $sql = "DELETE FROM commentVotes WHERE postid = ? AND username = ? AND answerid = ? AND commentid = ?";
         $this->db->execute($sql, [$postid, $username, $answerid, $commentid]);
     }
 
