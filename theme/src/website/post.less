@@ -108,12 +108,19 @@ form {
     padding-bottom: 20px;
 }
 
+.poster {
+    .comment {
+        grid-column: 3;
+    }
+}
+
 .comment {
     padding-top: 20px;
     padding-bottom: 20px;
     grid-column-end: -1;
     display: grid;
     grid-template-columns: 1fr 10fr;
+    grid-column: 2;
 
     .comment-points {
         justify-self: center;
